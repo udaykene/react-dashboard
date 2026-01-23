@@ -255,9 +255,6 @@ body,
   cursor: pointer;
   border-radius: 4px;
 }
-/* =======================
-   PAGE CENTER LAYOUT
-======================= */
 
 .page {
   flex: 1;
