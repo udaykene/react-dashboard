@@ -1,11 +1,15 @@
-import React from 'react'
-
 const Activity = () => {
   return (
-    <div className='h-100 w-full bg-red-500'>
-        <h1 className='text-xl'> Activity</h1>
+    <div className="page">
+      <div className="page-card">
+        <h1>My Activity</h1>
+        <p>
+          Track your recent alerts, safety actions, and interactions
+          within the Sakhi platform.
+        </p>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Activity
+export default Activity;

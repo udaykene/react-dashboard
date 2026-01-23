@@ -255,3 +255,36 @@ body,
   cursor: pointer;
   border-radius: 4px;
 }
+/* =======================
+   PAGE CENTER LAYOUT
+======================= */
+
+.page {
+  flex: 1;
+  min-height: calc(100vh - 128px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-card {
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+  padding: 40px 50px;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.page-card h1 {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+
+.page-card p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #e5e7eb;
+}
