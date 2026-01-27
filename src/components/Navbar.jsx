@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -25,15 +24,23 @@ const Navbar = () => {
     };
   }, []);
 
-  // Optionally, close dropdown on route change (if needed)
-
   return (
-    <nav className='w-full flex fixed top-0 px-6 py-4 bg-cyan-500 text-white justify-between items-center'>
-      <h2 className='text-xl font-bold'>Cognizify</h2>
-      <div className='flex items-center gap-6'>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
+    <nav className="z-50 w-full flex sticky top-0 px-12 py-4 bg-amber-50 text-black justify-between items-center">
+      <Link to="/" className="flex justify-center gap-2 items-end">
+        <div className="text-4xl">
+          <i className="ri-building-2-fill"></i>
+        </div>
+        <h1 className="text-2xl font-bold flex gap-2">ParthBuilders</h1>
+      </Link>
+
+      <div className="flex items-center gap-6">
+        <Link to="/about">About Us</Link>
+        <Link to="/projects">Projects</Link>
+        <Link to="/services">Services</Link>
         <Link to="/contact">Contact</Link>
+        <Link to="/admin/dashboard" className="bg-amber-600 text-white px-4 py-2 rounded font-bold hover:bg-amber-700 transition-colors">
+          Dashboard
+        </Link>
 
         {/* PROFILE WRAPPER */}
         <div className="relative h-full flex items-center">
@@ -61,29 +68,42 @@ const Navbar = () => {
             {/* Transparent bridge to prevent losing hover */}
             <div className="absolute -top-4 left-0 w-full h-4 bg-transparent"></div>
 
-            <Link to="/activity" className="px-4 py-3 hover:bg-cyan-50 hover:text-cyan-600 border-b border-gray-100" onClick={() => setDropdownOpen(false)}>
+            <Link
+              to="/activity"
+              className="px-4 py-3 hover:bg-cyan-50 hover:text-cyan-600 border-b border-gray-100"
+              onClick={() => setDropdownOpen(false)}
+            >
               My Activity
             </Link>
-            <Link to="/history" className="px-4 py-3 hover:bg-cyan-50 hover:text-cyan-600 border-b border-gray-100" onClick={() => setDropdownOpen(false)}>
+            <Link
+              to="/history"
+              className="px-4 py-3 hover:bg-cyan-50 hover:text-cyan-600 border-b border-gray-100"
+              onClick={() => setDropdownOpen(false)}
+            >
               History
             </Link>
-            <Link to="/profile" className="px-4 py-3 hover:bg-cyan-50 hover:text-cyan-600" onClick={() => setDropdownOpen(false)}>
+            <Link
+              to="/profile"
+              className="px-4 py-3 hover:bg-cyan-50 hover:text-cyan-600"
+              onClick={() => setDropdownOpen(false)}
+            >
               View Profile
             </Link>
           </div>
         </div>
 
-        <div className='flex gap-2 items-center'>
-          <Link to="/login" className="bg-white text-cyan-600 px-4 py-1 rounded font-bold hover:bg-gray-100 transition-colors">
+        <div className="flex gap-2 items-center">
+          <Link
+            to="/login"
+            className="bg-white text-cyan-600 px-4 py-1 rounded font-bold hover:bg-gray-100 transition-colors"
+          >
             Login
           </Link>
-          <Link to="/logout" className="bg-cyan-800 text-white px-4 py-1 rounded font-bold hover:bg-cyan-900 transition-colors">
-            Logout
-          </Link>
+          
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
