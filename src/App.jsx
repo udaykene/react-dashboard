@@ -8,6 +8,11 @@ import Activity from "./pages/Activity";
 import History from "./pages/History";
 import ViewProfile from "./pages/ViewProfile";
 
+import AdminLayout from "./admin/AdminLayout";
+import AdminDashboard from "./adminPages/AdminDashboard";
+import AdminProfile from "./adminPages/AdminProfile";
+import Appointments from "./adminPages/Appointments";
+
 import "./App.css";
 
 const App = () => {
@@ -22,6 +27,13 @@ const App = () => {
           <Route path="/activity" element={<Activity />} />
           <Route path="/history" element={<History />} />
           <Route path="/view-profile" element={<ViewProfile />} />
+
+          {/* ADMIN ROUTES */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="profile" element={<AdminProfile />} />
+            <Route path="appointments" element={<Appointments />} />
+          </Route>
         </Routes>
 
         <Footer />

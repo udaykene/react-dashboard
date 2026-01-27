@@ -1,12 +1,11 @@
 const ViewProfile = () => {
   return (
-    <div className="page">
+    <div className="content">
       <div className="page-card">
         <h1>My Profile</h1>
-        <p>
-          Manage your personal details and keep your profile
-          updated for better safety services.
-        </p>
+        <p>Name: User Name</p>
+        <p>Email: user@email.com</p>
+        <p>Emergency Contact: +91 XXXXX XXXXX</p>
       </div>
     </div>
   );

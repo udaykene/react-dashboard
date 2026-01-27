@@ -1,12 +1,14 @@
 const Login = () => {
   return (
-    <div className="page">
+    <div className="content">
       <div className="page-card">
         <h1>Login</h1>
-        <p>
-          Securely access your Sakhi account to view your activity,
-          profile details, and safety history.
-        </p>
+        <p>Securely login to your Sakhi account.</p>
+
+        <input className="input-box" placeholder="Email" />
+        <input className="input-box" placeholder="Password" type="password" />
+
+        <button className="primary-btn">Login</button>
       </div>
     </div>
   );
