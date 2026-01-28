@@ -1,7 +1,10 @@
 .admin-appointments {
-  max-width: 1400px;
+  /* max-width: 1400px;
   height: 100vh;
-  margin: 0 auto;
+  margin: 0 auto; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .appointments-header {
@@ -94,9 +97,14 @@
 }
 
 .appointments-list {
+
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 10px;
+  /* flex: 1; */
+  overflow-y: auto;
+  scrollbar-width: auto;
+  padding-right: 8px;
 }
 
 .appointment-card {
@@ -186,7 +194,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  /* padding-top: 10px !important; */
+  padding-top: 10px !important;
 }
 
 .status-badge {
@@ -212,10 +220,11 @@
   color: #991b1b;
 }
 
-.action-buttons {
+.action-buttonss {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 !important;
   gap: 0.5rem;
 }
 
@@ -346,7 +355,7 @@
     gap: 0.5rem;
   }
 
-  .action-buttons {
+  .action-buttonss {
     width: 100%;
     justify-content: space-between;
   }

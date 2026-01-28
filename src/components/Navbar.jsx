@@ -25,7 +25,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="z-50 w-full flex sticky top-0 px-12 py-2 bg-white text-black justify-around items-center">
+    <nav className="z-50 w-full flex sticky top-0 px-12 py-2 bg-white text-black justify-between items-center">
       <Link to="/" className="flex justify-center items-center gap-2">
         <div className="text-2xl">
           <i className="ri-building-2-fill"></i>
@@ -41,11 +41,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-6">
-
-
-
         
-
         <Link to="/admin/dashboard" className="bg-amber-600 text-white px-4 py-2 rounded font-bold hover:bg-amber-700 transition-colors">
           Dashboard
         </Link>

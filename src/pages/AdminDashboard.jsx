@@ -1,6 +1,5 @@
 import React from "react";
 import AdminLayout from "../components/AdminLayout";
-import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   const stats = [
@@ -63,80 +62,91 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
-      <div className="admin-dashboard">
-        <div className="dashboard-header">
+      <div className="mx-auto max-w-[1400px]">
+        {/* .dashboard-header */}
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div>
-            <h1>Dashboard Overview</h1>
-            <p>Welcome back! Here's what's happening today.</p>
+            <h1 className="m-0 text-[2rem] font-bold text-[#1e293b]">Dashboard Overview</h1>
+            <p className="m-0 text-[1rem] text-[#64748b]">Welcome back! Here's what's happening today.</p>
           </div>
-          <button className="btn-primary">
+          <button className="flex items-center gap-2 rounded-lg bg-[#f59e0b] px-6 py-3 text-[1rem] font-semibold text-white transition-all duration-300 hover:translate-y-[-2px] hover:bg-[#d97706] hover:shadow-[0_4px_12px_rgba(245,158,11,0.3)]">
             <i className="ri-add-line"></i>
             New Project
           </button>
         </div>
 
-        <div className="stats-grid">
+        {/* .stats-grid */}
+        <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="stat-card"
+              className="flex items-center gap-4 rounded-[12px] border-t-4 bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] flex-col md:flex-row md:text-left text-center"
               style={{ borderTopColor: stat.color }}
             >
-              <div className="stat-icon" style={{ backgroundColor: stat.color }}>
+              <div 
+                className="flex h-[60px] w-[60px] flex-shrink-0 items-center justify-center rounded-[12px] text-[1.75rem] text-white"
+                style={{ backgroundColor: stat.color }}
+              >
                 <i className={stat.icon}></i>
               </div>
-              <div className="stat-details">
-                <p className="stat-title">{stat.title}</p>
-                <h3 className="stat-value">{stat.value}</h3>
-                <span className="stat-trend positive">{stat.trend} from last month</span>
+              <div className="flex-1">
+                <p className="m-0 mb-2 text-[0.875rem] font-medium text-[#64748b]">{stat.title}</p>
+                <h3 className="m-0 mb-2 text-[1.75rem] font-bold text-[#1e293b]">{stat.value}</h3>
+                <span className="text-[0.875rem] font-medium text-[#10b981]">
+                  {stat.trend} <span className="text-[#64748b]">from last month</span>
+                </span>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="dashboard-content">
-          <div className="content-section">
-            <div className="section-header">
-              <h2>Recent Activities</h2>
-              <button className="btn-text">View All</button>
+        {/* .dashboard-content */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* Recent Activities Section - Column Span 2 */}
+          <div className="rounded-[12px] bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] lg:col-span-2">
+            <div className="mb-6 flex items-center justify-between border-b-2 border-[#f1f5f9] pb-4">
+              <h2 className="text-[1.25rem] font-bold text-[#1e293b]">Recent Activities</h2>
+              <button className="rounded-6px px-4 py-2 text-[0.875rem] font-600 text-[#f59e0b] transition-all hover:bg-[#fef3c7]">
+                View All
+              </button>
             </div>
-            <div className="activities-list">
+            
+            <div className="flex flex-col gap-4">
               {recentActivities.map((activity) => (
-                <div key={activity.id} className="activity-item">
-                  <div className="activity-icon">
+                <div key={activity.id} className="group flex items-center gap-4 rounded-lg bg-[#f8fafc] p-4 transition-all duration-200 hover:translate-x-1 hover:bg-[#f1f5f9]">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-[1.25rem] text-white">
                     <i className="ri-arrow-right-line"></i>
                   </div>
-                  <div className="activity-details">
-                    <h4>{activity.action}</h4>
-                    <p>{activity.project}</p>
+                  <div className="flex-1">
+                    <h4 className="m-0 text-[1rem] font-semibold text-[#1e293b]">{activity.action}</h4>
+                    <p className="m-0 text-[0.875rem] text-[#64748b]">{activity.project}</p>
                   </div>
-                  <span className="activity-time">{activity.time}</span>
+                  <span className="text-[0.875rem] font-medium text-[#94a3b8]">{activity.time}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="content-section">
-            <div className="section-header">
-              <h2>Quick Actions</h2>
+          {/* Quick Actions Section - Column Span 1 */}
+          <div className="rounded-[12px] bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] h-fit">
+            <div className="mb-6 border-b-2 border-[#f1f5f9] pb-4">
+              <h2 className="text-[1.25rem] font-bold text-[#1e293b]">Quick Actions</h2>
             </div>
-            <div className="quick-actions">
-              <button className="action-card">
-                <i className="ri-file-add-line"></i>
-                <span>Create Report</span>
-              </button>
-              <button className="action-card">
-                <i className="ri-user-add-line"></i>
-                <span>Add Client</span>
-              </button>
-              <button className="action-card">
-                <i className="ri-calendar-event-line"></i>
-                <span>Schedule Meeting</span>
-              </button>
-              <button className="action-card">
-                <i className="ri-mail-send-line"></i>
-                <span>Send Update</span>
-              </button>
+            <div className="grid grid-cols-1 gap-3">
+              {[
+                { icon: "ri-file-add-line", label: "Create Report" },
+                { icon: "ri-user-add-line", label: "Add Client" },
+                { icon: "ri-calendar-event-line", label: "Schedule Meeting" },
+                { icon: "ri-mail-send-line", label: "Send Update" },
+              ].map((action, idx) => (
+                <button 
+                  key={idx}
+                  className="flex items-center gap-4 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] p-4 text-[1rem] font-semibold text-[#1e293b] transition-all duration-300 hover:translate-x-1 hover:border-[#f59e0b] hover:bg-[#fef3c7]"
+                >
+                  <i className={`${action.icon} text-[1.5rem] text-[#f59e0b]`}></i>
+                  <span>{action.label}</span>
+                </button>
+              ))}
             </div>
           </div>
         </div>

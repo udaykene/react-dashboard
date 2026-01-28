@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AdminLayout from "../components/AdminLayout";
-import "./AdminProfile.css";
 
 const AdminProfile = () => {
   const [profileData, setProfileData] = useState({
@@ -24,35 +23,38 @@ const AdminProfile = () => {
 
   const handleSave = () => {
     setIsEditing(false);
-    // Here you would typically save to backend
     alert("Profile updated successfully!");
   };
 
   return (
     <AdminLayout>
-      <div className="admin-profile">
-        <div className="profile-header">
-          <h1>Profile Settings</h1>
-          <p>Manage your account information and preferences</p>
+      <div className="mx-auto max-w-[1200px] h-screen overflow-y-auto no-scrollbar  ">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="m-0 text-[2rem] font-bold text-[#1e293b]">Profile Settings</h1>
+          <p className="m-0 text-[1rem] text-[#64748b]">Manage your account information and preferences</p>
         </div>
 
-        <div className="profile-content">
-          <div className="profile-card">
-            <div className="profile-avatar-section">
-              <div className="profile-avatar">
+        <div className="flex flex-col gap-6 pb-10">
+          {/* Personal Information Card */}
+          <div className="rounded-[12px] bg-white p-8 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+            {/* Avatar Section */}
+            <div className="mb-8 flex flex-col items-center gap-4 border-b-2 border-[#f1f5f9] pb-8">
+              <div className="flex h-[120px] w-[120px] items-center justify-center rounded-full bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-[3rem] text-white shadow-[0_8px_20px_rgba(245,158,11,0.3)]">
                 <i className="ri-user-line"></i>
               </div>
-              <button className="btn-upload">
+              <button className="flex items-center gap-2 rounded-lg bg-[#f1f5f9] px-5 py-2.5 text-[0.875rem] font-semibold text-[#475569] transition-all hover:translate-y-[-2px] hover:bg-[#e2e8f0]">
                 <i className="ri-camera-line"></i>
                 Change Photo
               </button>
             </div>
 
-            <div className="profile-info">
-              <div className="info-header">
-                <h2>Personal Information</h2>
+            {/* Info Section */}
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center justify-between">
+                <h2 className="m-0 text-[1.5rem] font-bold text-[#1e293b]">Personal Information</h2>
                 <button
-                  className="btn-edit"
+                  className="flex items-center gap-2 rounded-lg bg-[#f59e0b] px-5 py-2.5 text-[0.875rem] font-semibold text-white transition-all hover:translate-y-[-2px] hover:bg-[#d97706]"
                   onClick={() => setIsEditing(!isEditing)}
                 >
                   <i className={isEditing ? "ri-close-line" : "ri-edit-line"}></i>
@@ -60,78 +62,78 @@ const AdminProfile = () => {
                 </button>
               </div>
 
-              <div className="info-grid">
-                <div className="info-field">
-                  <label>Full Name</label>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {/* Name Field */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[0.875rem] font-semibold uppercase tracking-wider text-[#64748b]">Full Name</label>
                   {isEditing ? (
                     <input
                       type="text"
                       name="name"
                       value={profileData.name}
                       onChange={handleInputChange}
-                      className="input-field"
+                      className="rounded-lg border-2 border-[#e2e8f0] p-3 text-[1rem] text-[#1e293b] outline-none transition-all focus:border-[#f59e0b] focus:ring-4 focus:ring-[#f59e0b]/10"
                     />
                   ) : (
-                    <p>{profileData.name}</p>
+                    <p className="m-0 text-[1rem] font-medium text-[#1e293b]">{profileData.name}</p>
                   )}
                 </div>
 
-                <div className="info-field">
-                  <label>Email Address</label>
+                {/* Email Field */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[0.875rem] font-semibold uppercase tracking-wider text-[#64748b]">Email Address</label>
                   {isEditing ? (
                     <input
                       type="email"
                       name="email"
                       value={profileData.email}
                       onChange={handleInputChange}
-                      className="input-field"
+                      className="rounded-lg border-2 border-[#e2e8f0] p-3 text-[1rem] text-[#1e293b] outline-none transition-all focus:border-[#f59e0b] focus:ring-4 focus:ring-[#f59e0b]/10"
                     />
                   ) : (
-                    <p>{profileData.email}</p>
+                    <p className="m-0 text-[1rem] font-medium text-[#1e293b]">{profileData.email}</p>
                   )}
                 </div>
 
-                <div className="info-field">
-                  <label>Phone Number</label>
+                {/* Phone Field */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[0.875rem] font-semibold uppercase tracking-wider text-[#64748b]">Phone Number</label>
                   {isEditing ? (
                     <input
                       type="tel"
                       name="phone"
                       value={profileData.phone}
                       onChange={handleInputChange}
-                      className="input-field"
+                      className="rounded-lg border-2 border-[#e2e8f0] p-3 text-[1rem] text-[#1e293b] outline-none transition-all focus:border-[#f59e0b] focus:ring-4 focus:ring-[#f59e0b]/10"
                     />
                   ) : (
-                    <p>{profileData.phone}</p>
+                    <p className="m-0 text-[1rem] font-medium text-[#1e293b]">{profileData.phone}</p>
                   )}
                 </div>
 
-                <div className="info-field">
-                  <label>Role</label>
-                  <p>{profileData.role}</p>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[0.875rem] font-semibold uppercase tracking-wider text-[#64748b]">Role</label>
+                  <p className="m-0 text-[1rem] font-medium text-[#1e293b]">{profileData.role}</p>
                 </div>
 
-                <div className="info-field">
-                  <label>Department</label>
-                  <p>{profileData.department}</p>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[0.875rem] font-semibold uppercase tracking-wider text-[#64748b]">Department</label>
+                  <p className="m-0 text-[1rem] font-medium text-[#1e293b]">{profileData.department}</p>
                 </div>
 
-                <div className="info-field">
-                  <label>Member Since</label>
-                  <p>{profileData.joinDate}</p>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[0.875rem] font-semibold uppercase tracking-wider text-[#64748b]">Member Since</label>
+                  <p className="m-0 text-[1rem] font-medium text-[#1e293b]">{profileData.joinDate}</p>
                 </div>
               </div>
 
               {isEditing && (
-                <div className="action-buttons">
-                  <button className="btn-save" onClick={handleSave}>
+                <div className="flex flex-col gap-4 border-t-2 border-[#f1f5f9] pt-4 md:flex-row">
+                  <button onClick={handleSave} className="flex items-center justify-center gap-2 rounded-lg bg-[#10b981] px-6 py-3 text-[1rem] font-semibold text-white transition-all hover:translate-y-[-2px] hover:bg-[#059669]">
                     <i className="ri-check-line"></i>
                     Save Changes
                   </button>
-                  <button
-                    className="btn-cancel"
-                    onClick={() => setIsEditing(false)}
-                  >
+                  <button onClick={() => setIsEditing(false)} className="rounded-lg bg-[#f1f5f9] px-6 py-3 text-[1rem] font-semibold text-[#475569] transition-all hover:bg-[#e2e8f0]">
                     Cancel
                   </button>
                 </div>
@@ -139,41 +141,43 @@ const AdminProfile = () => {
             </div>
           </div>
 
-          <div className="profile-card">
-            <h2>Security Settings</h2>
-            <div className="security-section">
-              <div className="security-item">
-                <div className="security-info">
-                  <i className="ri-lock-password-line"></i>
-                  <div>
-                    <h3>Password</h3>
-                    <p>Last changed 2 months ago</p>
+          {/* Security Settings Card */}
+          <div className="rounded-[12px] bg-white p-8 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+            <h2 className="mb-6 text-[1.5rem] font-bold text-[#1e293b]">Security Settings</h2>
+            <div className="flex flex-col gap-6">
+              {[
+                {
+                  icon: "ri-lock-password-line",
+                  title: "Password",
+                  desc: "Last changed 2 months ago",
+                  btn: "Change Password",
+                },
+                {
+                  icon: "ri-shield-check-line",
+                  title: "Two-Factor Authentication",
+                  desc: "Add an extra layer of security",
+                  btn: "Enable",
+                },
+                {
+                  icon: "ri-smartphone-line",
+                  title: "Active Sessions",
+                  desc: "Manage your active devices",
+                  btn: "View All",
+                },
+              ].map((item, idx) => (
+                <div key={idx} className="flex flex-col items-start justify-between gap-4 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 transition-all duration-300 hover:border-[#f59e0b] hover:bg-[#fef3c7] md:flex-row md:items-center">
+                  <div className="flex items-center gap-4">
+                    <i className={`${item.icon} text-[2rem] text-[#f59e0b]`}></i>
+                    <div>
+                      <h3 className="m-0 text-[1rem] font-semibold text-[#1e293b]">{item.title}</h3>
+                      <p className="m-0 text-[0.875rem] text-[#64748b]">{item.desc}</p>
+                    </div>
                   </div>
+                  <button className="w-full border-2 border-[#f59e0b] bg-white px-5 py-2.5 text-[0.875rem] font-semibold text-[#f59e0b] transition-all hover:translate-y-[-2px] hover:bg-[#f59e0b] hover:text-white md:w-auto">
+                    {item.btn}
+                  </button>
                 </div>
-                <button className="btn-secondary">Change Password</button>
-              </div>
-
-              <div className="security-item">
-                <div className="security-info">
-                  <i className="ri-shield-check-line"></i>
-                  <div>
-                    <h3>Two-Factor Authentication</h3>
-                    <p>Add an extra layer of security</p>
-                  </div>
-                </div>
-                <button className="btn-secondary">Enable</button>
-              </div>
-
-              <div className="security-item">
-                <div className="security-info">
-                  <i className="ri-smartphone-line"></i>
-                  <div>
-                    <h3>Active Sessions</h3>
-                    <p>Manage your active devices</p>
-                  </div>
-                </div>
-                <button className="btn-secondary">View All</button>
-              </div>
+              ))}
             </div>
           </div>
         </div>
