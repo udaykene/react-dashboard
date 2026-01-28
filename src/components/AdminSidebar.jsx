@@ -21,6 +21,11 @@ const AdminSidebar = () => {
       path: "/admin/appointments",
       icon: "ri-calendar-check-line",
     },
+    {
+      name: "Clients",
+      path:"/admin/clients",
+      icon:"ri-group-line",
+    }
   ];
 
   return (
