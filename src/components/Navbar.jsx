@@ -25,19 +25,23 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="z-50 w-full flex sticky top-0 px-12 py-4 bg-amber-50 text-black justify-between items-center">
-      <Link to="/" className="flex justify-center gap-2 items-end">
-        <div className="text-4xl">
+    <nav className="z-50 w-full flex sticky top-0 px-12 py-2 bg-white text-black justify-between items-center">
+      <Link to="/" className="flex justify-center items-center gap-2">
+        <div className="text-2xl">
           <i className="ri-building-2-fill"></i>
         </div>
-        <h1 className="text-2xl font-bold flex gap-2">ParthBuilders</h1>
+        <h1 className="text-xl font-bold flex gap-2">ParthBuilders</h1>
       </Link>
 
-      <div className="flex items-center gap-6">
+      <div className="flex gap-4">
         <Link to="/about">About Us</Link>
         <Link to="/projects">Projects</Link>
         <Link to="/services">Services</Link>
         <Link to="/contact">Contact</Link>
+      </div>
+
+      <div className="flex items-center gap-6">
+
         <Link to="/admin/dashboard" className="bg-amber-600 text-white px-4 py-2 rounded font-bold hover:bg-amber-700 transition-colors">
           Dashboard
         </Link>
@@ -47,7 +51,7 @@ const Navbar = () => {
           {/* Trigger */}
           <button
             ref={buttonRef}
-            className="flex items-center gap-1 py-2 outline-none"
+            className="flex items-center gap-2 px-2 py-1 rounded-full hover:bg-gray-100 transition outline-none"
             onClick={() => setDropdownOpen((open) => !open)}
             onMouseEnter={() => setDropdownOpen(true)}
             onMouseLeave={() => setDropdownOpen(false)}
@@ -55,7 +59,16 @@ const Navbar = () => {
             aria-expanded={dropdownOpen}
             type="button"
           >
-            Profile ▾
+            {/* Profile Icon */}
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-lg">
+              <i className="ri-user-3-fill"></i>
+            </div>
+
+            {/* Dropdown arrow */}
+            <i
+              className={`ri-arrow-down-s-line transition-transform ${dropdownOpen ? "rotate-180" : ""
+                }`}
+            ></i>
           </button>
 
           {/* DROPDOWN MENU */}
@@ -99,7 +112,7 @@ const Navbar = () => {
           >
             Login
           </Link>
-          
+
         </div>
       </div>
     </nav>
@@ -107,3 +120,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+

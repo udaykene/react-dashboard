@@ -4,6 +4,7 @@ import {
   RouterProvider,
   Outlet,
   Route,
+  useLocation
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -22,8 +23,15 @@ import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminProfile from "./pages/AdminProfile";
 import AdminAppointments from "./pages/AdminAppointments";
 const App = () => {
+
+  const location = useLocation();
+
+  // Check if current route is admin
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
   return (
-    <div className="h-screen bg-black text-white">
+
+    <div className="h-screen bg-black">
       <Navbar />
       {/* <div className="mt-6 pt-3 h-full w-screen  "> */}
         <Routes>
@@ -46,7 +54,8 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       {/* </div> */}
-      <Footer />
+         {/* Footer only for NON-admin routes */}
+      {!isAdminRoute && <Footer />}
     </div>
   );
 };
