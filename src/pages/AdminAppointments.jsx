@@ -70,7 +70,7 @@ const AdminAppointments = () => {
 
   return (
     <AdminLayout>
-      <div className="admin-appointments ">
+      <div className="admin-appointments">
         <div className="appointments-header">
           <div>
             <h1>Appointments</h1>

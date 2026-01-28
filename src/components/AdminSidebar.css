@@ -1,6 +1,6 @@
 .admin-sidebar {
   width: 260px;
-  /* height: 100vh; */
+  height: 100vh;
   background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
   /* position: fixed; */
 
