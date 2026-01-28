@@ -24,6 +24,7 @@ import AdminProfile from "./pages/AdminProfile";
 import AdminAppointments from "./pages/AdminAppointments";
 import AdminClients from "./pages/AdminClients.jsx";
 import AdminRevenueReports from "./pages/AdminRevenueReports.jsx";
+import AdminServices from "./pages/AdminServices.jsx";
 const App = () => {
 
   const location = useLocation();
@@ -53,6 +54,7 @@ const App = () => {
         <Route path="/admin/profile" element={<AdminProfile />} />
         <Route path="/admin/appointments" element={<AdminAppointments />} />
         <Route path="/admin/clients" element={<AdminClients />} />
+        <Route path="/admin/services" element={<AdminServices/>}/>
         <Route path="/admin/revenue_reports" element={<AdminRevenueReports/>}/>
 
 

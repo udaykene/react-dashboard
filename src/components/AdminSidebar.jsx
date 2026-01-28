@@ -9,6 +9,7 @@ const AdminSidebar = () => {
     { name: "Dashboard", path: "/admin/dashboard", icon: "ri-dashboard-line" },
     { name: "Appointments", path: "/admin/appointments", icon: "ri-calendar-check-line" },
     { name: "Clients", path: "/admin/clients", icon: "ri-group-line" },
+    { name: "Services", path: "/admin/services", icon: "ri-group-line" },
     { name: "Revenue & Reports", path: "/admin/revenue_reports", icon: "ri-group-line" },
   ];
 
