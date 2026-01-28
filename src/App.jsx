@@ -35,32 +35,29 @@ const App = () => {
     <div className="h-screen bg-black">
       <Navbar />
       {/* <div className="mt-6 pt-3 h-full w-screen  "> */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/activity" element={<Activity />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/team" element={<Team />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/activity" element={<Activity />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/team" element={<Team />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/profile" element={<AdminProfile />} />
-          <Route path="/admin/appointments" element={<AdminAppointments />} />
-<<<<<<< HEAD
-          
-=======
-          <Route path="/admin/clients" element={<AdminClients />} />
->>>>>>> 22bd729d3b45d8cdf32110fdc00ba20066e4f829
+        {/* Admin Routes */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/profile" element={<AdminProfile />} />
+        <Route path="/admin/appointments" element={<AdminAppointments />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Route path="/admin/clients" element={<AdminClients />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       {/* </div> */}
-         {/* Footer only for NON-admin routes */}
+      {/* Footer only for NON-admin routes */}
       {!isAdminRoute && <Footer />}
     </div>
   );
