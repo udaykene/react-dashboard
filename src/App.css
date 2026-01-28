@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background: #1f2937;
+}
+
+.logo {
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a,
+.profile button {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-links a:hover,
+.profile button:hover {
+  color: #38bdf8;
+}
+
+/* DROPDOWN */
+.profile {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background: white;
+  width: 150px;
+  border-radius: 5px;
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  background: #f3f4f6;
+}
+
+/* NORMAL PAGES */
+.page {
+  padding: 60px;
+}
+
+/* DASHBOARD PANEL */
+.dashboard-wrapper {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+.dashboard-sidebar {
+  width: 240px;
+  background: #111827;
+  color: white;
+  padding: 20px;
+}
+
+.dashboard-title {
+  margin-bottom: 30px;
+}
+
+.dashboard-sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.dashboard-sidebar a:hover {
+  background: #374151;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 30px;
+  background: #f3f4f6;
+}
