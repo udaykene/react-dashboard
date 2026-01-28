@@ -22,6 +22,7 @@ import Team from "./pages/Team";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminProfile from "./pages/AdminProfile";
 import AdminAppointments from "./pages/AdminAppointments";
+import AdminClients from "./pages/AdminClients.jsx";
 const App = () => {
 
   const location = useLocation();
@@ -50,7 +51,11 @@ const App = () => {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/profile" element={<AdminProfile />} />
           <Route path="/admin/appointments" element={<AdminAppointments />} />
+<<<<<<< HEAD
           
+=======
+          <Route path="/admin/clients" element={<AdminClients />} />
+>>>>>>> 22bd729d3b45d8cdf32110fdc00ba20066e4f829
 
           <Route path="*" element={<NotFound />} />
         </Routes>
