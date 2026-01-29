@@ -11,11 +11,12 @@ const AdminSidebar = () => {
     { name: "Clients", path: "/admin/clients", icon: "ri-group-line" },
     { name: "Services", path: "/admin/services", icon: "ri-group-line" },
     { name: "Revenue & Reports", path: "/admin/revenue_reports", icon: "ri-group-line" },
+    { name: "Receptionist", path: "/admin/receptionist", icon: "ri-group-3-line" },
   ];
 
   return (
     <div className="sticky top-0 flex h-full w-[280px] flex-col bg-[#0f172a] text-white shadow-2xl border-r border-white/5">
-      
+
       {/* 1. New Back Button Positioning (Top) */}
       <div className="px-6 pt-6">
         <Link
@@ -44,17 +45,16 @@ const AdminSidebar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`group flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 ${
-                isActive
+              className={`group flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 ${isActive
                   ? "bg-amber-500/10 text-[#f59e0b] shadow-sm"
                   : "text-slate-400 hover:bg-white/5 hover:text-white"
-              }`}
+                }`}
             >
               <div className={`flex items-center justify-center transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
                 <i className={`${item.icon} text-xl`}></i>
               </div>
               <span className="font-medium">{item.name}</span>
-              
+
               {isActive && (
                 <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]"></div>
               )}
