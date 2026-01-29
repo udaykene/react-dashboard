@@ -25,6 +25,7 @@ import AdminAppointments from "./pages/AdminAppointments";
 import AdminClients from "./pages/AdminClients.jsx";
 import AdminRevenueReports from "./pages/AdminRevenueReports.jsx";
 import AdminServices from "./pages/AdminServices.jsx";
+import AdminReceptionists from './pages/AdminReceptionists';
 const App = () => {
 
   const location = useLocation();

@@ -9,9 +9,9 @@ const AdminSidebar = () => {
     { name: "Dashboard", path: "/admin/dashboard", icon: "ri-dashboard-line" },
     { name: "Appointments", path: "/admin/appointments", icon: "ri-calendar-check-line" },
     { name: "Clients", path: "/admin/clients", icon: "ri-group-line" },
-    { name: "Services", path: "/admin/services", icon: "ri-group-line" },
-    { name: "Revenue & Reports", path: "/admin/revenue_reports", icon: "ri-group-line" },
-    { name: "Receptionist", path: "/admin/receptionist", icon: "ri-group-3-line" },
+    { name: "Services", path: "/admin/services", icon: "ri-community-line" },
+    { name: "Receptionist", path: "/admin/receptionist", icon: "ri-user-6-line" },
+    { name: "Revenue & Reports", path: "/admin/revenue_reports", icon: "ri-bar-chart-2-line" },
   ];
 
   return (
