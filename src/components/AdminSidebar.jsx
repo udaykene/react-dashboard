@@ -14,6 +14,7 @@ const AdminSidebar = () => {
     { name: "Staff", path: "/admin/staff", icon: "ri-community-line" },
     { name: "Receptionist", path: "/admin/receptionist", icon: "ri-user-6-line" },
     { name: "Revenue & Reports", path: "/admin/revenue_reports", icon: "ri-bar-chart-2-line" },
+    { name: "Offers", path: "/admin/offers", icon: "ri-coupon-3-line" },
   ];
 
   return (
