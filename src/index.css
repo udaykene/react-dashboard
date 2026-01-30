@@ -1,5 +1,7 @@
 @import 'tailwindcss';
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .container{
     display :flex;
     width:100%;
