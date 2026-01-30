@@ -109,7 +109,7 @@ const AdminSettings = () => {
 
   return (
     <AdminLayout>
-      <div className="flex h-screen flex-col overflow-hidden">
+      <div className="flex  flex-col overflow-hidden">
         {/* Header Section */}
         <div className="mb-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div>
