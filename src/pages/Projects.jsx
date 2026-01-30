@@ -44,89 +44,108 @@ const Projects = () => {
 
   const filteredProjects =
     filter === "All" ? projects : projects.filter((p) => p.category === filter);
+
   return (
-    <div className="bg-gray-50 min-h-screen">
-      {/* Header Section */}
-      <div className="bg-[#0a0f1a] py-20 px-6">
+    <div className="bg-gray-50 w-full overflow-x-hidden">
+
+      {/* HEADER */}
+      <div className="bg-[#0a0f1a] py-14 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
             Our Projects
           </h1>
-          <p className="text-orange-400 text-lg italic">
+          <p className="text-sm sm:text-base md:text-lg text-orange-400 italic">
             Building Landmarks, Creating Legacies
           </p>
         </div>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="max-w-7xl mx-auto px-6 py-10">
-        <div className="flex justify-center space-x-4 mb-12">
+      {/* FILTERS */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
           {["All", "Residential", "Commercial"].map((tab) => (
             <button
               key={tab}
               onClick={() => setFilter(tab)}
-              className={`px-6 py-2 rounded-full transition-all duration-300 font-medium ${
-                filter === tab
-                  ? "bg-orange-500 text-white shadow-lg"
-                  : "bg-white text-gray-600 hover:bg-gray-200"
-              }`}
+              className={`px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base font-medium transition ${filter === tab
+                ? "bg-orange-500 text-white shadow-lg"
+                : "bg-white text-gray-600 hover:bg-gray-200"
+                }`}
             >
               {tab}
             </button>
           ))}
         </div>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
+              className="group bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition flex flex-col h-full"
             >
-              {/* Image Container */}
-              <div className="relative h-64 overflow-hidden">
+
+
+              {/* IMAGE */}
+              <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute top-4 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+
+                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-orange-500 text-white text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase">
                   {project.status}
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <p className="text-orange-500 text-sm font-semibold mb-1 uppercase tracking-wider">
-                  {project.category}
-                </p>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {project.title}
-                </h3>
-                <div className="flex items-center text-gray-500 text-sm mb-6">
-                  <span className="mr-2">📍</span> {project.location}
+              {/* CONTENT */}
+              <div className="flex flex-col p-4 sm:p-6 flex-1">
+
+                <div className="flex flex-col">
+                  <p className="text-orange-500 text-xs sm:text-sm font-semibold mb-1 uppercase tracking-wider">
+                    {project.category}
+                  </p>
+
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
+                    {project.title}
+                  </h3>
+
+                  <div className="flex items-center text-gray-500 text-xs sm:text-sm mb-5 sm:mb-6">
+                    <span className="mr-2">📍</span>
+                    {project.location}
+                  </div>
                 </div>
 
-                <button className="w-full border-2 border-gray-900 text-gray-900 font-bold py-2 rounded hover:bg-gray-900 hover:text-white transition-colors">
+                <button className="mt-auto w-full border-2 border-gray-900 py-2 text-sm sm:text-base font-bold rounded hover:bg-gray-900 hover:text-white transition">
                   View Details
                 </button>
               </div>
+
             </div>
           ))}
+
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-white py-20 px-6 border-t border-gray-100">
-        <div className="max-w-4xl mx-auto text-center bg-[#0a0f1a] p-12 rounded-3xl shadow-2xl">
-          <h2 className="text-3xl font-bold text-white mb-6">
+      {/* CTA */}
+      <div className="bg-white py-14 sm:py-20 px-4 sm:px-6 border-t">
+
+        <div className="max-w-4xl mx-auto text-center bg-[#0a0f1a] p-6 sm:p-10 md:p-12 rounded-3xl shadow-2xl">
+
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">
             Want to see our latest site work?
           </h2>
-          <button className="bg-orange-500 text-white px-8 py-3 rounded-md font-bold hover:bg-orange-600 transition-colors">
+
+          <button className="bg-orange-500 px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-bold rounded-md hover:bg-orange-600 transition">
             Request Brochure
           </button>
+
         </div>
       </div>
+
     </div>
   );
 };
