@@ -29,6 +29,7 @@ import AdminReceptionists from './pages/AdminReceptionists';
 import AdminStaff from "./pages/AdminStaff.jsx";
 import AdminOffers from './pages/AdminOffers';
 import AdminNotifications from './pages/AdminNotifications';
+import AdminSettings from "./pages/AdminSettings.jsx";
 const App = () => {
 
   const location = useLocation();
@@ -64,6 +65,7 @@ const App = () => {
         <Route path="/admin/receptionist" element={<AdminReceptionists />} />
         <Route path="/admin/inbox" element={<AdminNotifications/>} />
         <Route path="/admin/offers" element={<AdminOffers/>} />
+        <Route path="/admin/settings" element={<AdminSettings/>} />
 
 
         <Route path="*" element={<NotFound />} />
