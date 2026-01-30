@@ -7,6 +7,7 @@ const AdminSidebar = () => {
   const menuItems = [
     { name: "Profile", path: "/admin/profile", icon: "ri-user-line" },
     { name: "Dashboard", path: "/admin/dashboard", icon: "ri-dashboard-line" },
+    { name: "Inbox", path: "/admin/inbox", icon: "ri-inbox-line" },
     { name: "Appointments", path: "/admin/appointments", icon: "ri-calendar-check-line" },
     { name: "Clients", path: "/admin/clients", icon: "ri-group-line" },
     { name: "Services", path: "/admin/services", icon: "ri-community-line" },
@@ -65,7 +66,7 @@ const AdminSidebar = () => {
       </nav>
 
       {/* Footer / User Profile Summary (Optional replacement for old button) */}
-      <div className="border-t border-white/5 p-6">
+      {/* <div className="border-t border-white/5 p-6">
         <div className="flex items-center gap-3 px-2">
           <div className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold">
             AD
@@ -75,7 +76,7 @@ const AdminSidebar = () => {
             <span className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Logged In</span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
