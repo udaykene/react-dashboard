@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
 
   const menuItems = [
@@ -18,68 +18,95 @@ const AdminSidebar = () => {
     { name: "Settings", path: "/admin/settings", icon: "ri-settings-2-line" },
   ];
 
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when a link is clicked
+    if (window.innerWidth < 1024) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="sticky top-0 flex h-full w-[280px] flex-col bg-[#0f172a] text-white shadow-2xl border-r border-white/5">
+    <>
+      {/* Mobile Overlay - Only shows when sidebar is open on mobile */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-[60] lg:hidden"
+          onClick={onClose}
+        ></div>
+      )}
 
-      {/* 1. New Back Button Positioning (Top) */}
-      <div className="px-6 pt-6">
-        <Link
-          to="/"
-          className="group flex items-center gap-2 text-sm font-medium text-slate-400 transition-colors hover:text-[#f59e0b]"
-        >
-          <i className="ri-arrow-left-s-line text-lg transition-transform group-hover:-translate-x-1"></i>
-          <span>Back to Site</span>
-        </Link>
-      </div>
-
-      {/* Sidebar Header / Brand */}
-      <div className="flex flex-col items-center py-8">
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f59e0b] to-[#d97706] shadow-lg shadow-amber-900/20">
-          <i className="ri-shield-user-line text-2xl text-white"></i>
+      {/* Sidebar */}
+      <div
+        className={`
+          fixed lg:sticky top-0 left-0 h-screen w-[280px] 
+          flex flex-col bg-[#0f172a] text-white shadow-2xl border-r border-white/5
+          z-[70] lg:z-10 transition-transform duration-300 ease-in-out
+          ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+        `}
+      >
+        {/* Header with Back to Site and Close Button */}
+        <div className="flex items-center justify-between px-6 pt-6 lg:block">
+          <Link
+            to="/"
+            className="group flex items-center gap-2 text-sm font-medium text-slate-400 transition-colors hover:text-[#f59e0b]"
+            onClick={handleLinkClick}
+          >
+            <i className="ri-arrow-left-s-line text-lg transition-transform group-hover:-translate-x-1"></i>
+            <span>Back to Site</span>
+          </Link>
+          
+          {/* X button only on mobile */}
+          <button
+            onClick={onClose}
+            className="lg:hidden text-white hover:text-amber-500 transition-colors ml-4"
+            aria-label="Close menu"
+          >
+            <i className="ri-close-line text-2xl"></i>
+          </button>
         </div>
-        <h2 className="text-lg font-bold tracking-tight">Admin Panel</h2>
-        <div className="mt-1 h-1 w-8 rounded-full bg-amber-500/30"></div>
-      </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-4 py-4 overflow-y-auto space-y-1 custom-scrollbar">
-        {menuItems.map((item) => {
-          const isActive = location.pathname === item.path;
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`group flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 ${isActive
-                  ? "bg-amber-500/10 text-[#f59e0b] shadow-sm"
-                  : "text-slate-400 hover:bg-white/5 hover:text-white"
+        {/* Sidebar Header / Brand */}
+        <div className="flex flex-col items-center py-6 sm:py-8">
+          <div className="mb-3 sm:mb-4 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f59e0b] to-[#d97706] shadow-lg shadow-amber-900/20">
+            <i className="ri-shield-user-line text-xl sm:text-2xl text-white"></i>
+          </div>
+          <h2 className="text-base sm:text-lg font-bold tracking-tight">Admin Panel</h2>
+          <div className="mt-1 h-1 w-8 rounded-full bg-amber-500/30"></div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 px-3 sm:px-4 py-4 overflow-y-auto space-y-1 custom-scrollbar">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={handleLinkClick}
+                className={`group flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl transition-all duration-200 ${
+                  isActive
+                    ? "bg-amber-500/10 text-[#f59e0b] shadow-sm"
+                    : "text-slate-400 hover:bg-white/5 hover:text-white"
                 }`}
-            >
-              <div className={`flex items-center justify-center transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
-                <i className={`${item.icon} text-xl`}></i>
-              </div>
-              <span className="font-medium">{item.name}</span>
+              >
+                <div
+                  className={`flex items-center justify-center transition-transform duration-200 ${
+                    isActive ? "scale-110" : "group-hover:scale-110"
+                  }`}
+                >
+                  <i className={`${item.icon} text-lg sm:text-xl`}></i>
+                </div>
+                <span className="font-medium text-sm sm:text-base">{item.name}</span>
 
-              {isActive && (
-                <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]"></div>
-              )}
-            </Link>
-          );
-        })}
-      </nav>
-
-      {/* Footer / User Profile Summary (Optional replacement for old button) */}
-      {/* <div className="border-t border-white/5 p-6">
-        <div className="flex items-center gap-3 px-2">
-          <div className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold">
-            AD
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">Administrator</span>
-            <span className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Logged In</span>
-          </div>
-        </div>
-      </div> */}
-    </div>
+                {isActive && (
+                  <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]"></div>
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    </>
   );
 };
 

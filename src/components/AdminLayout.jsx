@@ -1,26 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AdminSidebar from "./AdminSidebar.jsx";
-// import Navbar from "./Navbar.jsx"; 
-// import Footer from "./Footer.jsx";
+import AdminMobileHeader from "./AdminMobileHeader.jsx";
 
 const AdminLayout = ({ children }) => {
-  return (
-    /* .admin-container */
-    <div className="flex min-h-screen w-full">
-      
-      {/* AdminSidebar contains its own width (260px). 
-        We ensure it doesn't shrink in this flex container.
-      */}
-      <div className="flex-shrink-0">
-        <AdminSidebar />
-      </div>
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-      {/* .admin-content */}
-      <main className="flex-1 overflow-y-auto bg-[#f4f7fe] py-2 px-8">
-        {children} 
-        {/* This is where your dashboard/profile pages load */}
-      </main>
-      
+  // Close sidebar when screen becomes desktop size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div className="flex min-h-screen w-full bg-[#f4f7fe]">
+      {/* AdminSidebar */}
+      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-h-screen w-full lg:w-auto overflow-x-hidden">
+        {/* Mobile Header - Only visible on mobile */}
+        <AdminMobileHeader 
+          onMenuClick={() => setSidebarOpen(true)} 
+          isOpen={sidebarOpen}
+        />
+
+        {/* Page Content */}
+        <main className="flex-1 overflow-y-auto bg-[#f4f7fe] py-4 sm:py-6 lg:py-8 px-4 sm:px-6 lg:px-8">
+          {children}
+        </main>
+      </div>
     </div>
   );
 };
