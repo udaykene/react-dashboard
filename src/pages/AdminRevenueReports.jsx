@@ -104,9 +104,24 @@ const AdminRevenueReports = () => {
   ];
 
   const projectRevenueBreakdown = [
-    { category: "Residential", amount: 385000, percentage: 45.5, color: "#3b82f6" },
-    { category: "Commercial", amount: 285000, percentage: 33.7, color: "#10b981" },
-    { category: "Industrial", amount: 125250, percentage: 14.8, color: "#f59e0b" },
+    {
+      category: "Residential",
+      amount: 385000,
+      percentage: 45.5,
+      color: "#3b82f6",
+    },
+    {
+      category: "Commercial",
+      amount: 285000,
+      percentage: 33.7,
+      color: "#10b981",
+    },
+    {
+      category: "Industrial",
+      amount: 125250,
+      percentage: 14.8,
+      color: "#f59e0b",
+    },
     { category: "Other", amount: 50000, percentage: 6.0, color: "#8b5cf6" },
   ];
 
@@ -138,18 +153,6 @@ const AdminRevenueReports = () => {
               Track financial performance and generate reports
             </p>
           </div>
-          <div className="flex flex-col xs:flex-row w-full md:w-auto gap-2 sm:gap-3">
-            <button className="flex items-center justify-center gap-2 rounded-lg border-2 border-[#e2e8f0] bg-white px-4 sm:px-5 py-2 sm:py-2.5 text-[0.8125rem] sm:text-[0.875rem] font-semibold text-[#475569] transition-all hover:border-[#f59e0b] hover:bg-[#fef3c7] hover:text-[#d97706] whitespace-nowrap">
-              <i className="ri-download-line text-base sm:text-lg"></i>
-              <span className="hidden xs:inline">Export Report</span>
-              <span className="xs:hidden">Export</span>
-            </button>
-            <button className="flex items-center justify-center gap-2 rounded-lg bg-[#f59e0b] px-4 sm:px-6 py-2.5 sm:py-3 font-semibold text-white transition-all hover:bg-[#d97706] text-[0.8125rem] sm:text-[0.875rem] md:text-[1rem] whitespace-nowrap">
-              <i className="ri-file-text-line text-base sm:text-lg"></i>
-              <span className="hidden xs:inline">Generate Report</span>
-              <span className="xs:hidden">Generate</span>
-            </button>
-          </div>
         </div>
 
         {/* Revenue Stats Grid */}
@@ -175,11 +178,15 @@ const AdminRevenueReports = () => {
                 </h3>
                 <span
                   className={`text-[0.8125rem] sm:text-[0.875rem] font-medium ${
-                    stat.change === "increase" ? "text-[#10b981]" : "text-[#ef4444]"
+                    stat.change === "increase"
+                      ? "text-[#10b981]"
+                      : "text-[#ef4444]"
                   }`}
                 >
                   {stat.trend}{" "}
-                  <span className="text-[#64748b] hidden xs:inline">from last period</span>
+                  <span className="text-[#64748b] hidden xs:inline">
+                    from last period
+                  </span>
                 </span>
               </div>
             </div>
@@ -256,23 +263,48 @@ const AdminRevenueReports = () => {
                     const totalPercentage = projectRevenueBreakdown
                       .slice(0, index)
                       .reduce((sum, i) => sum + i.percentage, 0);
-                    const radius = window.innerWidth < 640 ? 64 : window.innerWidth < 768 ? 72 : 80;
+                    const radius =
+                      window.innerWidth < 640
+                        ? 64
+                        : window.innerWidth < 768
+                          ? 72
+                          : 80;
                     const circumference = 2 * Math.PI * radius;
                     const strokeDasharray = `${
                       (item.percentage / 100) * circumference
                     } ${circumference}`;
-                    const strokeDashoffset =
-                      -((totalPercentage / 100) * circumference);
+                    const strokeDashoffset = -(
+                      (totalPercentage / 100) *
+                      circumference
+                    );
 
                     return (
                       <circle
                         key={index}
-                        cx={window.innerWidth < 640 ? "80" : window.innerWidth < 768 ? "90" : "100"}
-                        cy={window.innerWidth < 640 ? "80" : window.innerWidth < 768 ? "90" : "100"}
+                        cx={
+                          window.innerWidth < 640
+                            ? "80"
+                            : window.innerWidth < 768
+                              ? "90"
+                              : "100"
+                        }
+                        cy={
+                          window.innerWidth < 640
+                            ? "80"
+                            : window.innerWidth < 768
+                              ? "90"
+                              : "100"
+                        }
                         r={radius}
                         fill="none"
                         stroke={item.color}
-                        strokeWidth={window.innerWidth < 640 ? "22" : window.innerWidth < 768 ? "25" : "28"}
+                        strokeWidth={
+                          window.innerWidth < 640
+                            ? "22"
+                            : window.innerWidth < 768
+                              ? "25"
+                              : "28"
+                        }
                         strokeDasharray={strokeDasharray}
                         strokeDashoffset={strokeDashoffset}
                         className="transition-all duration-300 hover:opacity-80"
@@ -366,7 +398,7 @@ const AdminRevenueReports = () => {
                   </div>
                   <span
                     className={`rounded-md px-3 sm:px-4 py-1.5 sm:py-2 text-[0.75rem] sm:text-[0.8125rem] md:text-[0.875rem] font-semibold capitalize whitespace-nowrap ${getStatusStyles(
-                      transaction.status
+                      transaction.status,
                     )}`}
                   >
                     {transaction.status}
@@ -374,6 +406,20 @@ const AdminRevenueReports = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+        <div className="mt-4 flex justify-end">
+          <div className="flex  xs:flex-row w-full md:w-auto gap-2 sm:gap-3">
+            <button className="flex items-center justify-center gap-2 rounded-lg border-2 border-[#e2e8f0] bg-white px-4 sm:px-5 py-2 sm:py-2.5 text-[0.8125rem] sm:text-[0.875rem] font-semibold text-[#475569] transition-all hover:border-[#f59e0b] hover:bg-[#fef3c7] hover:text-[#d97706] whitespace-nowrap">
+              <i className="ri-download-line text-base sm:text-lg"></i>
+              <span className="hidden xs:inline">Export Report</span>
+              <span className="xs:hidden">Export</span>
+            </button>
+            <button className="flex items-center justify-center gap-2 rounded-lg bg-[#f59e0b] px-4 sm:px-6 py-2.5 sm:py-3 font-semibold text-white transition-all hover:bg-[#d97706] text-[0.8125rem] sm:text-[0.875rem] md:text-[1rem] whitespace-nowrap">
+              <i className="ri-file-text-line text-base sm:text-lg"></i>
+              <span className="hidden xs:inline">Generate Report</span>
+              <span className="xs:hidden">Generate</span>
+            </button>
           </div>
         </div>
       </div>

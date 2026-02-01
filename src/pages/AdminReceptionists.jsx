@@ -73,53 +73,34 @@ const AdminReceptionists = () => {
     const [filterStatus, setFilterStatus] = useState("all");
     const [filterShift, setFilterShift] = useState("all");
     const [filterLocation, setFilterLocation] = useState("all");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const shifts = ["all", "Morning", "Afternoon", "Evening"];
     const locations = ["all", "Main Office", "Branch Office"];
 
-    // Today's schedule data
-    const todaySchedule = [
-        { shift: "Morning", count: 2, status: "on-duty" },
-        { shift: "Afternoon", count: 2, status: "scheduled" },
-        { shift: "Evening", count: 0, status: "vacant" },
-    ];
-
     const getStatusStyles = (status) => {
         switch (status) {
             case "active":
-                return "bg-[#d1fae5] text-[#065f46]";
+                return "bg-emerald-50 text-emerald-700 border border-emerald-200";
             case "on-leave":
-                return "bg-[#fef3c7] text-[#92400e]";
+                return "bg-amber-50 text-amber-700 border border-amber-200";
             case "inactive":
-                return "bg-[#fee2e2] text-[#991b1b]";
+                return "bg-rose-50 text-rose-700 border border-rose-200";
             default:
-                return "bg-[#f1f5f9] text-[#475569]";
+                return "bg-slate-50 text-slate-700 border border-slate-200";
         }
     };
 
     const getShiftColor = (shift) => {
         switch (shift) {
             case "Morning":
-                return "#3b82f6";
+                return "bg-blue-500";
             case "Afternoon":
-                return "#f59e0b";
+                return "bg-amber-500";
             case "Evening":
-                return "#8b5cf6";
+                return "bg-purple-500";
             default:
-                return "#64748b";
-        }
-    };
-
-    const getScheduleStatusStyle = (status) => {
-        switch (status) {
-            case "on-duty":
-                return "bg-[#d1fae5] text-[#065f46] border-[#10b981]";
-            case "scheduled":
-                return "bg-[#dbeafe] text-[#1e40af] border-[#3b82f6]";
-            case "vacant":
-                return "bg-[#fee2e2] text-[#991b1b] border-[#ef4444]";
-            default:
-                return "bg-[#f1f5f9] text-[#475569] border-[#94a3b8]";
+                return "bg-slate-500";
         }
     };
 
@@ -130,7 +111,10 @@ const AdminReceptionists = () => {
             filterShift === "all" || receptionist.shift === filterShift;
         const locationMatch =
             filterLocation === "all" || receptionist.location === filterLocation;
-        return statusMatch && shiftMatch && locationMatch;
+        const searchMatch =
+            receptionist.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            receptionist.email.toLowerCase().includes(searchTerm.toLowerCase());
+        return statusMatch && shiftMatch && locationMatch && searchMatch;
     });
 
     const renderStars = (rating) => {
@@ -142,87 +126,58 @@ const AdminReceptionists = () => {
                 {[...Array(5)].map((_, index) => (
                     <i
                         key={index}
-                        className={`${index < fullStars
-                            ? "ri-star-fill text-[#f59e0b]"
-                            : index === fullStars && hasHalfStar
-                                ? "ri-star-half-fill text-[#f59e0b]"
-                                : "ri-star-line text-[#cbd5e1]"
-                            } text-[0.875rem]`}
+                        className={`${
+                            index < fullStars
+                                ? "ri-star-fill text-amber-500"
+                                : index === fullStars && hasHalfStar
+                                ? "ri-star-half-fill text-amber-500"
+                                : "ri-star-line text-slate-300"
+                        } text-sm`}
                     ></i>
                 ))}
-                <span className="ml-1 text-[0.875rem] font-semibold text-[#64748b]">
+                <span className="ml-1 text-sm font-semibold text-slate-600">
                     {rating}
                 </span>
             </div>
         );
     };
 
+    const getInitials = (name) => {
+        return name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase();
+    };
+
     return (
         <AdminLayout>
-            <div className="flex h-screen flex-col">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 px-4 sm:px-6 lg:px-8 py-6">
                 {/* Header Section */}
-                <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-                    <div>
-                        <h1 className="m-0 text-[2rem] font-bold text-[#1e293b]">
-                            Receptionists
-                        </h1>
-                        <p className="m-0 text-[1rem] text-[#64748b]">
-                            Manage front desk staff and schedules
-                        </p>
+                <div className="mb-8">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-2">
+                        <div>
+                            <h1 className="text-3xl font-bold text-slate-900 mb-1">
+                                Receptionist Management
+                            </h1>
+                            <p className="text-slate-600 text-sm">
+                                Manage front desk staff and schedules
+                            </p>
+                        </div>
+                        <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-amber-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/40 hover:-translate-y-0.5">
+                            <i className="ri-user-add-line text-lg"></i>
+                            <span>Add Receptionist</span>
+                        </button>
                     </div>
-                    <button className="flex items-center gap-2 rounded-lg bg-[#f59e0b] px-6 py-3 font-semibold text-white transition-all hover:bg-[#d97706]">
-                        <i className="ri-user-add-line"></i>
-                        Add Receptionist
-                    </button>
-                </div>
-
-                {/* Stats and Today's Schedule Grid */}
-                <div className="mb-6 w-full flex gap-4 lg:grid-cols-3">
-
-                    {/* Today's Schedule Card */}
-                    {/* <div className="rounded-[12px] w-1/2 bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-                        <div className="mb-4 flex items-center gap-2 border-b-2 border-[#f1f5f9] pb-3">
-                            <i className="ri-calendar-check-line text-[1.5rem] text-[#f59e0b]"></i>
-                            <h2 className="m-0 text-[1.125rem] font-bold text-[#1e293b]">
-                                Today's Schedule
-                            </h2>
-                        </div>
-                        <div className="flex flex-col gap-3">
-                            {todaySchedule.map((schedule, index) => (
-                                <div
-                                    key={index}
-                                    className={`flex items-center justify-between rounded-lg border-2 p-3 transition-all ${getScheduleStatusStyle(
-                                        schedule.status
-                                    )}`}
-                                >
-                                    <div className="flex items-center gap-3">
-                                        <i className="ri-time-line text-[1.25rem]"></i>
-                                        <div>
-                                            <p className="m-0 text-[0.875rem] font-semibold">
-                                                {schedule.shift}
-                                            </p>
-                                            <span className="text-[0.75rem] opacity-75">
-                                                {schedule.count} receptionist{schedule.count !== 1 ? "s" : ""}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <span className="rounded-md bg-white/50 px-3 py-1 text-[0.75rem] font-bold capitalize">
-                                        {schedule.status.replace("-", " ")}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div> */}
 
                     {/* Stats Cards */}
-                    {/* /*className=" flex flex-wrap  gap-4 lg:col-span-2" */}
-                    {/* <div className=" w-full grid grid-cols-2  gap-4 lg:col-span-2" >
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
                         {[
                             {
                                 title: "Total Staff",
                                 value: receptionists.length.toString(),
                                 icon: "ri-team-line",
-                                color: "#3b82f6",
+                                color: "blue",
                             },
                             {
                                 title: "On Duty",
@@ -230,7 +185,7 @@ const AdminReceptionists = () => {
                                     .filter((r) => r.status === "active")
                                     .length.toString(),
                                 icon: "ri-user-follow-line",
-                                color: "#10b981",
+                                color: "emerald",
                             },
                             {
                                 title: "On Leave",
@@ -238,231 +193,353 @@ const AdminReceptionists = () => {
                                     .filter((r) => r.status === "on-leave")
                                     .length.toString(),
                                 icon: "ri-time-line",
-                                color: "#f59e0b",
+                                color: "amber",
                             },
                             {
                                 title: "Locations",
                                 value: "2",
                                 icon: "ri-building-line",
-                                color: "#8b5cf6",
+                                color: "purple",
                             },
                         ].map((stat, index) => (
                             <div
                                 key={index}
-                                className="flex items-center gap-4 rounded-[12px] w-full  bg-white p-5  shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-300 hover:translate-y-[-2px] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)]"
-                                style={{ borderTopColor: stat.color }}
+                                className="bg-white rounded-xl p-5 shadow-sm border border-slate-200 hover:shadow-md transition-shadow"
                             >
-                                <div
-                                    className="flex h-[50px] w-[50px] flex-shrink-0 items-center justify-center rounded-[10px] text-[1.5rem] text-white"
-                                    style={{ backgroundColor: stat.color }}
-                                >
-                                    <i className={stat.icon}></i>
-                                </div>
-                                <div>
-                                    <p className="m-0 mb-1 text-[0.875rem] font-medium text-[#64748b]">
-                                        {stat.title}
-                                    </p>
-                                    <h3 className="m-0 text-[1.5rem] font-bold text-[#1e293b]">
-                                        {stat.value}
-                                    </h3>
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <p className="text-slate-600 text-sm font-medium mb-1">
+                                            {stat.title}
+                                        </p>
+                                        <p className="text-2xl font-bold text-slate-900">
+                                            {stat.value}
+                                        </p>
+                                    </div>
+                                    <div className={`bg-${stat.color}-50 p-3 rounded-lg`}>
+                                        <i className={`${stat.icon} text-2xl text-${stat.color}-600`}></i>
+                                    </div>
                                 </div>
                             </div>
                         ))}
-                    </div> */}
-
-
-
-
+                    </div>
                 </div>
 
-                {/* Filters and Search Section */}
-                <div className="mb-6 flex  gap-4 rounded-[12px] bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-                    {/* Status Filters */}
-                    <div className="flex flex-wrap items-center gap-3">
-                        <span className="text-[0.875rem] font-semibold text-[#64748b]">
-                            Status:
-                        </span>
-                        {["all", "active", "on-leave", "inactive"].map((status) => (
-                            <button
-                                key={status}
-                                onClick={() => setFilterStatus(status)}
-                                className={`rounded-lg border-2 px-4 py-2 text-[0.875rem] font-semibold transition-all 
-                  ${filterStatus === status
-                                        ? "border-[#f59e0b] bg-[#fef3c7] text-[#d97706]"
-                                        : "border-transparent bg-[#f1f5f9] text-[#475569] hover:bg-[#e2e8f0]"
-                                    }`}
-                            >
-                                {status === "all"
-                                    ? "All"
-                                    : status === "on-leave"
-                                        ? "On Leave"
-                                        : status.charAt(0).toUpperCase() + status.slice(1)}{" "}
-                                (
-                                {status === "all"
-                                    ? receptionists.length
-                                    : receptionists.filter((r) => r.status === status).length}
-                                )
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Shift and Location Filters */}
-                    <div className="flex flex-wrap items-center gap-4">
-                        <div className="flex flex-wrap items-center gap-3">
-                            <span className="text-[0.875rem] font-semibold text-[#64748b]">
-                                Shift:
+                {/* Filters Section */}
+                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 mb-6">
+                    <div className="space-y-4">
+                        {/* Status Filter */}
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                            <span className="text-sm font-semibold text-slate-700 min-w-fit">
+                                Status:
                             </span>
-                            {shifts.map((shift) => (
-                                <button
-                                    key={shift}
-                                    onClick={() => setFilterShift(shift)}
-                                    className={`rounded-lg border-2 px-4 py-2 text-[0.875rem] font-semibold transition-all 
-                    ${filterShift === shift
-                                            ? "border-[#f59e0b] bg-[#fef3c7] text-[#d97706]"
-                                            : "border-transparent bg-[#f1f5f9] text-[#475569] hover:bg-[#e2e8f0]"
+                            <div className="flex flex-wrap gap-2">
+                                {["all", "active", "on-leave", "inactive"].map((status) => (
+                                    <button
+                                        key={status}
+                                        onClick={() => setFilterStatus(status)}
+                                        className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                                            filterStatus === status
+                                                ? "bg-amber-500 text-white shadow-md"
+                                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                                         }`}
-                                >
-                                    {shift}
-                                </button>
-                            ))}
+                                    >
+                                        {status === "all"
+                                            ? "All"
+                                            : status === "on-leave"
+                                            ? "On Leave"
+                                            : status.charAt(0).toUpperCase() + status.slice(1)}{" "}
+                                        <span className="opacity-75">
+                                            (
+                                            {status === "all"
+                                                ? receptionists.length
+                                                : receptionists.filter((r) => r.status === status)
+                                                      .length}
+                                            )
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-3">
-                            <span className="text-[0.875rem] font-semibold text-[#64748b]">
-                                Location:
-                            </span>
-                            {locations.map((location) => (
-                                <button
-                                    key={location}
-                                    onClick={() => setFilterLocation(location)}
-                                    className={`rounded-lg border-2 px-4 py-2 text-[0.875rem] font-semibold transition-all 
-                    ${filterLocation === location
-                                            ? "border-[#f59e0b] bg-[#fef3c7] text-[#d97706]"
-                                            : "border-transparent bg-[#f1f5f9] text-[#475569] hover:bg-[#e2e8f0]"
-                                        }`}
-                                >
-                                    {location}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
+                        {/* Shift and Location Filters - Desktop */}
+                        <div className="hidden lg:flex items-center gap-6">
+                            <div className="flex items-center gap-3">
+                                <span className="text-sm font-semibold text-slate-700">
+                                    Shift:
+                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                    {shifts.map((shift) => (
+                                        <button
+                                            key={shift}
+                                            onClick={() => setFilterShift(shift)}
+                                            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                                                filterShift === shift
+                                                    ? "bg-amber-500 text-white shadow-md"
+                                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                            }`}
+                                        >
+                                            {shift}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
 
-                    {/* Search */}
-                    <div className="flex items-center gap-3 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-3">
-                        <i className="ri-search-line text-[1.25rem] text-[#64748b]"></i>
-                        <input
-                            type="text"
-                            placeholder="Search receptionists..."
-                            className="flex-1 border-none bg-transparent text-[0.875rem] text-[#1e293b] outline-none placeholder:text-[#94a3b8]"
-                        />
+                            <div className="flex items-center gap-3">
+                                <span className="text-sm font-semibold text-slate-700">
+                                    Location:
+                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                    {locations.map((location) => (
+                                        <button
+                                            key={location}
+                                            onClick={() => setFilterLocation(location)}
+                                            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                                                filterLocation === location
+                                                    ? "bg-amber-500 text-white shadow-md"
+                                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                            }`}
+                                        >
+                                            {location}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Shift and Location Filters - Mobile */}
+                        <div className="lg:hidden space-y-3">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                                <span className="text-sm font-semibold text-slate-700 min-w-fit">
+                                    Shift:
+                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                    {shifts.map((shift) => (
+                                        <button
+                                            key={shift}
+                                            onClick={() => setFilterShift(shift)}
+                                            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                                                filterShift === shift
+                                                    ? "bg-amber-500 text-white shadow-md"
+                                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                            }`}
+                                        >
+                                            {shift}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                                <span className="text-sm font-semibold text-slate-700 min-w-fit">
+                                    Location:
+                                </span>
+                                <div className="flex flex-wrap gap-2">
+                                    {locations.map((location) => (
+                                        <button
+                                            key={location}
+                                            onClick={() => setFilterLocation(location)}
+                                            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                                                filterLocation === location
+                                                    ? "bg-amber-500 text-white shadow-md"
+                                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                            }`}
+                                        >
+                                            {location}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Search */}
+                        <div className="relative">
+                            <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                            <input
+                                type="text"
+                                placeholder="Search receptionists..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full pl-12 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                            />
+                        </div>
                     </div>
                 </div>
 
                 {/* Receptionists List */}
-                <div className="no-scrollbar flex flex-col gap-3 overflow-y-auto pr-2">
+                <div className="space-y-4">
                     {filteredReceptionists.length === 0 ? (
-                        <div className="rounded-[12px] bg-white px-8 py-16 text-center shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-                            <i className="ri-user-line mb-4 text-[4rem] text-[#cbd5e1]"></i>
-                            <h3 className="m-0 mb-2 text-[1.5rem] font-bold text-[#1e293b]">
+                        <div className="bg-white rounded-xl shadow-sm border border-slate-200 py-20 text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-100 rounded-full mb-4">
+                                <i className="ri-user-search-line text-3xl text-slate-400"></i>
+                            </div>
+                            <h3 className="text-xl font-semibold text-slate-900 mb-2">
                                 No receptionists found
                             </h3>
-                            <p className="m-0 text-[#64748b]">
+                            <p className="text-slate-600 mb-6">
                                 Try adjusting your filters to see more results.
                             </p>
+                            <button
+                                onClick={() => {
+                                    setFilterStatus("all");
+                                    setFilterShift("all");
+                                    setFilterLocation("all");
+                                    setSearchTerm("");
+                                }}
+                                className="px-6 py-2.5 bg-slate-100 text-slate-700 rounded-lg font-medium hover:bg-slate-200 transition-colors"
+                            >
+                                Clear All Filters
+                            </button>
                         </div>
                     ) : (
                         filteredReceptionists.map((receptionist) => (
                             <div
                                 key={receptionist.id}
-                                className="group flex flex-col items-start justify-between gap-6 rounded-[12px] border-l-4 border-transparent bg-white p-6 transition-all duration-300 hover:translate-y-[-2px] hover:border-[#f59e0b] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] lg:flex-row lg:items-center"
+                                className="bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-all duration-300 overflow-hidden"
                             >
-                                {/* Receptionist Info */}
-                                <div className="flex flex-1 flex-col items-start gap-6 md:flex-row md:items-center">
-                                    {/* Avatar */}
-                                    <div className="flex h-[70px] w-[70px] flex-shrink-0 items-center justify-center rounded-[12px] bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-[2rem] text-white">
-                                        <i className="ri-customer-service-2-line"></i>
-                                    </div>
+                                <div className="p-5 sm:p-6">
+                                    {/* Header - Avatar, Name, Status, Shift */}
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+                                        {/* Avatar */}
+                                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-semibold text-lg shadow-sm flex-shrink-0">
+                                            {getInitials(receptionist.name)}
+                                        </div>
 
-                                    {/* Details */}
-                                    <div className="flex-1">
-                                        <div className="mb-2 flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-3">
-                                            <h3 className="m-0 text-[1.125rem] font-bold text-[#1e293b]">
+                                        {/* Name and Badges */}
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2">
                                                 {receptionist.name}
                                             </h3>
-                                            <span
-                                                className={`rounded-md px-3 py-1 text-[0.75rem] font-semibold capitalize ${getStatusStyles(
-                                                    receptionist.status
-                                                )}`}
-                                            >
-                                                {receptionist.status === "on-leave"
-                                                    ? "On Leave"
-                                                    : receptionist.status}
-                                            </span>
-                                            <div
-                                                className="flex items-center gap-1.5 rounded-md px-3 py-1 text-[0.75rem] font-semibold text-white"
-                                                style={{ backgroundColor: getShiftColor(receptionist.shift) }}
-                                            >
-                                                <i className="ri-sun-line"></i>
-                                                {receptionist.shift}
+                                            <div className="flex flex-wrap items-center gap-2">
+                                                <span
+                                                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold capitalize ${getStatusStyles(
+                                                        receptionist.status
+                                                    )}`}
+                                                >
+                                                    <span
+                                                        className={`w-1.5 h-1.5 rounded-full ${
+                                                            receptionist.status === "active"
+                                                                ? "bg-emerald-600"
+                                                                : receptionist.status === "on-leave"
+                                                                ? "bg-amber-600"
+                                                                : "bg-rose-600"
+                                                        }`}
+                                                    ></span>
+                                                    {receptionist.status === "on-leave"
+                                                        ? "On Leave"
+                                                        : receptionist.status}
+                                                </span>
+                                                <span
+                                                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-white ${getShiftColor(
+                                                        receptionist.shift
+                                                    )}`}
+                                                >
+                                                    <i className="ri-time-line"></i>
+                                                    {receptionist.shift}
+                                                </span>
+                                                <span className="text-xs text-slate-600 px-2">
+                                                    {receptionist.shiftTime}
+                                                </span>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <p className="m-0 mb-3 flex items-center gap-2 text-[0.875rem] text-[#64748b]">
-                                            <i className="ri-time-line text-[#94a3b8]"></i>
-                                            {receptionist.shiftTime}
-                                        </p>
-
-                                        <div className="flex flex-col gap-2 md:flex-row md:flex-wrap md:gap-6">
-                                            <span className="flex items-center gap-2 text-[0.875rem] font-medium text-[#64748b]">
-                                                <i className="ri-mail-line text-[#94a3b8]"></i>
-                                                {receptionist.email}
-                                            </span>
-                                            <span className="flex items-center gap-2 text-[0.875rem] font-medium text-[#64748b]">
-                                                <i className="ri-phone-line text-[#94a3b8]"></i>
-                                                {receptionist.phone}
-                                            </span>
-                                            <span className="flex items-center gap-2 text-[0.875rem] font-medium text-[#64748b]">
-                                                <i className="ri-map-pin-line text-[#94a3b8]"></i>
-                                                {receptionist.location}
-                                            </span>
+                                    {/* Contact Information */}
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                                        <div className="flex items-center gap-2 text-sm text-slate-700">
+                                            <i className="ri-mail-line text-slate-400 flex-shrink-0"></i>
+                                            <span className="truncate">{receptionist.email}</span>
                                         </div>
-
-                                        <div className="mt-3 flex flex-wrap items-center gap-4">
-                                            {renderStars(receptionist.rating)}
-                                            <span className="flex items-center gap-1.5 text-[0.875rem] text-[#64748b]">
-                                                <i className="ri-briefcase-line text-[#94a3b8]"></i>
-                                                <span className="font-medium">{receptionist.experience}</span>
-                                            </span>
-                                            <span className="flex items-center gap-1.5 text-[0.875rem] text-[#64748b]">
-                                                <i className="ri-calendar-line text-[#94a3b8]"></i>
-                                                <span className="font-medium">Joined {receptionist.joinDate}</span>
-                                            </span>
+                                        <div className="flex items-center gap-2 text-sm text-slate-700">
+                                            <i className="ri-phone-line text-slate-400 flex-shrink-0"></i>
+                                            <span>{receptionist.phone}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm text-slate-700">
+                                            <i className="ri-map-pin-line text-slate-400 flex-shrink-0"></i>
+                                            <span>{receptionist.location}</span>
                                         </div>
                                     </div>
-                                </div>
 
-                                {/* Actions */}
-                                <div className="flex w-full gap-2 border-t-2 border-[#f1f5f9] pt-4 lg:w-auto lg:border-t-0 lg:pt-0">
-                                    <button className="flex h-9 w-9 items-center justify-center rounded-md bg-[#dbeafe] text-[1.125rem] text-[#1e40af] transition-all hover:scale-110 hover:bg-[#3b82f6] hover:text-white">
-                                        <i className="ri-eye-line"></i>
-                                    </button>
-                                    <button className="flex h-9 w-9 items-center justify-center rounded-md bg-[#fef3c7] text-[1.125rem] text-[#92400e] transition-all hover:scale-110 hover:bg-[#f59e0b] hover:text-white">
-                                        <i className="ri-edit-line"></i>
-                                    </button>
-                                    <button className="flex h-9 w-9 items-center justify-center rounded-md bg-[#e0e7ff] text-[1.125rem] text-[#4338ca] transition-all hover:scale-110 hover:bg-[#6366f1] hover:text-white">
-                                        <i className="ri-calendar-schedule-line"></i>
-                                    </button>
-                                    <button className="flex h-9 w-9 items-center justify-center rounded-md bg-[#d1fae5] text-[1.125rem] text-[#065f46] transition-all hover:scale-110 hover:bg-[#10b981] hover:text-white">
-                                        <i className="ri-mail-line"></i>
-                                    </button>
-                                    <button className="flex h-9 w-9 items-center justify-center rounded-md bg-[#fee2e2] text-[1.125rem] text-[#991b1b] transition-all hover:scale-110 hover:bg-[#ef4444] hover:text-white">
-                                        <i className="ri-delete-bin-line"></i>
-                                    </button>
+                                    {/* Additional Info */}
+                                    <div className="flex flex-wrap items-center gap-4 pb-4 mb-4 border-b border-slate-200">
+                                        {renderStars(receptionist.rating)}
+                                        <span className="flex items-center gap-1.5 text-sm text-slate-600">
+                                            <i className="ri-briefcase-line text-slate-400"></i>
+                                            <span className="font-medium">
+                                                {receptionist.experience}
+                                            </span>
+                                        </span>
+                                        <span className="flex items-center gap-1.5 text-sm text-slate-600">
+                                            <i className="ri-calendar-line text-slate-400"></i>
+                                            <span className="font-medium">
+                                                Joined {receptionist.joinDate}
+                                            </span>
+                                        </span>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex flex-wrap gap-2">
+                                        <button
+                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors font-medium text-sm"
+                                            title="View Details"
+                                        >
+                                            <i className="ri-eye-line"></i>
+                                            <span className="sm:inline">View</span>
+                                        </button>
+                                        <button
+                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-amber-50 text-amber-600 rounded-lg hover:bg-amber-600 hover:text-white transition-colors font-medium text-sm"
+                                            title="Edit"
+                                        >
+                                            <i className="ri-edit-line"></i>
+                                            <span className="sm:inline">Edit</span>
+                                        </button>
+                                        <button
+                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-600 hover:text-white transition-colors font-medium text-sm"
+                                            title="Schedule"
+                                        >
+                                            <i className="ri-calendar-schedule-line"></i>
+                                            <span className="hidden lg:inline">Schedule</span>
+                                        </button>
+                                        <button
+                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-600 hover:text-white transition-colors font-medium text-sm"
+                                            title="Message"
+                                        >
+                                            <i className="ri-mail-line"></i>
+                                            <span className="hidden lg:inline">Message</span>
+                                        </button>
+                                        <button
+                                            className="flex items-center justify-center gap-2 px-4 py-2 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-600 hover:text-white transition-colors font-medium text-sm"
+                                            title="Delete"
+                                        >
+                                            <i className="ri-delete-bin-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ))
                     )}
                 </div>
+
+                {/* Pagination */}
+                {filteredReceptionists.length > 0 && (
+                    <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <p className="text-sm text-slate-600 text-center sm:text-left">
+                            Showing{" "}
+                            <span className="font-semibold">
+                                {filteredReceptionists.length}
+                            </span>{" "}
+                            of <span className="font-semibold">{receptionists.length}</span>{" "}
+                            receptionists
+                        </p>
+                        <div className="flex gap-2">
+                            <button className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium">
+                                Previous
+                            </button>
+                            <button className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </AdminLayout>
     );
