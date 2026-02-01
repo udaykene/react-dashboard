@@ -88,7 +88,7 @@ const AdminAppointments = () => {
         </div>
 
         {/* .appointments-filters */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 rounded-[12px] shadow-[0_2px_8px_rgba(0,0,0,0.05)] mb-4 sm:mb-5 md:mb-6 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 sm:gap-4">
+        <div className="bg-white p-4 sm:p-5 md:p-6 rounded-\[12px\] shadow-[0_2px_8px_rgba(0,0,0,0.05)] mb-4 sm:mb-5 md:mb-6 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 sm:gap-4">
           <div className="flex flex-wrap gap-2 w-full lg:w-auto">
             {["all", "confirmed", "pending", "cancelled"].map((status) => (
               <button
@@ -133,7 +133,7 @@ const AdminAppointments = () => {
         {/* .appointments-list */}
         <div className="flex flex-col gap-2 sm:gap-2.5 overflow-y-auto pr-1 sm:pr-2 no-scrollbar pb-4">
           {filteredAppointments.length === 0 ? (
-            <div className="bg-white py-12 sm:py-14 md:py-16 px-6 sm:px-8 rounded-[12px] text-center shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+            <div className="bg-white py-12 sm:py-14 md:py-16 px-6 sm:px-8 rounded-\[12px\] text-center shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
               <i className="ri-calendar-line text-[3rem] sm:text-[3.5rem] md:text-[4rem] text-[#cbd5e1] mb-3 sm:mb-4"></i>
               <h3 className="text-[1.25rem] sm:text-[1.375rem] md:text-[1.5rem] font-bold text-[#1e293b] mb-2">
                 No appointments found
@@ -146,11 +146,11 @@ const AdminAppointments = () => {
             filteredAppointments.map((appointment) => (
               <div
                 key={appointment.id}
-                className="bg-white p-4 sm:p-5 md:p-6 rounded-[12px] shadow-[0_2px_8px_rgba(0,0,0,0.05)] border-l-4 border-transparent hover:border-[#f59e0b] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 sm:gap-5"
+                className="bg-white p-4 sm:p-5 md:p-6 rounded-\[12px\] shadow-[0_2px_8px_rgba(0,0,0,0.05)] border-l-4 border-transparent hover:border-[#f59e0b] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-all duration-300 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 sm:gap-5"
               >
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 md:gap-6 flex-1 w-full">
                   {/* .appointment-icon */}
-                  <div className="w-[50px] h-[50px] sm:w-[55px] sm:h-[55px] md:w-[60px] md:h-[60px] bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-[12px] flex items-center justify-center text-[1.5rem] sm:text-[1.625rem] md:text-[1.75rem] text-white flex-shrink-0">
+                  <div className="w-\[50px\] h-\[50px\] sm\:w-\[55px\] sm\:h-\[55px\] md:w-[60px] md:h-[60px] bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-[12px] flex items-center justify-center text-[1.5rem] sm:text-[1.625rem] md:text-[1.75rem] text-white flex-shrink-0">
                     <i className="ri-user-line"></i>
                   </div>
 
