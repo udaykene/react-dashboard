@@ -62,76 +62,103 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
-      <div className="mx-auto max-w-[1400px]">
-        {/* .dashboard-header */}
-        <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+      <div className="mx-auto max-w-[1400px] px-3 sm:px-6 lg:px-8 py-4">
+
+        {/* HEADER */}
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="m-0 text-[2rem] font-bold text-[#1e293b]">Dashboard Overview</h1>
-            <p className="m-0 text-[1rem] text-[#64748b]">Welcome back! Here's what's happening today.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">
+              Dashboard Overview
+            </h1>
+            <p className="text-sm sm:text-base text-slate-500">
+              Welcome back! Here's what's happening today.
+            </p>
           </div>
-          <button className="flex items-center gap-2 rounded-lg bg-[#f59e0b] px-6 py-3 text-[1rem] font-semibold text-white transition-all duration-300 hover:translate-y-[-2px] hover:bg-[#d97706] hover:shadow-[0_4px_12px_rgba(245,158,11,0.3)]">
+
+          <button className="flex items-center justify-center gap-2 rounded-lg bg-amber-500 px-5 py-3 text-sm sm:text-base font-semibold text-white hover:bg-amber-600 transition w-full sm:w-auto">
             <i className="ri-add-line"></i>
             New Project
           </button>
         </div>
 
-        {/* .stats-grid */}
-        <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* STATS GRID */}
+        <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="flex items-center gap-4 rounded-[12px] border-t-4 bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] flex-col md:flex-row md:text-left text-center"
+              className="flex flex-col sm:flex-row items-center sm:items-start gap-4 rounded-xl bg-white p-5 shadow hover:shadow-lg transition border-t-4 text-center sm:text-left"
               style={{ borderTopColor: stat.color }}
             >
-              <div 
-                className="flex h-[60px] w-[60px] flex-shrink-0 items-center justify-center rounded-[12px] text-[1.75rem] text-white"
+              <div
+                className="flex h-14 w-14 items-center justify-center rounded-xl text-xl text-white flex-shrink-0"
                 style={{ backgroundColor: stat.color }}
               >
                 <i className={stat.icon}></i>
               </div>
+
               <div className="flex-1">
-                <p className="m-0 mb-2 text-[0.875rem] font-medium text-[#64748b]">{stat.title}</p>
-                <h3 className="m-0 mb-2 text-[1.75rem] font-bold text-[#1e293b]">{stat.value}</h3>
-                <span className="text-[0.875rem] font-medium text-[#10b981]">
-                  {stat.trend} <span className="text-[#64748b]">from last month</span>
+                <p className="text-sm text-slate-500 font-medium mb-1">
+                  {stat.title}
+                </p>
+                <h3 className="text-2xl font-bold text-slate-800 mb-1">
+                  {stat.value}
+                </h3>
+                <span className="text-sm font-medium text-emerald-600">
+                  {stat.trend}{" "}
+                  <span className="text-slate-500">from last month</span>
                 </span>
               </div>
             </div>
           ))}
         </div>
 
-        {/* .dashboard-content */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {/* Recent Activities Section - Column Span 2 */}
-          <div className="rounded-[12px] bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] lg:col-span-2">
-            <div className="mb-6 flex items-center justify-between border-b-2 border-[#f1f5f9] pb-4">
-              <h2 className="text-[1.25rem] font-bold text-[#1e293b]">Recent Activities</h2>
-              <button className="rounded-6px px-4 py-2 text-[0.875rem] font-600 text-[#f59e0b] transition-all hover:bg-[#fef3c7]">
+        {/* MAIN CONTENT */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          {/* RECENT ACTIVITIES */}
+          <div className="lg:col-span-2 bg-white rounded-xl p-5 sm:p-6 shadow">
+            <div className="mb-5 flex items-center justify-between border-b pb-3">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-800">
+                Recent Activities
+              </h2>
+              <button className="text-sm font-semibold text-amber-600 hover:bg-amber-100 px-3 py-1 rounded">
                 View All
               </button>
             </div>
-            
-            <div className="flex flex-col gap-4">
+
+            <div className="flex flex-col gap-3">
               {recentActivities.map((activity) => (
-                <div key={activity.id} className="group flex items-center gap-4 rounded-lg bg-[#f8fafc] p-4 transition-all duration-200 hover:translate-x-1 hover:bg-[#f1f5f9]">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#f59e0b] to-[#d97706] text-[1.25rem] text-white">
+                <div
+                  key={activity.id}
+                  className="flex flex-col sm:flex-row sm:items-center gap-3 bg-slate-50 p-4 rounded-lg hover:bg-slate-100 transition"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 text-white text-lg">
                     <i className="ri-arrow-right-line"></i>
                   </div>
+
                   <div className="flex-1">
-                    <h4 className="m-0 text-[1rem] font-semibold text-[#1e293b]">{activity.action}</h4>
-                    <p className="m-0 text-[0.875rem] text-[#64748b]">{activity.project}</p>
+                    <h4 className="font-semibold text-slate-800">
+                      {activity.action}
+                    </h4>
+                    <p className="text-sm text-slate-500">
+                      {activity.project}
+                    </p>
                   </div>
-                  <span className="text-[0.875rem] font-medium text-[#94a3b8]">{activity.time}</span>
+
+                  <span className="text-sm text-slate-400 whitespace-nowrap">
+                    {activity.time}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Quick Actions Section - Column Span 1 */}
-          <div className="rounded-[12px] bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] h-fit">
-            <div className="mb-6 border-b-2 border-[#f1f5f9] pb-4">
-              <h2 className="text-[1.25rem] font-bold text-[#1e293b]">Quick Actions</h2>
-            </div>
+          {/* QUICK ACTIONS */}
+          <div className="bg-white rounded-xl p-5 sm:p-6 shadow h-fit">
+            <h2 className="mb-5 text-lg sm:text-xl font-bold text-slate-800 border-b pb-3">
+              Quick Actions
+            </h2>
+
             <div className="grid grid-cols-1 gap-3">
               {[
                 { icon: "ri-file-add-line", label: "Create Report" },
@@ -139,16 +166,17 @@ const AdminDashboard = () => {
                 { icon: "ri-calendar-event-line", label: "Schedule Meeting" },
                 { icon: "ri-mail-send-line", label: "Send Update" },
               ].map((action, idx) => (
-                <button 
+                <button
                   key={idx}
-                  className="flex items-center gap-4 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] p-4 text-[1rem] font-semibold text-[#1e293b] transition-all duration-300 hover:translate-x-1 hover:border-[#f59e0b] hover:bg-[#fef3c7]"
+                  className="flex items-center gap-4 rounded-lg border p-4 text-sm sm:text-base font-semibold text-slate-700 bg-slate-50 hover:bg-amber-100 hover:border-amber-400 transition"
                 >
-                  <i className={`${action.icon} text-[1.5rem] text-[#f59e0b]`}></i>
-                  <span>{action.label}</span>
+                  <i className={`${action.icon} text-xl text-amber-500`}></i>
+                  {action.label}
                 </button>
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </AdminLayout>
