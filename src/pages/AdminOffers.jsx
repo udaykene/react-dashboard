@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 
 const AdminOffers = () => {
-  const [offers, setOffers] = useState([
+  const [offers] = useState([
     {
       id: 1,
       title: "Summer Construction Special",
@@ -67,70 +67,6 @@ const AdminOffers = () => {
       usedCount: 19,
       totalLimit: 80,
     },
-    {
-      id: 5,
-      title: "Early Bird Booking",
-      description: "Book 3 months early and save $3,000",
-      discountType: "fixed",
-      discountValue: 3000,
-      code: "EARLY3K",
-      validFrom: "2026-01-15",
-      validUntil: "2026-03-15",
-      status: "scheduled",
-      category: "All Projects",
-      minAmount: 75000,
-      maxDiscount: 3000,
-      usedCount: 0,
-      totalLimit: 40,
-    },
-    {
-      id: 6,
-      title: "Luxury Villa Package",
-      description: "Exclusive 12% off luxury villa builds",
-      discountType: "percentage",
-      discountValue: 12,
-      code: "VILLA12",
-      validFrom: "2026-04-01",
-      validUntil: "2026-09-30",
-      status: "active",
-      category: "Residential",
-      minAmount: 150000,
-      maxDiscount: 25000,
-      usedCount: 6,
-      totalLimit: 25,
-    },
-    {
-      id: 7,
-      title: "Festive Season Deal",
-      description: "Special festive discount on all services",
-      discountType: "percentage",
-      discountValue: 8,
-      code: "FESTIVE8",
-      validFrom: "2026-10-01",
-      validUntil: "2026-11-15",
-      status: "scheduled",
-      category: "All Projects",
-      minAmount: 40000,
-      maxDiscount: 7000,
-      usedCount: 0,
-      totalLimit: 100,
-    },
-    {
-      id: 8,
-      title: "Bulk Commercial Contract",
-      description: "Flat $15,000 off large-scale commercial builds",
-      discountType: "fixed",
-      discountValue: 15000,
-      code: "BULK15K",
-      validFrom: "2026-05-01",
-      validUntil: "2026-12-31",
-      status: "active",
-      category: "Commercial",
-      minAmount: 300000,
-      maxDiscount: 15000,
-      usedCount: 9,
-      totalLimit: 20,
-    },
   ]);
 
   const [filterStatus, setFilterStatus] = useState("all");
@@ -161,64 +97,110 @@ const AdminOffers = () => {
 
   return (
     <AdminLayout>
-      <div className="flex h-screen flex-col gap-6">
+      <div className="flex flex-col min-h-screen gap-6 px-3 sm:px-6 lg:px-8 py-4">
 
-        {/* header */}
-        <div className="flex justify-between flex-wrap gap-3">
+        {/* HEADER */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">
               Offers & Promotions
             </h1>
-            <p className="text-[#64748b]">
+            <p className="text-sm sm:text-base text-slate-500">
               Manage discount campaigns and promotions
             </p>
           </div>
 
-          <button className="rounded-lg bg-[#f59e0b] px-6 py-3 font-semibold text-white hover:bg-[#d97706] transition">
+          <button className="w-full sm:w-auto rounded-lg bg-amber-500 px-5 py-3 font-semibold text-white hover:bg-amber-600 transition">
             Create New Offer
           </button>
         </div>
 
-        {/* search */}
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by title or code..."
-          className="rounded-lg border-2 border-[#e2e8f0] px-4 py-3 outline-none focus:border-[#f59e0b]"
-        />
+        {/* SEARCH + FILTER */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by title or code..."
+            className="flex-1 rounded-lg border px-4 py-3 outline-none focus:border-amber-500"
+          />
 
-        {/* offers */}
-        <div className="flex flex-col overflow-auto gap-4">
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="rounded-lg border px-4 py-3"
+          >
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="expired">Expired</option>
+          </select>
+
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="rounded-lg border px-4 py-3"
+          >
+            <option value="all">All Categories</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Renovation">Renovation</option>
+            <option value="All Projects">All Projects</option>
+          </select>
+        </div>
+
+        {/* OFFERS LIST */}
+        <div className="flex flex-col gap-4 overflow-auto">
           {filteredOffers.map((offer) => {
             const status = getRealStatus(offer);
 
             return (
               <div
                 key={offer.id}
-                className="rounded-xl bg-white p-6 shadow hover:shadow-lg transition flex flex-col lg:flex-row gap-6 border-l-4 border-[#f59e0b]"
+                className="bg-white rounded-xl p-4 sm:p-6 shadow hover:shadow-lg transition flex flex-col lg:flex-row gap-4 border-l-4 border-amber-500"
               >
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-bold text-lg text-[#1e293b]">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <h3 className="font-bold text-base sm:text-lg text-slate-800">
                       {offer.title}
                     </h3>
-                    <span className="bg-[#fef3c7] text-[#d97706] px-3 py-1 rounded-md text-xs font-semibold capitalize">
+                    <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-md text-xs font-semibold capitalize">
                       {status}
                     </span>
                   </div>
 
-                  <p className="text-[#64748b] mb-3">{offer.description}</p>
+                  <p className="text-sm sm:text-base text-slate-500 mb-3">
+                    {offer.description}
+                  </p>
 
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
-                    <div>Discount: <b>{offer.discountType === "percentage" ? `${offer.discountValue}%` : formatMoney(offer.discountValue)}</b></div>
-                    <div>Code: <b>{offer.code}</b></div>
-                    <div>Min: <b>{formatMoney(offer.minAmount)}</b></div>
-                    <div>Max: <b>{formatMoney(offer.maxDiscount)}</b></div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm text-slate-700">
+                    <div>
+                      Discount:{" "}
+                      <b>
+                        {offer.discountType === "percentage"
+                          ? `${offer.discountValue}%`
+                          : formatMoney(offer.discountValue)}
+                      </b>
+                    </div>
+                    <div>
+                      Code: <b>{offer.code}</b>
+                    </div>
+                    <div>
+                      Min: <b>{formatMoney(offer.minAmount)}</b>
+                    </div>
+                    <div>
+                      Max: <b>{formatMoney(offer.maxDiscount)}</b>
+                    </div>
                   </div>
                 </div>
               </div>
             );
           })}
+
+          {filteredOffers.length === 0 && (
+            <div className="bg-white p-10 rounded-xl text-center text-slate-500">
+              No offers found
+            </div>
+          )}
         </div>
 
       </div>
