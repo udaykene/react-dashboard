@@ -3,8 +3,8 @@ import AdminLayout from "../components/AdminLayout";
 
 const AdminSettings = () => {
   const [activeTab, setActiveTab] = useState("general");
-  const [isSaving, setIsSaving] = useState(false);
-
+  
+  // State management (Keeping your logic intact)
   const [generalSettings, setGeneralSettings] = useState({
     companyName: "Parth Builders",
     email: "info@parthbuilders.com",
@@ -40,6 +40,8 @@ const AdminSettings = () => {
     cancellationPolicy: "24 hours",
   });
 
+  const [isSaving, setIsSaving] = useState(false);
+
   const handleSave = () => {
     setIsSaving(true);
     setTimeout(() => {
@@ -57,163 +59,157 @@ const AdminSettings = () => {
     { id: "billing", label: "Billing", icon: "ri-bank-card-line" },
   ];
 
+  const integrations = [
+    { name: "Google Calendar", description: "Sync appointments", icon: "ri-calendar-line", status: "connected", color: "#3b82f6" },
+    { name: "Stripe Payments", description: "Process payments", icon: "ri-bank-card-line", status: "connected", color: "#8b5cf6" },
+    { name: "WhatsApp Business", description: "Send notifications", icon: "ri-whatsapp-line", status: "disconnected", color: "#10b981" },
+    { name: "Google Drive", description: "Store documents", icon: "ri-google-line", status: "connected", color: "#f59e0b" },
+    { name: "Slack", description: "Team communication", icon: "ri-slack-line", status: "disconnected", color: "#ef4444" },
+    { name: "QuickBooks", description: "Accounting integration", icon: "ri-money-dollar-circle-line", status: "disconnected", color: "#06b6d4" },
+  ];
+
   return (
     <AdminLayout>
-      <div className="flex flex-col min-h-screen px-3 sm:px-6 lg:px-8 pb-10">
-
-        {/* Header */}
-        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1e293b]">
-              Settings
-            </h1>
-            <p className="text-sm sm:text-base text-[#64748b]">
-              Configure your application preferences
+      <div className="flex flex-col h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        
+        {/* Header Section: Stack on mobile, side-by-side on desktop */}
+        <div className="mb-8 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-extrabold tracking-tight text-[#1e293b] sm:text-4xl">Settings</h1>
+            <p className="text-sm text-[#64748b] sm:text-base">
+              Configure your application preferences and settings
             </p>
           </div>
-
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="flex items-center justify-center gap-2 rounded-lg bg-[#f59e0b] px-5 py-3 text-sm sm:text-base font-semibold text-white hover:bg-[#d97706] disabled:opacity-50"
+            className="w-full md:w-auto flex items-center justify-center gap-2 rounded-xl bg-[#f59e0b] px-8 py-3.5 font-bold text-white shadow-lg shadow-orange-200 transition-all hover:bg-[#d97706] active:scale-95 disabled:opacity-50"
           >
-            <i className={isSaving ? "ri-loader-4-line animate-spin" : "ri-save-line"} />
+            <i className={isSaving ? "ri-loader-4-line animate-spin" : "ri-save-line"}></i>
             {isSaving ? "Saving..." : "Save Changes"}
           </button>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-6 flex gap-2 overflow-x-auto rounded-xl bg-white p-2 shadow">
+        {/* Tabs Navigation: Horizontal scroll on mobile */}
+        <div className="mb-8 flex gap-2 overflow-x-auto pb-2 scrollbar-hide rounded-xl bg-white p-2 shadow-sm border border-slate-100">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 whitespace-nowrap rounded-lg px-4 py-2 text-sm font-semibold transition ${
+              className={`flex min-w-fit items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-bold transition-all ${
                 activeTab === tab.id
-                  ? "bg-[#fef3c7] text-[#d97706]"
-                  : "text-[#64748b] hover:bg-[#f1f5f9]"
+                  ? "bg-[#fef3c7] text-[#d97706] shadow-sm"
+                  : "text-[#64748b] hover:bg-[#f8fafc] hover:text-[#1e293b]"
               }`}
             >
-              <i className={`${tab.icon} text-lg`} />
+              <i className={`${tab.icon} text-lg`}></i>
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* Content */}
+        {/* Content Area */}
         <div className="flex-1 space-y-6">
-
-          {/* GENERAL */}
+          
+          {/* General Settings */}
           {activeTab === "general" && (
-            <div className="bg-white rounded-xl p-4 sm:p-6 lg:p-8 shadow">
-              <h2 className="text-lg sm:text-xl font-bold mb-4">
-                General Settings
-              </h2>
+            <div className="rounded-2xl bg-white p-5 sm:p-8 shadow-sm border border-slate-100 animate-in fade-in slide-in-from-bottom-2">
+              <div className="mb-8 border-b border-slate-100 pb-5">
+                <h2 className="text-xl font-bold text-[#1e293b]">General Settings</h2>
+                <p className="text-sm text-[#64748b]">Manage basic company info and regional preferences</p>
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {[
-                  ["Company Name", "companyName"],
-                  ["Email", "email"],
-                  ["Phone", "phone"],
-                ].map(([label, key]) => (
-                  <div key={key} className="flex flex-col gap-1">
-                    <label className="text-sm font-semibold">{label}</label>
-                    <input
-                      value={generalSettings[key]}
-                      onChange={(e) =>
-                        setGeneralSettings({ ...generalSettings, [key]: e.target.value })
-                      }
-                      className="border rounded-lg p-3 focus:ring-2 focus:ring-[#f59e0b]"
-                    />
-                  </div>
-                ))}
-
-                <div className="md:col-span-2">
-                  <label className="text-sm font-semibold">Address</label>
-                  <textarea
-                    rows={3}
-                    value={generalSettings.address}
-                    onChange={(e) =>
-                      setGeneralSettings({ ...generalSettings, address: e.target.value })
-                    }
-                    className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-[#f59e0b]"
+              <div className="grid grid-cols-1 gap-y-6 gap-x-8 md:grid-cols-2">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-bold text-[#1e293b] px-1">Company Name</label>
+                  <input
+                    type="text"
+                    value={generalSettings.companyName}
+                    onChange={(e) => setGeneralSettings({ ...generalSettings, companyName: e.target.value })}
+                    className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5 text-slate-700 outline-none transition-all focus:bg-white focus:border-[#f59e0b] focus:ring-4 focus:ring-[#f59e0b]/10"
                   />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-bold text-[#1e293b] px-1">Email Address</label>
+                  <input
+                    type="email"
+                    value={generalSettings.email}
+                    onChange={(e) => setGeneralSettings({ ...generalSettings, email: e.target.value })}
+                    className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5 text-slate-700 outline-none transition-all focus:bg-white focus:border-[#f59e0b] focus:ring-4 focus:ring-[#f59e0b]/10"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5 md:col-span-2">
+                  <label className="text-sm font-bold text-[#1e293b] px-1">Address</label>
+                  <textarea
+                    rows="3"
+                    value={generalSettings.address}
+                    onChange={(e) => setGeneralSettings({ ...generalSettings, address: e.target.value })}
+                    className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5 text-slate-700 outline-none transition-all focus:bg-white focus:border-[#f59e0b] focus:ring-4 focus:ring-[#f59e0b]/10"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-bold text-[#1e293b] px-1">Currency</label>
+                  <select 
+                    value={generalSettings.currency}
+                    className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-3.5 text-slate-700 outline-none focus:bg-white focus:border-[#f59e0b]"
+                  >
+                    <option>INR (₹)</option>
+                    <option>USD ($)</option>
+                  </select>
                 </div>
               </div>
             </div>
           )}
 
-          {/* NOTIFICATIONS */}
-          {activeTab === "notifications" && (
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow space-y-4">
-              {Object.keys(notifications).map((key) => (
-                <div
-                  key={key}
-                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border rounded-lg p-4"
-                >
-                  <p className="font-semibold capitalize">
-                    {key.replace(/([A-Z])/g, " $1")}
-                  </p>
-                  <input
-                    type="checkbox"
-                    checked={notifications[key]}
-                    onChange={(e) =>
-                      setNotifications({ ...notifications, [key]: e.target.checked })
-                    }
-                    className="h-5 w-5 accent-[#f59e0b]"
-                  />
+          {/* Integration Grid: Responsive Cards */}
+          {activeTab === "integrations" && (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {integrations.map((item, idx) => (
+                <div key={idx} className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between hover:border-orange-200 transition-colors">
+                   <div className="flex items-center gap-4 mb-4">
+                      <div className="h-12 w-12 rounded-xl flex items-center justify-center text-white shrink-0" style={{backgroundColor: item.color}}>
+                        <i className={`${item.icon} text-xl`}></i>
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-800">{item.name}</h4>
+                        <p className="text-xs text-slate-500">{item.description}</p>
+                      </div>
+                   </div>
+                   <button className={`w-full py-2 rounded-lg text-sm font-bold transition-all ${
+                     item.status === 'connected' ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                   }`}>
+                     {item.status === 'connected' ? 'Disconnect' : 'Connect'}
+                   </button>
                 </div>
               ))}
             </div>
           )}
 
-          {/* SECURITY */}
-          {activeTab === "security" && (
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {[
-                  ["Session Timeout", "sessionTimeout"],
-                  ["Password Expiry", "passwordExpiry"],
-                  ["Login Attempts", "loginAttempts"],
-                ].map(([label, key]) => (
-                  <div key={key} className="flex flex-col gap-1">
-                    <label className="text-sm font-semibold">{label}</label>
-                    <input
-                      value={security[key]}
-                      onChange={(e) =>
-                        setSecurity({ ...security, [key]: e.target.value })
-                      }
-                      className="border rounded-lg p-3 focus:ring-2 focus:ring-[#f59e0b]"
-                    />
+          {/* Security & Notification: Toggle Items */}
+          {(activeTab === "notifications" || activeTab === "security") && (
+            <div className="space-y-4">
+                {/* Example of responsive toggle row */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-white rounded-2xl border border-slate-100 gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-500">
+                        <i className="ri-shield-keyhole-line text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-800 text-base">Two-Factor Authentication</h4>
+                      <p className="text-sm text-slate-500">Secure your account with SMS codes</p>
+                    </div>
                   </div>
-                ))}
-              </div>
+                  <label className="relative inline-flex cursor-pointer items-center self-end sm:self-center">
+                    <input type="checkbox" className="peer sr-only" />
+                    <div className="peer h-7 w-14 rounded-full bg-slate-200 after:absolute after:left-[4px] after:top-[4px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-[#10b981] peer-checked:after:translate-x-7"></div>
+                  </label>
+                </div>
             </div>
           )}
 
-          {/* BUSINESS */}
-          {activeTab === "business" && (
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {Object.keys(business).map((key) => (
-                  <div key={key} className="flex flex-col gap-1">
-                    <label className="text-sm font-semibold capitalize">
-                      {key.replace(/([A-Z])/g, " $1")}
-                    </label>
-                    <input
-                      value={business[key]}
-                      onChange={(e) =>
-                        setBusiness({ ...business, [key]: e.target.value })
-                      }
-                      className="border rounded-lg p-3 focus:ring-2 focus:ring-[#f59e0b]"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* INTEGRATIONS & BILLING KEEP SAME – already responsive */}
         </div>
       </div>
     </AdminLayout>

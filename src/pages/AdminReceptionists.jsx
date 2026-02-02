@@ -70,13 +70,13 @@ const AdminReceptionists = () => {
         },
     ]);
 
-    const [filterStatus, setFilterStatus] = useState("all");
-    const [filterShift, setFilterShift] = useState("all");
-    const [filterLocation, setFilterLocation] = useState("all");
+    const [filterStatus, setFilterStatus] = useState("All");
+    const [filterShift, setFilterShift] = useState("All");
+    const [filterLocation, setFilterLocation] = useState("All");
     const [searchTerm, setSearchTerm] = useState("");
 
-    const shifts = ["all", "Morning", "Afternoon", "Evening"];
-    const locations = ["all", "Main Office", "Branch Office"];
+    const shifts = ["All", "Morning", "Afternoon", "Evening"];
+    const locations = ["All", "Main Office", "Branch Office"];
 
     const getStatusStyles = (status) => {
         switch (status) {
@@ -106,11 +106,11 @@ const AdminReceptionists = () => {
 
     const filteredReceptionists = receptionists.filter((receptionist) => {
         const statusMatch =
-            filterStatus === "all" || receptionist.status === filterStatus;
+            filterStatus === "All" || receptionist.status === filterStatus;
         const shiftMatch =
-            filterShift === "all" || receptionist.shift === filterShift;
+            filterShift === "All" || receptionist.shift === filterShift;
         const locationMatch =
-            filterLocation === "all" || receptionist.location === filterLocation;
+            filterLocation === "All" || receptionist.location === filterLocation;
         const searchMatch =
             receptionist.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             receptionist.email.toLowerCase().includes(searchTerm.toLowerCase());
@@ -380,7 +380,7 @@ const AdminReceptionists = () => {
                             </p>
                             <button
                                 onClick={() => {
-                                    setFilterStatus("all");
+                                    setFilterStatus("ll");
                                     setFilterShift("all");
                                     setFilterLocation("all");
                                     setSearchTerm("");
@@ -530,14 +530,7 @@ const AdminReceptionists = () => {
                             of <span className="font-semibold">{receptionists.length}</span>{" "}
                             receptionists
                         </p>
-                        <div className="flex gap-2">
-                            <button className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium">
-                                Previous
-                            </button>
-                            <button className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium">
-                                Next
-                            </button>
-                        </div>
+                    
                     </div>
                 )}
             </div>
