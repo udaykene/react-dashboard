@@ -1,4 +1,5 @@
 import React from "react";
+import Certifications from "../components/Certifications";
 
 const SalonHistory = () => {
   const historyItems = [
@@ -256,33 +257,7 @@ const SalonHistory = () => {
       </div>
 
       {/* Trust Badges */}
-      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-6 sm:py-8 overflow-hidden border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-4">
-          <p className="text-center text-gray-400 text-xs sm:text-sm mb-4 sm:mb-6 uppercase tracking-wider">
-            Certified & Trusted By
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-12">
-            <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs sm:text-sm">✓</span>
-              </div>
-              <span className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-wide">ISO Certified</span>
-            </div>
-            <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs sm:text-sm">★</span>
-              </div>
-              <span className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-wide">Award Winning</span>
-            </div>
-            <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs sm:text-sm">♥</span>
-              </div>
-              <span className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-wide">Expert Certified</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <Certifications/>
     </div>
   );
 };

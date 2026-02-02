@@ -1,4 +1,5 @@
 import React from "react";
+import Certifications from "../components/Certifications";
 
 const SalonHome = () => {
   return (
@@ -21,11 +22,11 @@ const SalonHome = () => {
             Experience luxury treatments and transformative services tailored just for you.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 w-full sm:w-auto px-4 sm:px-0">
-            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-sm sm:text-base font-bold rounded-lg shadow-lg shadow-rose-500/30 transition-all flex items-center justify-center">
+          <div className="flex justify-center sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 w-full sm:w-auto px-4 sm:px-0">
+            <button className="w-fit sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-sm sm:text-base font-bold rounded-lg shadow-lg shadow-rose-500/30 transition-all flex items-center justify-center">
               Book Appointment <span className="ml-2">→</span>
             </button>
-            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white/20 text-white text-sm sm:text-base font-bold rounded-lg transition-all flex items-center justify-center">
+            <button className="w-fit sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white/20 text-white text-sm sm:text-base font-bold rounded-lg transition-all flex items-center justify-center">
               <span className="mr-2">▶</span> Virtual Tour
             </button>
           </div>
@@ -109,33 +110,7 @@ const SalonHome = () => {
       </section>
 
       {/* Trust Badges / Certifications */}
-      <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-6 sm:py-8 overflow-hidden border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-4">
-          <p className="text-center text-gray-400 text-xs sm:text-sm mb-4 sm:mb-6 uppercase tracking-wider">
-            Certified & Trusted By
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-12">
-            <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs sm:text-sm">✓</span>
-              </div>
-              <span className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-wide">ISO Certified</span>
-            </div>
-            <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs sm:text-sm">★</span>
-              </div>
-              <span className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-wide">Award Winning</span>
-            </div>
-            <div className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xs sm:text-sm">♥</span>
-              </div>
-              <span className="text-white font-semibold text-sm sm:text-base md:text-lg tracking-wide">Expert Certified</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Certifications/>
     </div>
   );
 };

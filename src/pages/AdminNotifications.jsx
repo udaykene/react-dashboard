@@ -416,7 +416,7 @@ const AdminNotifications = () => {
                     className="h-4 w-4 cursor-pointer accent-[#f59e0b] sm:h-5 sm:w-5"
                   /> */}
                     <div
-                      className="flex h-[50px] w-[50px] flex-shrink-0 items-center justify-center rounded-[10px] text-[1.5rem] text-white sm:h-[60px] sm:w-[60px] sm:rounded-[12px] sm:text-[1.75rem]"
+                      className="flex lg:hidden h-[50px] w-[50px] flex-shrink-0 items-center justify-center rounded-[10px] text-[1.5rem] text-white sm:h-[60px] sm:w-[60px] sm:rounded-[12px] sm:text-[1.75rem]"
                       style={{ backgroundColor: notification.color }}
                     >
                       <i className={notification.icon}></i>
@@ -425,7 +425,7 @@ const AdminNotifications = () => {
 
                   {/* Icon - Desktop */}
                   <div
-                    className="sm:hidden md:hidden h-[60px] w-[60px] flex-shrink-0 items-center justify-center rounded-[12px] text-[1.75rem] text-white lg:flex"
+                    className="hidden  lg:flex h-[60px] w-[60px] flex-shrink-0 items-center justify-center rounded-[12px] text-[1.75rem] text-white lg:flex"
                     style={{ backgroundColor: notification.color }}
                   >
                     <i className={notification.icon}></i>

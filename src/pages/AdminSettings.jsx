@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 
@@ -204,7 +205,7 @@ const AdminSettings = () => {
                   </div>
                   <label className="relative inline-flex cursor-pointer items-center self-end sm:self-center">
                     <input type="checkbox" className="peer sr-only" />
-                    <div className="peer h-7 w-14 rounded-full bg-slate-200 after:absolute after:left-[4px] after:top-[4px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-[#10b981] peer-checked:after:translate-x-7"></div>
+                    <div className="peer h-7 w-14 rounded-full bg-slate-200 after:absolute after:left-1 after:top-1 after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-[#10b981] peer-checked:after:translate-x-7"></div>
                   </label>
                 </div>
             </div>

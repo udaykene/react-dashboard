@@ -30,6 +30,7 @@ import AdminStaff from "./pages/AdminStaff.jsx";
 import AdminOffers from './pages/AdminOffers';
 import AdminNotifications from './pages/AdminNotifications';
 import AdminSettings from "./pages/AdminSettings.jsx";
+import RegistrationPage from "./pages/RegistrationPage.jsx";
 const App = () => {
 
   const location = useLocation();
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/activity" element={<Activity />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegistrationPage />} />
         <Route path="/history" element={<History />} />
         <Route path="/team" element={<Team />} />
 
