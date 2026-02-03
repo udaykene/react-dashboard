@@ -1,30 +1,20 @@
-import React, { useState, useEffect } from "react";
-import AdminSidebar from "./AdminSidebar.jsx";
-import AdminMobileHeader from "./AdminMobileHeader.jsx";
+import React from "react";
+import AdminSidebar from "./AdminSidebar";
 
 const AdminLayout = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  // Close sidebar when screen becomes desktop size
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setSidebarOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
-    <div className="flex min-h-screen w-full bg-[#f4f7fe]">
-      {/* AdminSidebar */}
+    <div className="min-h-screen bg-[#f4f7fe]">
       <AdminSidebar />
-      {/* Main Content Area */}
 
-      {/* Page Content */}
-      <main className="flex-1 overflow-y-auto bg-[#f4f7fe] py-4 sm:py-6 lg:py-8 px-4 sm:px-6 lg:px-8">
+      <main
+        className="
+          lg:ml-64
+          pt-16 lg:pt-6
+          px-4 sm:px-6 lg:px-8
+          pb-10
+          min-h-screen
+        "
+      >
         {children}
       </main>
     </div>
