@@ -76,10 +76,10 @@ const AdminStaff = () => {
   const departments = ["all", "Construction", "Design", "Finance", "Human Resources"];
 
   const getStatusStyles = (status) => {
-    if (status === "active") return "bg-green-100 text-green-800";
-    if (status === "on-leave") return "bg-yellow-100 text-yellow-800";
-    if (status === "inactive") return "bg-red-100 text-red-800";
-    return "bg-gray-100 text-gray-700";
+    if (status === "active") return "bg-green-100 text-green-700 border-green-200";
+    if (status === "on-leave") return "bg-yellow-100 text-yellow-700 border-yellow-200";
+    if (status === "inactive") return "bg-red-100 text-red-700 border-red-200";
+    return "bg-gray-100 text-gray-700 border-gray-200";
   };
 
   const getRoleIcon = (role) => {
@@ -97,63 +97,126 @@ const AdminStaff = () => {
   });
 
   return (
-    <div className="p-4 !important sm:p-6 !important lg:p-8 !important min-h-screen !important bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-7xl !important mx-auto !important space-y-6 !important">
+    <main className="min-h-screen !important bg-white !important lg:ml-64 !important pt-16 !important lg:pt-8 !important px-4 !important sm:px-6 !important lg:px-8 !important pb-10 !important">
+      {/* Header */}
+      <div className="mb-8 !important">
+        <h1 className="text-3xl !important sm:text-4xl !important font-bold !important text-gray-900 !important mb-2 !important">
+          Staff Management
+        </h1>
+        <p className="text-gray-600 !important">
+          Manage and track all staff members
+        </p>
+      </div>
 
-        {/* Header Section */}
-        <div className="flex !important flex-col !important sm:flex-row !important sm:items-center !important sm:justify-between !important gap-4 !important mb-6 !important">
-          <div>
-            <h1 className="text-2xl !important sm:text-3xl !important lg:text-4xl !important font-bold !important text-gray-800 !important mb-2 !important">
-              Staff Management
-            </h1>
-            <p className="text-sm !important sm:text-base !important text-gray-600 !important">
-              Manage and track all staff members
-            </p>
-          </div>
-
-          <button className="flex !important items-center !important justify-center !important gap-2 !important rounded-xl !important bg-gradient-to-r from-amber-500 to-orange-500 !important px-6 !important py-3 !important text-sm !important sm:text-base !important font-semibold !important text-white !important shadow-lg !important hover:shadow-xl !important hover:from-amber-600 !important hover:to-orange-600 !important transition-all !important duration-300 !important transform !important hover:scale-105 !important">
-            <i className="ri-user-add-line text-lg !important"></i>
-            <span>Add Staff</span>
-          </button>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid !important grid-cols-1 !important sm:grid-cols-2 !important lg:grid-cols-4 !important gap-4 !important lg:gap-6 !important mb-6 !important">
-          {[
-            { title: "Total Staff", value: staff.length, icon: "ri-team-line", gradient: "from-blue-500 to-blue-600" },
-            { title: "Active", value: staff.filter(s => s.status === "active").length, icon: "ri-user-follow-line", gradient: "from-green-500 to-green-600" },
-            { title: "On Leave", value: staff.filter(s => s.status === "on-leave").length, icon: "ri-time-line", gradient: "from-yellow-500 to-yellow-600" },
-            { title: "Departments", value: 4, icon: "ri-building-line", gradient: "from-purple-500 to-purple-600" },
-          ].map((stat, i) => (
-            <div key={i} className="bg-white !important rounded-2xl !important p-5 !important shadow-md !important hover:shadow-xl !important transition-all !important duration-300 !important transform !important hover:scale-105 !important">
-              <div className="flex !important items-center !important gap-4 !important">
-                <div className={`h-14 !important w-14 !important rounded-xl !important bg-gradient-to-br ${stat.gradient} !important text-white !important flex !important items-center !important justify-center !important text-2xl !important shadow-lg !important`}>
-                  <i className={stat.icon}></i>
-                </div>
-                <div className="flex-1 !important">
-                  <p className="text-xs !important sm:text-sm !important text-gray-500 !important font-medium !important mb-1 !important">{stat.title}</p>
-                  <h3 className="text-2xl !important sm:text-3xl !important font-bold !important text-gray-800 !important">{stat.value}</h3>
-                </div>
-              </div>
+      {/* Stats Grid */}
+      <div className="grid !important grid-cols-1 !important sm:grid-cols-2 !important lg:grid-cols-4 !important gap-6 !important mb-8 !important">
+        {/* Total Staff */}
+        <div className="bg-white !important rounded-2xl !important p-6 !important shadow-lg !important shadow-rose-500/5 !important border !important border-rose-100 !important hover:shadow-xl !important hover:shadow-rose-500/10 !important transition-all !important group !important">
+          <div className="flex !important items-center !important justify-between !important mb-4 !important">
+            <div className="w-12 !important h-12 !important rounded-xl !important bg-gradient-to-br from-rose-500 to-pink-500 !important flex !important items-center !important justify-center !important shadow-lg !important shadow-rose-500/30 !important group-hover:scale-110 !important transition-transform !important">
+              <i className="ri-team-line text-white !important text-2xl !important"></i>
             </div>
-          ))}
+            <span className="text-xs !important font-semibold !important text-green-600 !important bg-green-50 !important px-2 !important py-1 !important rounded-full !important">
+              All members
+            </span>
+          </div>
+          <h3 className="text-gray-600 !important text-sm !important font-medium !important mb-1 !important">
+            Total Staff
+          </h3>
+          <p className="text-3xl !important font-bold !important text-gray-900 !important">
+            {staff.length}
+          </p>
+          <p className="text-xs !important text-gray-500 !important mt-2 !important">
+            Across all departments
+          </p>
         </div>
 
-        {/* Filters Section */}
-        <div className="bg-white !important rounded-2xl !important p-5 !important lg:p-6 !important shadow-md !important mb-6 !important">
-          <h3 className="text-base !important sm:text-lg !important font-bold !important text-gray-800 !important mb-4 !important">Filters</h3>
+        {/* Active Staff */}
+        <div className="bg-white !important rounded-2xl !important p-6 !important shadow-lg !important shadow-pink-500/5 !important border !important border-pink-100 !important hover:shadow-xl !important hover:shadow-pink-500/10 !important transition-all !important group !important">
+          <div className="flex !important items-center !important justify-between !important mb-4 !important">
+            <div className="w-12 !important h-12 !important rounded-xl !important bg-gradient-to-br from-pink-500 to-rose-500 !important flex !important items-center !important justify-center !important shadow-lg !important shadow-pink-500/30 !important group-hover:scale-110 !important transition-transform !important">
+              <i className="ri-user-follow-line text-white !important text-2xl !important"></i>
+            </div>
+            <span className="text-xs !important font-semibold !important text-green-600 !important bg-green-50 !important px-2 !important py-1 !important rounded-full !important">
+              On duty
+            </span>
+          </div>
+          <h3 className="text-gray-600 !important text-sm !important font-medium !important mb-1 !important">
+            Active Staff
+          </h3>
+          <p className="text-3xl !important font-bold !important text-gray-900 !important">
+            {staff.filter(s => s.status === "active").length}
+          </p>
+          <p className="text-xs !important text-gray-500 !important mt-2 !important">
+            Working today
+          </p>
+        </div>
 
+        {/* On Leave */}
+        <div className="bg-white !important rounded-2xl !important p-6 !important shadow-lg !important shadow-purple-500/5 !important border !important border-purple-100 !important hover:shadow-xl !important hover:shadow-purple-500/10 !important transition-all !important group !important">
+          <div className="flex !important items-center !important justify-between !important mb-4 !important">
+            <div className="w-12 !important h-12 !important rounded-xl !important bg-gradient-to-br from-purple-500 to-pink-500 !important flex !important items-center !important justify-center !important shadow-lg !important shadow-purple-500/30 !important group-hover:scale-110 !important transition-transform !important">
+              <i className="ri-time-line text-white !important text-2xl !important"></i>
+            </div>
+            <span className="text-xs !important font-semibold !important text-yellow-600 !important bg-yellow-50 !important px-2 !important py-1 !important rounded-full !important">
+              Unavailable
+            </span>
+          </div>
+          <h3 className="text-gray-600 !important text-sm !important font-medium !important mb-1 !important">
+            On Leave
+          </h3>
+          <p className="text-3xl !important font-bold !important text-gray-900 !important">
+            {staff.filter(s => s.status === "on-leave").length}
+          </p>
+          <p className="text-xs !important text-gray-500 !important mt-2 !important">
+            Currently away
+          </p>
+        </div>
+
+        {/* Departments */}
+        <div className="bg-white !important rounded-2xl !important p-6 !important shadow-lg !important shadow-blue-500/5 !important border !important border-blue-100 !important hover:shadow-xl !important hover:shadow-blue-500/10 !important transition-all !important group !important">
+          <div className="flex !important items-center !important justify-between !important mb-4 !important">
+            <div className="w-12 !important h-12 !important rounded-xl !important bg-gradient-to-br from-blue-500 to-cyan-500 !important flex !important items-center !important justify-center !important shadow-lg !important shadow-blue-500/30 !important group-hover:scale-110 !important transition-transform !important">
+              <i className="ri-building-line text-white !important text-2xl !important"></i>
+            </div>
+            <span className="text-xs !important font-semibold !important text-blue-600 !important bg-blue-50 !important px-2 !important py-1 !important rounded-full !important">
+              Active
+            </span>
+          </div>
+          <h3 className="text-gray-600 !important text-sm !important font-medium !important mb-1 !important">
+            Departments
+          </h3>
+          <p className="text-3xl !important font-bold !important text-gray-900 !important">
+            4
+          </p>
+          <p className="text-xs !important text-gray-500 !important mt-2 !important">
+            All operational
+          </p>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white !important rounded-2xl !important shadow-lg !important border !important border-gray-100 !important overflow-hidden !important mb-6 !important">
+        <div className="p-6 !important border-b !important border-gray-100 !important bg-gradient-to-r from-rose-50 to-pink-50 !important">
+          <h2 className="text-xl !important font-bold !important text-gray-900 !important flex !important items-center !important gap-2 !important">
+            <i className="ri-filter-line text-rose-600 !important"></i>
+            Filter Staff
+          </h2>
+        </div>
+        <div className="p-6 !important space-y-4 !important">
           {/* Status Filter */}
-          <div className="mb-4 !important">
-            <label className="text-sm !important font-semibold !important text-gray-700 !important mb-2 !important block !important">Status</label>
+          <div>
+            <label className="text-sm !important font-semibold !important text-gray-700 !important mb-2 !important block !important">
+              Status
+            </label>
             <div className="flex !important gap-2 !important overflow-x-auto !important pb-2 !important">
               {["all", "active", "on-leave", "inactive"].map((s) => (
                 <button
                   key={s}
                   onClick={() => setFilterStatus(s)}
-                  className={`px-4 !important py-2 !important rounded-lg !important text-sm !important font-semibold !important whitespace-nowrap !important transition-all !important duration-300 !important ${filterStatus === s
-                    ? "bg-gradient-to-r from-amber-500 to-orange-500 !important text-white !important shadow-md !important"
-                    : "bg-gray-100 !important text-gray-600 !important hover:bg-gray-200 !important"
+                  className={`px-4 !important py-2 !important rounded-lg !important text-sm !important font-semibold !important whitespace-nowrap !important transition-all !important ${filterStatus === s
+                      ? "bg-gradient-to-r from-rose-500 to-pink-500 !important text-white !important shadow-lg !important shadow-rose-500/30 !important"
+                      : "bg-gray-100 !important text-gray-600 !important hover:bg-gray-200 !important"
                     }`}
                 >
                   {s === "all" ? "All Status" : s.charAt(0).toUpperCase() + s.slice(1)}
@@ -164,15 +227,17 @@ const AdminStaff = () => {
 
           {/* Department Filter */}
           <div>
-            <label className="text-sm !important font-semibold !important text-gray-700 !important mb-2 !important block !important">Department</label>
+            <label className="text-sm !important font-semibold !important text-gray-700 !important mb-2 !important block !important">
+              Department
+            </label>
             <div className="flex !important gap-2 !important overflow-x-auto !important pb-2 !important">
               {departments.map((d) => (
                 <button
                   key={d}
                   onClick={() => setFilterDepartment(d)}
-                  className={`px-4 !important py-2 !important rounded-lg !important text-sm !important font-semibold !important whitespace-nowrap !important transition-all !important duration-300 !important ${filterDepartment === d
-                    ? "bg-gradient-to-r from-amber-500 to-orange-500 !important text-white !important shadow-md !important"
-                    : "bg-gray-100 !important text-gray-600 !important hover:bg-gray-200 !important"
+                  className={`px-4 !important py-2 !important rounded-lg !important text-sm !important font-semibold !important whitespace-nowrap !important transition-all !important ${filterDepartment === d
+                      ? "bg-gradient-to-r from-rose-500 to-pink-500 !important text-white !important shadow-lg !important shadow-rose-500/30 !important"
+                      : "bg-gray-100 !important text-gray-600 !important hover:bg-gray-200 !important"
                     }`}
                 >
                   {d === "all" ? "All Departments" : d}
@@ -181,44 +246,61 @@ const AdminStaff = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Staff Cards */}
-        <div className="grid !important grid-cols-1 !important gap-4 !important lg:gap-6 !important">
+      {/* Staff List */}
+      <div className="bg-white !important rounded-2xl !important shadow-lg !important border !important border-gray-100 !important overflow-hidden !important">
+        <div className="p-6 !important border-b !important border-gray-100 !important bg-gradient-to-r from-purple-50 to-pink-50 !important">
+          <div className="flex !important items-center !important justify-between !important">
+            <h2 className="text-xl !important font-bold !important text-gray-900 !important flex !important items-center !important gap-2 !important">
+              <i className="ri-team-line text-purple-600 !important"></i>
+              Staff Members
+            </h2>
+            <button className="flex !important items-center !important gap-2 !important rounded-lg !important bg-gradient-to-r from-rose-500 to-pink-500 !important px-4 !important py-2 !important text-sm !important font-semibold !important text-white !important shadow-lg !important shadow-rose-500/30 !important hover:shadow-xl !important hover:from-rose-600 !important hover:to-pink-600 !important transition-all !important">
+              <i className="ri-user-add-line"></i>
+              Add Staff
+            </button>
+          </div>
+        </div>
+
+        <div className="divide-y !important divide-gray-100 !important">
           {filteredStaff.map((member) => (
             <div
               key={member.id}
-              className="bg-white !important rounded-2xl !important p-5 !important lg:p-6 !important shadow-md !important hover:shadow-xl !important transition-all !important duration-300 !important"
+              className="p-6 !important hover:bg-rose-50/30 !important transition-colors !important group !important"
             >
-              <div className="flex !important flex-col !important lg:flex-row !important gap-5 !important">
+              <div className="flex !important flex-col !important lg:flex-row !important gap-4 !important lg:items-center !important lg:justify-between !important">
                 {/* Left Section - Staff Info */}
                 <div className="flex !important gap-4 !important flex-1 !important">
-                  <div className="h-16 !important w-16 !important sm:h-20 !important sm:w-20 !important rounded-2xl !important bg-gradient-to-br from-amber-500 to-orange-500 !important text-white !important flex !important items-center !important justify-center !important text-2xl !important sm:text-3xl !important shadow-lg !important flex-shrink-0 !important">
-                    <i className={getRoleIcon(member.role)}></i>
+                  <div className="w-12 !important h-12 !important rounded-full !important bg-gradient-to-br from-rose-100 to-pink-100 !important flex !important items-center !important justify-center !important text-rose-600 !important font-bold !important border-2 !important border-rose-200 !important text-xl !important flex-shrink-0 !important">
+                    {member.name.charAt(0)}
                   </div>
 
                   <div className="flex-1 !important min-w-0 !important">
-                    <div className="flex !important flex-wrap !important items-center !important gap-2 !important mb-2 !important">
-                      <h3 className="font-bold !important text-lg !important sm:text-xl !important text-gray-800 !important">{member.name}</h3>
-                      <span className={`px-3 !important py-1 !important rounded-lg !important text-xs !important font-semibold !important ${getStatusStyles(member.status)}`}>
-                        {member.status}
+                    <div className="flex !important flex-wrap !important items-center !important gap-2 !important mb-1 !important">
+                      <h3 className="font-bold !important text-gray-900 !important text-base !important sm:text-lg !important">
+                        {member.name}
+                      </h3>
+                      <span className={`px-3 !important py-1 !important rounded-full !important text-xs !important font-semibold !important border !important ${getStatusStyles(member.status)}`}>
+                        {member.status.charAt(0).toUpperCase() + member.status.slice(1)}
                       </span>
                     </div>
 
-                    <p className="text-sm !important sm:text-base !important text-amber-600 !important font-semibold !important mb-3 !important">
+                    <p className="text-sm !important text-gray-600 !important mb-2 !important font-medium !important">
                       {member.role}
                     </p>
 
                     <div className="flex !important flex-col !important sm:flex-row !important sm:flex-wrap !important gap-2 !important sm:gap-4 !important text-sm !important text-gray-600 !important">
                       <span className="flex !important items-center !important gap-1 !important">
-                        <i className="ri-mail-line text-amber-500 !important"></i>
+                        <i className="ri-mail-line text-rose-500 !important"></i>
                         {member.email}
                       </span>
                       <span className="flex !important items-center !important gap-1 !important">
-                        <i className="ri-phone-line text-amber-500 !important"></i>
+                        <i className="ri-phone-line text-rose-500 !important"></i>
                         {member.phone}
                       </span>
                       <span className="flex !important items-center !important gap-1 !important">
-                        <i className="ri-building-line text-amber-500 !important"></i>
+                        <i className="ri-building-line text-rose-500 !important"></i>
                         {member.department}
                       </span>
                     </div>
@@ -226,46 +308,50 @@ const AdminStaff = () => {
                 </div>
 
                 {/* Right Section - Details & Actions */}
-                <div className="flex !important flex-col !important sm:flex-row !important lg:flex-col !important items-start !important lg:items-end !important justify-between !important sm:justify-start !important lg:justify-between !important gap-4 !important border-t !important lg:border-t-0 !important lg:border-l !important border-gray-200 !important pt-4 !important lg:pt-0 !important lg:pl-6 !important min-w-fit !important">
-                  <div className="flex !important flex-col !important gap-2 !important">
-                    <span className="text-xs !important sm:text-sm !important text-gray-500 !important font-medium !important">
-                      Joined: <span className="text-gray-700 !important font-semibold !important">{member.joinDate}</span>
+                <div className="flex !important flex-col !important sm:flex-row !important lg:flex-col !important items-start !important lg:items-end !important gap-3 !important border-t !important sm:border-t-0 !important lg:border-t-0 !important lg:border-l !important border-gray-100 !important pt-3 !important sm:pt-0 !important lg:pl-6 !important">
+                  <div className="flex !important flex-col !important gap-1 !important">
+                    <span className="text-xs !important text-gray-500 !important">
+                      Joined: <span className="font-semibold !important text-gray-700 !important">{member.joinDate}</span>
                     </span>
-                    <span className="text-xl !important sm:text-2xl !important font-bold !important text-gray-800 !important">{member.salary}</span>
+                    <span className="text-2xl !important font-bold !important text-gray-900 !important">
+                      {member.salary}
+                    </span>
                   </div>
 
-                  <div className="flex !important gap-2 !important flex-wrap !important">
-                    {[
-                      { icon: "eye", color: "from-blue-500 to-blue-600" },
-                      { icon: "edit", color: "from-green-500 to-green-600" },
-                      { icon: "mail", color: "from-purple-500 to-purple-600" },
-                      { icon: "delete-bin", color: "from-red-500 to-red-600" }
-                    ].map((action) => (
-                      <button
-                        key={action.icon}
-                        className={`h-10 !important w-10 !important rounded-lg !important bg-gradient-to-br ${action.color} !important text-white !important flex !important items-center !important justify-center !important shadow-md !important hover:shadow-lg !important transition-all !important duration-300 !important transform !important hover:scale-110 !important`}
-                      >
-                        <i className={`ri-${action.icon}-line text-base !important`}></i>
-                      </button>
-                    ))}
+                  <div className="flex !important gap-2 !important">
+                    <button className="w-9 !important h-9 !important rounded-lg !important bg-gradient-to-br from-blue-500 to-cyan-500 !important text-white !important flex !important items-center !important justify-center !important shadow-md !important hover:shadow-lg !important transition-all !important hover:scale-110 !important">
+                      <i className="ri-eye-line"></i>
+                    </button>
+                    <button className="w-9 !important h-9 !important rounded-lg !important bg-gradient-to-br from-green-500 to-emerald-500 !important text-white !important flex !important items-center !important justify-center !important shadow-md !important hover:shadow-lg !important transition-all !important hover:scale-110 !important">
+                      <i className="ri-edit-line"></i>
+                    </button>
+                    <button className="w-9 !important h-9 !important rounded-lg !important bg-gradient-to-br from-purple-500 to-pink-500 !important text-white !important flex !important items-center !important justify-center !important shadow-md !important hover:shadow-lg !important transition-all !important hover:scale-110 !important">
+                      <i className="ri-mail-line"></i>
+                    </button>
+                    <button className="w-9 !important h-9 !important rounded-lg !important bg-gradient-to-br from-red-500 to-rose-500 !important text-white !important flex !important items-center !important justify-center !important shadow-md !important hover:shadow-lg !important transition-all !important hover:scale-110 !important">
+                      <i className="ri-delete-bin-line"></i>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Empty State */}
-        {filteredStaff.length === 0 && (
-          <div className="bg-white !important rounded-2xl !important p-12 !important text-center !important shadow-md !important">
-            <i className="ri-user-search-line text-6xl !important text-gray-300 !important mb-4 !important"></i>
-            <h3 className="text-xl !important font-bold !important text-gray-800 !important mb-2 !important">No Staff Found</h3>
-            <p className="text-gray-600 !important">Try adjusting your filters to see more results.</p>
-          </div>
-        )}
-
       </div>
-    </div>
+
+      {/* Empty State */}
+      {filteredStaff.length === 0 && (
+        <div className="bg-white !important rounded-2xl !important p-12 !important text-center !important shadow-lg !important border !important border-gray-100 !important">
+          <i className="ri-user-search-line text-6xl !important text-gray-300 !important mb-4 !important block !important"></i>
+          <h3 className="text-xl !important font-bold !important text-gray-900 !important mb-2 !important">
+            No Staff Found
+          </h3>
+          <p className="text-gray-600 !important">
+            Try adjusting your filters to see more results.
+          </p>
+        </div>
+      )}
+    </main>
   );
 };
 
