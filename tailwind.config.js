@@ -1,8 +1,17 @@
 /** @type {import('tailwindcss').Config} */
-export const content = [
-    "./src/**/*.{html,js,jsx,ts,tsx}", // Adjust this to match your file structure
-];
-export const theme = {
-    extend: {},
-};
-export const plugins = [];
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          500: '#f43f5e',
+        }
+      }
+    },
+  },
+  plugins: [],
+}

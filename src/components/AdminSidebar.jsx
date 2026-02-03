@@ -6,8 +6,16 @@ const AdminSidebar = () => {
   const [open, setOpen] = useState(false);
 
   const menuItems = [
-    { title: "Dashboard", icon: "ri-dashboard-3-line", path: "/admin/dashboard" },
-    { title: "Appointments", icon: "ri-calendar-check-line", path: "/admin/appointments" },
+    {
+      title: "Dashboard",
+      icon: "ri-dashboard-3-line",
+      path: "/admin/dashboard",
+    },
+    {
+      title: "Appointments",
+      icon: "ri-calendar-check-line",
+      path: "/admin/appointments",
+    },
     { title: "Clients", icon: "ri-user-heart-line", path: "/admin/clients" },
     { title: "Services", icon: "ri-scissors-2-line", path: "/admin/services" },
     { title: "Staff", icon: "ri-team-line", path: "/admin/staff" },
@@ -59,10 +67,11 @@ const AdminSidebar = () => {
       </div>
 
       {/* ===== Desktop Sidebar ===== */}
-      <aside className="hidden lg:flex lg:flex-col fixed left-0 top-0 h-screen w-64 bg-white border-r">
+      <aside className="hidden lg:flex! lg:flex-col fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 z-50">
         <SidebarContent />
       </aside>
 
+    
       {/* ===== Mobile Sidebar Drawer ===== */}
       <div
         className={`lg:hidden fixed inset-0 z-50 transition ${

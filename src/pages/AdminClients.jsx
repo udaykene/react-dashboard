@@ -1,20 +1,9 @@
 import React, { useState } from "react";
+import AdminLayout from "../components/AdminLayout";
 
 const SalonAdminClients = () => {
-  const [activeNav, setActiveNav] = useState("Clients");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [filterStatus, setFilterStatus] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-
-  const navItems = [
-    { label: "Dashboard", icon: "📊" },
-    { label: "Appointments", icon: "📅" },
-    { label: "Clients", icon: "👥" },
-    { label: "Services", icon: "✂️" },
-    { label: "Gallery", icon: "🖼️" },
-    { label: "Revenue", icon: "💰" },
-    { label: "Settings", icon: "⚙️" },
-  ];
 
   const [clients] = useState([
     {
@@ -51,7 +40,7 @@ const SalonAdminClients = () => {
       visits: 3,
       spent: "$310",
       avatar: "L",
-      gradient: "from-fuchsia-500 to-purple-500",
+      gradient: "from-purple-500 to-pink-500",
     },
     {
       id: 4,
@@ -63,7 +52,7 @@ const SalonAdminClients = () => {
       visits: 21,
       spent: "$2,100",
       avatar: "J",
-      gradient: "from-purple-500 to-rose-500",
+      gradient: "from-blue-500 to-cyan-500",
     },
     {
       id: 5,
@@ -93,8 +82,11 @@ const SalonAdminClients = () => {
 
   // ── derived ──────────────────────────────────
   const counts = clients.reduce(
-    (acc, c) => { acc[c.status] = (acc[c.status] || 0) + 1; return acc; },
-    { active: 0, inactive: 0 }
+    (acc, c) => {
+      acc[c.status] = (acc[c.status] || 0) + 1;
+      return acc;
+    },
+    { active: 0, inactive: 0 },
   );
 
   const filtered = clients.filter((c) => {
@@ -112,190 +104,254 @@ const SalonAdminClients = () => {
 
   // ══════════════════════════════════════════════
   return (
-    <div className="flex min-h-screen bg-gray-100 w-full overflow-x-hidden">
-
-      {/* ── mobile overlay ── */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
-      )}
-
-      {/* ── sidebar ── */}
-      <aside className={`fixed top-0 left-0 z-30 h-full w-64 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto flex flex-col ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="flex items-center justify-between p-5 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-lg shadow-lg">✂️</div>
-            <div>
-              <h1 className="font-bold text-base leading-tight">Skin & Soul Studio</h1>
-              <p className="text-xs text-gray-400">Beauty & Wellness</p>
-            </div>
-          </div>
-          <button className="lg:hidden text-gray-400 hover:text-white text-xl" onClick={() => setSidebarOpen(false)}>✕</button>
+    <AdminLayout>
+      {/* Main Content */}
+      <main className="bg-white lg:ml-64 pt-16 lg:pt-8 px-4 sm:px-6 lg:px-8 pb-10">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+            Clients
+          </h1>
+          <p className="text-gray-600">
+            Manage and track all registered clients
+          </p>
         </div>
 
-        <nav className="p-4 space-y-1 flex-1">
-          {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => { setActiveNav(item.label); setSidebarOpen(false); }}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${activeNav === item.label ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/20" : "text-gray-400 hover:text-white hover:bg-white/10"}`}
-            >
-              <span className="text-lg">{item.icon}</span>
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="p-4 border-t border-white/10">
-          <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition cursor-pointer">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-sm font-bold">A</div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold truncate">Admin</p>
-              <p className="text-xs text-gray-500 truncate">admin@bella.com</p>
-            </div>
-            <span className="text-gray-500 text-xs">▼</span>
-          </div>
-        </div>
-      </aside>
-
-      {/* ── main shell ── */}
-      <div className="flex-1 flex flex-col min-w-0">
-
-        {/* ── top navbar ── */}
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <button className="lg:hidden text-gray-600 hover:text-rose-500 text-2xl" onClick={() => setSidebarOpen(true)}>☰</button>
-            <div>
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900">Clients</h2>
-              <p className="text-xs text-gray-500 hidden sm:block">Manage and track all registered clients</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <button className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-sm font-bold rounded-lg shadow-md shadow-rose-500/30 transition-all">
-              <span>+</span> New Client
-            </button>
-            <button className="relative p-2 rounded-xl hover:bg-gray-100 transition">
-              <span className="text-xl">🔔</span>
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
-            </button>
-          </div>
-        </header>
-
-        {/* ── page body ── */}
-        <main className="flex-1 p-4 sm:p-6 overflow-auto">
-
-          {/* ── summary mini-cards ── */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
-            {[
-              { label: "Total Clients",   val: clients.length,   gradient: "from-rose-500 to-pink-500",      icon: "👥" },
-              { label: "Active",          val: counts.active,    gradient: "from-emerald-500 to-teal-500",   icon: "✅" },
-              { label: "Inactive",        val: counts.inactive,  gradient: "from-red-400 to-rose-500",       icon: "⚠️" },
-              { label: "Total Revenue",   val: `$${totalSpent.toLocaleString()}`, gradient: "from-purple-500 to-fuchsia-500", icon: "💰" },
-            ].map((s, i) => (
-              <div key={i} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center gap-3 hover:shadow-md transition-all">
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${s.gradient} flex items-center justify-center text-lg shadow-md shrink-0`}>{s.icon}</div>
-                <div className="min-w-0">
-                  <p className="text-xl font-bold text-gray-900 leading-tight truncate">{s.val}</p>
-                  <p className="text-xs text-gray-500">{s.label}</p>
-                </div>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Total Clients */}
+          <div className="bg-white rounded-2xl p-6 shadow-lg shadow-rose-500/5 border border-rose-100 hover:shadow-xl hover:shadow-rose-500/10 transition-all group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center shadow-lg shadow-rose-500/30 group-hover:scale-110 transition-transform">
+                <i className="ri-team-line text-white text-2xl"></i>
               </div>
-            ))}
+              <span className="text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-1 rounded-full">
+                Total
+              </span>
+            </div>
+            <h3 className="text-gray-600 text-sm font-medium mb-1">
+              Total Clients
+            </h3>
+            <p className="text-3xl font-bold text-gray-900">
+              {clients.length}
+            </p>
+            <p className="text-xs text-gray-500 mt-2">Registered users</p>
           </div>
 
-          {/* ── filter bar ── */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex flex-col sm:flex-row gap-3 mb-5">
+          {/* Active Clients */}
+          <div className="bg-white rounded-2xl p-6 shadow-lg shadow-green-500/5 border border-green-100 hover:shadow-xl hover:shadow-green-500/10 transition-all group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
+                <i className="ri-user-heart-line text-white text-2xl"></i>
+              </div>
+              <span className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                +{Math.floor((counts.active / clients.length) * 100)}%
+              </span>
+            </div>
+            <h3 className="text-gray-600 text-sm font-medium mb-1">
+              Active Clients
+            </h3>
+            <p className="text-3xl font-bold text-gray-900">
+              {counts.active}
+            </p>
+            <p className="text-xs text-gray-500 mt-2">Regular visitors</p>
+          </div>
+
+          {/* Inactive Clients */}
+          <div className="bg-white rounded-2xl p-6 shadow-lg shadow-red-500/5 border border-red-100 hover:shadow-xl hover:shadow-red-500/10 transition-all group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-rose-500 flex items-center justify-center shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform">
+                <i className="ri-user-unfollow-line text-white text-2xl"></i>
+              </div>
+              <span className="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded-full">
+                Inactive
+              </span>
+            </div>
+            <h3 className="text-gray-600 text-sm font-medium mb-1">
+              Inactive Clients
+            </h3>
+            <p className="text-3xl font-bold text-gray-900">
+              {counts.inactive}
+            </p>
+            <p className="text-xs text-gray-500 mt-2">Need attention</p>
+          </div>
+
+          {/* Total Revenue */}
+          <div className="bg-white rounded-2xl p-6 shadow-lg shadow-purple-500/5 border border-purple-100 hover:shadow-xl hover:shadow-purple-500/10 transition-all group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+                <i className="ri-money-dollar-circle-line text-white text-2xl"></i>
+              </div>
+              <span className="text-xs font-semibold text-purple-600 bg-purple-50 px-2 py-1 rounded-full">
+                All time
+              </span>
+            </div>
+            <h3 className="text-gray-600 text-sm font-medium mb-1">
+              Total Revenue
+            </h3>
+            <p className="text-3xl font-bold text-gray-900">
+              ${totalSpent.toLocaleString()}
+            </p>
+            <p className="text-xs text-gray-500 mt-2">From all clients</p>
+          </div>
+        </div>
+
+        {/* Filter and Search Bar */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-6">
+          <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+            {/* Status Filter Pills */}
             <div className="flex flex-wrap gap-2">
               {["all", "active", "inactive"].map((s) => (
                 <button
                   key={s}
                   onClick={() => setFilterStatus(s)}
-                  className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold border transition-all ${
+                  className={`px-4 py-2 rounded-xl text-sm font-semibold border-2 transition-all ${
                     filterStatus === s
-                      ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white border-transparent shadow-md shadow-rose-500/25"
-                      : "bg-gray-50 text-gray-600 border-gray-200 hover:border-rose-300 hover:bg-rose-50"
+                      ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white border-transparent shadow-lg shadow-rose-500/30"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-rose-300 hover:bg-rose-50"
                   }`}
                 >
                   <span className="capitalize">{s}</span>
-                  <span className="ml-1.5 opacity-60">
+                  <span className="ml-1.5 opacity-75">
                     ({s === "all" ? clients.length : counts[s]})
                   </span>
                 </button>
               ))}
             </div>
 
-            <div className="flex items-center bg-gray-50 border border-gray-200 focus-within:border-rose-400 focus-within:ring-2 focus-within:ring-rose-200 rounded-xl px-4 py-2 w-full sm:w-72 ml-auto transition-all">
-              <span className="text-gray-400 mr-2">🔍</span>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search by name, email or location…"
-                className="bg-transparent outline-none text-sm w-full text-gray-700 placeholder-gray-400"
-              />
+            {/* Search Box */}
+            <div className="w-full lg:w-auto">
+              <div className="relative">
+                <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search by name, email or location..."
+                  className="w-full lg:w-80 pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-rose-500 focus:bg-white transition-all text-sm"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Clients List */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-rose-50 to-pink-50">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <i className="ri-user-3-line text-rose-600"></i>
+                All Clients ({filtered.length})
+              </h2>
+              <button className="px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-sm font-bold rounded-lg shadow-lg shadow-rose-500/30 transition-all flex items-center gap-2">
+                <i className="ri-user-add-line text-lg"></i>
+                New Client
+              </button>
             </div>
           </div>
 
-          {/* ── client cards ── */}
-          <div className="flex flex-col gap-3">
-
-            {/* empty state */}
-            {filtered.length === 0 && (
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center">
-                <p className="text-5xl mb-3">👤</p>
-                <h3 className="text-lg font-bold text-gray-800 mb-1">No clients found</h3>
-                <p className="text-gray-500 text-sm">Try adjusting your search or filters.</p>
+          {filtered.length === 0 ? (
+            <div className="p-12 text-center">
+              <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <i className="ri-user-search-line text-4xl text-gray-400"></i>
               </div>
-            )}
+              <p className="text-gray-500 font-medium text-lg">
+                No clients found
+              </p>
+              <p className="text-gray-400 text-sm mt-1">
+                Try adjusting your search or filters
+              </p>
+            </div>
+          ) : (
+            <div className="divide-y divide-gray-100">
+              {filtered.map((client) => (
+                <div
+                  key={client.id}
+                  className="p-6 hover:bg-rose-50/30 transition-colors group"
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    {/* Client Info */}
+                    <div className="flex items-start gap-4 flex-1">
+                      <div
+                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${client.gradient} flex items-center justify-center text-white text-xl font-bold shadow-lg shrink-0`}
+                      >
+                        {client.avatar}
+                      </div>
 
-            {filtered.map((client) => (
-              <div
-                key={client.id}
-                className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-rose-200 transition-all p-4 sm:p-5 flex flex-col lg:flex-row gap-4"
-              >
-                {/* avatar + info */}
-                <div className="flex gap-4 flex-1">
-                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${client.gradient} flex items-center justify-center text-white text-lg font-bold shadow-md shrink-0`}>
-                    {client.avatar}
-                  </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                          <h3 className="font-bold text-gray-900 text-lg">
+                            {client.name}
+                          </h3>
+                          <span
+                            className={`text-xs font-semibold px-3 py-1 rounded-full capitalize border ${
+                              client.status === "active"
+                                ? "bg-green-100 text-green-700 border-green-200"
+                                : "bg-red-100 text-red-700 border-red-200"
+                            }`}
+                          >
+                            {client.status}
+                          </span>
+                        </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="font-bold text-gray-900 text-base">{client.name}</h3>
-                      <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full capitalize ${client.status === "active" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
-                        {client.status}
-                      </span>
+                        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
+                          <span className="flex items-center gap-2">
+                            <i className="ri-map-pin-line text-rose-500"></i>
+                            {client.location}
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <i className="ri-mail-line text-rose-500"></i>
+                            {client.email}
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <i className="ri-phone-line text-rose-500"></i>
+                            {client.phone}
+                          </span>
+                        </div>
+
+                        {/* Stats Pills */}
+                        <div className="flex flex-wrap gap-2">
+                          <span className="flex items-center gap-2 bg-rose-50 text-rose-600 text-xs font-semibold px-3 py-1.5 rounded-lg border border-rose-200">
+                            <i className="ri-scissors-2-line"></i>
+                            {client.visits} visits
+                          </span>
+                          <span className="flex items-center gap-2 bg-pink-50 text-pink-600 text-xs font-semibold px-3 py-1.5 rounded-lg border border-pink-200">
+                            <i className="ri-wallet-3-line"></i>
+                            {client.spent} spent
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-3 text-xs text-gray-500 mb-2">
-                      <span className="flex items-center gap-1.5">📍 {client.location}</span>
-                      <span className="flex items-center gap-1.5">✉️ {client.email}</span>
-                      <span className="flex items-center gap-1.5">📞 {client.phone}</span>
-                    </div>
-
-                    {/* mini stats row */}
-                    <div className="flex flex-wrap gap-2">
-                      <span className="flex items-center gap-1.5 bg-rose-50 text-rose-600 text-xs font-semibold px-2.5 py-1 rounded-lg">
-                        💇 {client.visits} visits
-                      </span>
-                      <span className="flex items-center gap-1.5 bg-pink-50 text-pink-600 text-xs font-semibold px-2.5 py-1 rounded-lg">
-                        💰 {client.spent} spent
-                      </span>
+                    {/* Actions */}
+                    <div className="flex gap-2">
+                      <button
+                        className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center border-2 border-rose-200 hover:border-rose-500 shadow-sm"
+                        title="View Details"
+                      >
+                        <i className="ri-eye-line text-lg"></i>
+                      </button>
+                      <button
+                        className="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 hover:bg-pink-500 hover:text-white transition-all flex items-center justify-center border-2 border-pink-200 hover:border-pink-500 shadow-sm"
+                        title="Edit"
+                      >
+                        <i className="ri-edit-line text-lg"></i>
+                      </button>
+                      <button
+                        className="w-10 h-10 rounded-xl bg-red-50 text-red-600 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center border-2 border-red-200 hover:border-red-500 shadow-sm"
+                        title="Delete"
+                      >
+                        <i className="ri-delete-bin-line text-lg"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
-
-                {/* actions */}
-                <div className="flex items-center gap-2 justify-end">
-                  <button className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-500 hover:text-white transition flex items-center justify-center text-base">👁</button>
-                  <button className="w-9 h-9 rounded-xl bg-pink-50 text-pink-600 hover:bg-pink-500 hover:text-white transition flex items-center justify-center text-base">✎</button>
-                  <button className="w-9 h-9 rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center text-base">🗑</button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </main>
-      </div>
-    </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+    </AdminLayout>
   );
 };
 
