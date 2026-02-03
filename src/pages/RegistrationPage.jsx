@@ -30,9 +30,9 @@ const SalonRegister = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
       {/* Left Side - Registration Form */}
-      <div className="w-full  lg:w-1/2 flex items-center justify-center px-6 sm:px-8 lg:px-14 py-12 bg-white overflow-y-auto">
+      <div className="w-full max-w-md px-6 sm:px-8 py-12 ">
         <div className="w-full max-w-md">
           {/* Logo and Header */}
           <div className="text-center mb-8">
@@ -43,16 +43,7 @@ const SalonRegister = () => {
               Join us for exclusive beauty services and rewards
             </p>
           </div>
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-            <span className="text-sm text-gray-500 font-medium">
-              or register with email
-            </span>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-          </div>
-
+          
           {/* Registration Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name Fields */}
@@ -263,100 +254,6 @@ const SalonRegister = () => {
             </Link>
           </p>
         </div>
-      </div>
-
-      {/* Right Side - Image/Branding */}
-      <div className="sm:hidden  lg:flex flex-1 lg:w-1/2 relative ">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1740&auto=format&fit=crop')",
-          }}
-        ></div>
-
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-rose-900/90 via-pink-900/80 to-rose-900/95"></div>
-
-        {/* Content */}
-        <div className="relative z-10 flex flex-col justify-center items-center text-center px-12 py-12 w-full">
-          {/* Decorative Element */}
-          <div className="mb-8 w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl">
-            <span className="text-5xl">💎</span>
-          </div>
-
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-            Become a VIP <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-200 to-pink-200">
-              Beauty Member
-            </span>
-          </h2>
-
-          <p className="text-white/90 text-lg lg:text-xl mb-10 max-w-md leading-relaxed">
-            Join thousands of satisfied clients and unlock exclusive perks,
-            priority booking, and special rewards.
-          </p>
-
-          {/* Benefits List */}
-          <div className="space-y-4 w-full max-w-md">
-            {[
-              {
-                icon: "🎁",
-                title: "Welcome Gift",
-                desc: "20% off your first service",
-              },
-              {
-                icon: "⚡",
-                title: "Priority Booking",
-                desc: "Skip the queue with instant slots",
-              },
-              {
-                icon: "💝",
-                title: "Birthday Treats",
-                desc: "Complimentary service on your day",
-              },
-              {
-                icon: "🌟",
-                title: "Loyalty Points",
-                desc: "Earn rewards with every visit",
-              },
-            ].map((benefit, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/15 transition-all"
-              >
-                <div className="text-3xl">{benefit.icon}</div>
-                <div className="text-left">
-                  <h4 className="text-white font-bold text-sm">
-                    {benefit.title}
-                  </h4>
-                  <p className="text-white/70 text-xs">{benefit.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 w-full max-w-lg mt-12 pt-8 border-t border-white/20">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">15k+</div>
-              <div className="text-white/70 text-sm">Members</div>
-            </div>
-            <div className="text-center border-x border-white/20">
-              <div className="text-3xl font-bold text-white mb-1">4.9</div>
-              <div className="text-white/70 text-sm">Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">50+</div>
-              <div className="text-white/70 text-sm">Services</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Decorative Shapes */}
-        <div className="absolute top-10 right-10 w-32 h-32 rounded-full bg-rose-400/20 blur-3xl"></div>
-        <div className="absolute bottom-20 left-10 w-40 h-40 rounded-full bg-pink-400/20 blur-3xl"></div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import {
   RouterProvider,
   Outlet,
   Route,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -25,53 +25,55 @@ import AdminAppointments from "./pages/AdminAppointments";
 import AdminClients from "./pages/AdminClients.jsx";
 import AdminRevenueReports from "./pages/AdminRevenueReports.jsx";
 import AdminServices from "./pages/AdminServices.jsx";
-import AdminReceptionists from './pages/AdminReceptionists';
+import AdminReceptionists from "./pages/AdminReceptionists";
 import AdminStaff from "./pages/AdminStaff.jsx";
-import AdminOffers from './pages/AdminOffers';
-import AdminNotifications from './pages/AdminNotifications';
+import AdminOffers from "./pages/AdminOffers";
+import AdminNotifications from "./pages/AdminNotifications";
 import AdminSettings from "./pages/AdminSettings.jsx";
 import RegistrationPage from "./pages/RegistrationPage.jsx";
 const App = () => {
-
   const location = useLocation();
 
   // Check if current route is admin
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
-
-    <div className="h-screen bg-black">
+    <div className="min-h-screen bg-black flex flex-col">
       <Navbar />
       {/* <div className="mt-6 pt-3 h-full w-screen  "> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/activity" element={<Activity />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/team" element={<Team />} />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/activity" element={<Activity />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/team" element={<Team />} />
 
-        {/* Admin Routes */}
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/profile" element={<AdminProfile />} />
-        <Route path="/admin/appointments" element={<AdminAppointments />} />
-        <Route path="/admin/clients" element={<AdminClients />} />
-        <Route path="/admin/services" element={<AdminServices />} />
-        <Route path="/admin/staff" element={<AdminStaff />} />
-        <Route path="/admin/revenue_reports" element={<AdminRevenueReports />} />
-        <Route path="/admin/receptionist" element={<AdminReceptionists />} />
-        <Route path="/admin/inbox" element={<AdminNotifications/>} />
-        <Route path="/admin/offers" element={<AdminOffers/>} />
-        <Route path="/admin/settings" element={<AdminSettings/>} />
+          {/* Admin Routes */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/profile" element={<AdminProfile />} />
+          <Route path="/admin/appointments" element={<AdminAppointments />} />
+          <Route path="/admin/clients" element={<AdminClients />} />
+          <Route path="/admin/services" element={<AdminServices />} />
+          <Route path="/admin/staff" element={<AdminStaff />} />
+          <Route
+            path="/admin/revenue_reports"
+            element={<AdminRevenueReports />}
+          />
+          <Route path="/admin/receptionist" element={<AdminReceptionists />} />
+          <Route path="/admin/inbox" element={<AdminNotifications />} />
+          <Route path="/admin/offers" element={<AdminOffers />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
 
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
       {/* </div> */}
       {/* Footer only for NON-admin routes */}
       {!isAdminRoute && <Footer />}
