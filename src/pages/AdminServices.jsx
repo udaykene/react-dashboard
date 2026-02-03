@@ -1,438 +1,316 @@
 import React, { useState } from "react";
-import AdminLayout from "../components/AdminLayout";
 
-const AdminServices = () => {
+const SalonAdminServices = () => {
+  const [activeNav, setActiveNav]   = useState("Services");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [filterCategory, setFilterCategory] = useState("all");
+  const [filterStatus,   setFilterStatus]   = useState("all");
+
+  const navItems = [
+    { label: "Dashboard",    icon: "📊" },
+    { label: "Appointments", icon: "📅" },
+    { label: "Clients",      icon: "👥" },
+    { label: "Services",     icon: "✂️" },
+    { label: "Gallery",      icon: "🖼️" },
+    { label: "Revenue",      icon: "💰" },
+    { label: "Settings",     icon: "⚙️" },
+  ];
+
+  // ── data ──────────────────────────────────────
   const [services, setServices] = useState([
-    {
-      id: 1,
-      name: "Residential Construction",
-      category: "Construction",
-      description: "Complete residential building construction from foundation to finishing",
-      price: "$150/sq.ft",
-      duration: "6-12 months",
-      status: "active",
-      icon: "ri-home-4-line",
-      color: "#3b82f6",
-      clients: 24,
-      rating: 4.8,
-    },
-    {
-      id: 2,
-      name: "Commercial Building",
-      category: "Construction",
-      description: "Commercial spaces including offices, retail, and business complexes",
-      price: "$200/sq.ft",
-      duration: "8-18 months",
-      status: "active",
-      icon: "ri-building-line",
-      color: "#10b981",
-      clients: 18,
-      rating: 4.9,
-    },
-    {
-      id: 3,
-      name: "Interior Design",
-      category: "Design",
-      description: "Modern interior design solutions for residential and commercial spaces",
-      price: "$50/sq.ft",
-      duration: "2-4 months",
-      status: "active",
-      icon: "ri-pencil-ruler-2-line",
-      color: "#f59e0b",
-      clients: 32,
-      rating: 4.7,
-    },
-    {
-      id: 4,
-      name: "Renovation & Remodeling",
-      category: "Renovation",
-      description: "Complete renovation services for existing structures",
-      price: "$80/sq.ft",
-      duration: "3-6 months",
-      status: "active",
-      icon: "ri-hammer-line",
-      color: "#8b5cf6",
-      clients: 21,
-      rating: 4.6,
-    },
-    {
-      id: 5,
-      name: "Architectural Planning",
-      category: "Design",
-      description: "Professional architectural design and planning services",
-      price: "$5,000 - $15,000",
-      duration: "1-3 months",
-      status: "active",
-      icon: "ri-draft-line",
-      color: "#ec4899",
-      clients: 28,
-      rating: 4.9,
-    },
-    {
-      id: 6,
-      name: "Project Consultation",
-      category: "Consultation",
-      description: "Expert consultation for construction and design projects",
-      price: "$100/hour",
-      duration: "Flexible",
-      status: "active",
-      icon: "ri-team-line",
-      color: "#06b6d4",
-      clients: 45,
-      rating: 4.8,
-    },
-    {
-      id: 7,
-      name: "Landscape Design",
-      category: "Design",
-      description: "Beautiful landscape and outdoor space design services",
-      price: "$30/sq.ft",
-      duration: "1-2 months",
-      status: "inactive",
-      icon: "ri-plant-line",
-      color: "#84cc16",
-      clients: 12,
-      rating: 4.5,
-    },
-    {
-      id: 8,
-      name: "Structural Engineering",
-      category: "Engineering",
-      description: "Structural analysis and engineering services",
-      price: "$8,000 - $20,000",
-      duration: "2-4 months",
-      status: "active",
-      icon: "ri-ruler-2-line",
-      color: "#f43f5e",
-      clients: 16,
-      rating: 4.7,
-    },
+    { id:1, name:"Hair Cut & Style",       category:"Hair",     desc:"Classic cuts, modern styles & blowouts tailored to your look.", price:"$45",     duration:"45 min",   status:"active",   icon:"✂️", gradient:"from-rose-500 to-pink-500",       clients:48, rating:4.9 },
+    { id:2, name:"Color & Highlights",     category:"Hair",     desc:"Balayage, ombré, full-colour & highlight treatments.",        price:"$95",     duration:"2 hrs",    status:"active",   icon:"🎨", gradient:"from-pink-500 to-fuchsia-500",    clients:36, rating:4.8 },
+    { id:3, name:"Bridal Makeup",          category:"Makeup",   desc:"Full-day bridal packages including trials & touch-ups.",      price:"$250",    duration:"3 hrs",    status:"active",   icon:"👰", gradient:"from-fuchsia-500 to-purple-500",  clients:22, rating:4.9 },
+    { id:4, name:"Everyday Makeup",        category:"Makeup",   desc:"Natural or glamorous looks for any occasion.",               price:"$65",     duration:"1 hr",     status:"active",   icon:"💄", gradient:"from-purple-500 to-rose-500",     clients:41, rating:4.7 },
+    { id:5, name:"Relaxing Massage",       category:"Spa",      desc:"Swedish, deep-tissue & aromatherapy massage sessions.",      price:"$80",     duration:"60 min",   status:"active",   icon:"💆", gradient:"from-rose-400 to-pink-400",       clients:55, rating:4.8 },
+    { id:6, name:"Facial & Skin Care",     category:"Spa",      desc:"Customised facials with premium skincare products.",         price:"$70",     duration:"50 min",   status:"active",   icon:"✨", gradient:"from-pink-400 to-fuchsia-400",    clients:39, rating:4.6 },
+    { id:7, name:"Manicure & Nail Art",    category:"Nails",    desc:"Classic manicures, gel sets & creative nail-art designs.",    price:"$55",     duration:"75 min",   status:"active",   icon:"💅", gradient:"from-fuchsia-400 to-purple-400",  clients:44, rating:4.7 },
+    { id:8, name:"Pedicure & Foot Spa",    category:"Nails",    desc:"Rejuvenating pedicures with paraffin & foot treatments.",     price:"$60",     duration:"60 min",   status:"inactive", icon:"🧖", gradient:"from-purple-400 to-rose-400",     clients:18, rating:4.5 },
   ]);
 
-  const [filterCategory, setFilterCategory] = useState("all");
-  const [filterStatus, setFilterStatus] = useState("all");
+  // ── derived ───────────────────────────────────
+  const categoryList = ["all","Hair","Makeup","Spa","Nails"];
 
-  const serviceStats = [
-    {
-      title: "Total Services",
-      value: "8",
-      icon: "ri-service-line",
-      color: "#3b82f6",
-      trend: "+2 new",
-    },
-    {
-      title: "Active Services",
-      value: "7",
-      icon: "ri-checkbox-circle-line",
-      color: "#10b981",
-      trend: "87.5% active",
-    },
-    {
-      title: "Total Clients",
-      value: "196",
-      icon: "ri-user-line",
-      color: "#f59e0b",
-      trend: "+12 this month",
-    },
-    {
-      title: "Avg. Rating",
-      value: "4.7",
-      icon: "ri-star-line",
-      color: "#8b5cf6",
-      trend: "Excellent",
-    },
-  ];
+  const counts = categoryList.reduce((acc, c) => {
+    acc[c] = c === "all" ? services.length : services.filter(s => s.category === c).length;
+    return acc;
+  }, {});
 
-  const categories = [
-    { name: "all", count: services.length },
-    { name: "construction", count: services.filter(s => s.category === "Construction").length },
-    { name: "design", count: services.filter(s => s.category === "Design").length },
-    { name: "renovation", count: services.filter(s => s.category === "Renovation").length },
-    { name: "consultation", count: services.filter(s => s.category === "Consultation").length },
-    { name: "engineering", count: services.filter(s => s.category === "Engineering").length },
-  ];
-
-  const getStatusStyles = (status) => {
-    switch (status) {
-      case "active":
-        return "bg-[#d1fae5] text-[#065f46]";
-      case "inactive":
-        return "bg-[#fee2e2] text-[#991b1b]";
-      default:
-        return "bg-[#f1f5f9] text-[#475569]";
-    }
+  const statusCounts = {
+    active:   services.filter(s => s.status === "active").length,
+    inactive: services.filter(s => s.status === "inactive").length,
   };
 
-  const filteredServices = services.filter((service) => {
-    const matchesCategory = filterCategory === "all" || service.category.toLowerCase() === filterCategory;
-    const matchesStatus = filterStatus === "all" || service.status === filterStatus;
-    return matchesCategory && matchesStatus;
+  const avgRating = (services.reduce((s, sv) => s + sv.rating, 0) / services.length).toFixed(1);
+  const totalClients = services.reduce((s, sv) => s + sv.clients, 0);
+
+  const filtered = services.filter(sv => {
+    const matchCat    = filterCategory === "all" || sv.category === filterCategory;
+    const matchStatus = filterStatus   === "all" || sv.status   === filterStatus;
+    return matchCat && matchStatus;
   });
 
-  const handleStatusToggle = (id) => {
-    setServices((prev) =>
-      prev.map((service) =>
-        service.id === id
-          ? { ...service, status: service.status === "active" ? "inactive" : "active" }
-          : service
-      )
+  const handleToggle = (id) => {
+    setServices(prev =>
+      prev.map(s => s.id === id ? { ...s, status: s.status === "active" ? "inactive" : "active" } : s)
     );
   };
 
+  // ── gradient icon bg per category (for the overview row) ──
+  const catMeta = {
+    Hair:   { gradient: "from-rose-500 to-pink-500",      icon: "✂️" },
+    Makeup: { gradient: "from-pink-500 to-fuchsia-500",   icon: "💄" },
+    Spa:    { gradient: "from-fuchsia-500 to-purple-500", icon: "💆" },
+    Nails:  { gradient: "from-purple-500 to-rose-500",    icon: "💅" },
+  };
+
+  // ═══════════════════════════════════════════════
   return (
-    <AdminLayout>
-      <div className="flex h-screen flex-col overflow-y-auto no-scrollbar pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="mb-6 sm:mb-8 flex flex-col items-start justify-between gap-3 sm:gap-4 md:flex-row md:items-center">
-          <div className="w-full md:w-auto">
-            <h1 className="m-0 text-[1.5rem] sm:text-[1.75rem] md:text-[2rem] font-bold text-[#1e293b] leading-tight">
-              Services
-            </h1>
-            <p className="m-0 text-[0.875rem] sm:text-[0.9375rem] md:text-[1rem] text-[#64748b] mt-1 sm:mt-0">
-              Manage all construction and design services
-            </p>
+    <div className="flex min-h-screen bg-gray-100 w-full overflow-x-hidden">
+
+      {/* overlay */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
+      )}
+
+      {/* ── sidebar ── */}
+      <aside className={`fixed top-0 left-0 z-30 h-full w-64 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto flex flex-col ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className="flex items-center justify-between p-5 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-lg shadow-lg">✂️</div>
+            <div>
+              <h1 className="font-bold text-base leading-tight">Skin & Soul Studio</h1>
+              <p className="text-xs text-gray-400">Beauty & Wellness</p>
+            </div>
           </div>
-          <button className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-lg bg-[#f59e0b] px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 font-semibold text-white transition-all hover:bg-[#d97706] text-[0.875rem] sm:text-[0.9375rem] md:text-[1rem] whitespace-nowrap">
-            <i className="ri-add-line text-base sm:text-lg"></i>
-            <span className="hidden xs:inline">Add New Service</span>
-            <span className="xs:hidden">Add Service</span>
-          </button>
+          <button className="lg:hidden text-gray-400 hover:text-white text-xl" onClick={() => setSidebarOpen(false)}>✕</button>
         </div>
 
-        {/* Service Stats Grid */}
-        <div className="mb-6 sm:mb-8 grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {serviceStats.map((stat, index) => (
-            <div
-              key={index}
-              className="flex flex-row items-start gap-3 sm:gap-4 rounded-[12px] border-t-4 bg-white p-4 sm:p-5 md:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)]"
-              style={{ borderTopColor: stat.color }}
+        <nav className="p-4 space-y-1 flex-1">
+          {navItems.map(item => (
+            <button
+              key={item.label}
+              onClick={() => { setActiveNav(item.label); setSidebarOpen(false); }}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${activeNav === item.label ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/20" : "text-gray-400 hover:text-white hover:bg-white/10"}`}
             >
-              <div
-                className="flex h-[50px] w-[50px] sm:h-[55px] sm:w-[55px] md:h-[60px] md:w-[60px] flex-shrink-0 items-center justify-center rounded-[12px] text-[1.5rem] sm:text-[1.625rem] md:text-[1.75rem] text-white"
-                style={{ backgroundColor: stat.color }}
-              >
-                <i className={stat.icon}></i>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="m-0 mb-1.5 sm:mb-2 text-[0.8125rem] sm:text-[0.875rem] font-medium text-[#64748b]">
-                  {stat.title}
-                </p>
-                <h3 className="m-0 mb-1.5 sm:mb-2 text-[1.375rem] sm:text-[1.5rem] md:text-[1.75rem] font-bold text-[#1e293b]">
-                  {stat.value}
-                </h3>
-                <span className="text-[0.8125rem] sm:text-[0.875rem] font-medium text-[#64748b]">
-                  {stat.trend}
-                </span>
-              </div>
-            </div>
+              <span className="text-lg">{item.icon}</span>
+              {item.label}
+            </button>
           ))}
-        </div>
+        </nav>
 
-        {/* Filters Section */}
-        <div className="mb-4 sm:mb-5 md:mb-6 flex flex-col gap-3 sm:gap-4 rounded-[12px] bg-white p-4 sm:p-5 md:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] lg:flex-row lg:items-center lg:justify-between">
-          {/* Category Filter */}
-          <div className="flex flex-col gap-2 sm:gap-3">
-            <label className="text-[0.8125rem] sm:text-[0.875rem] font-semibold text-[#64748b]">Category</label>
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category.name}
-                  onClick={() => setFilterCategory(category.name)}
-                  className={`flex-1 xs:flex-initial rounded-lg border-2 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[0.75rem] sm:text-[0.8125rem] md:text-[0.875rem] font-semibold transition-all whitespace-nowrap ${
-                    filterCategory === category.name
-                      ? "border-[#f59e0b] bg-[#fef3c7] text-[#d97706]"
-                      : "border-transparent bg-[#f1f5f9] text-[#475569] hover:bg-[#e2e8f0]"
-                  }`}
-                >
-                  <span className="hidden xs:inline">
-                    {category.name.charAt(0).toUpperCase() + category.name.slice(1)} ({category.count})
-                  </span>
-                  <span className="xs:hidden">
-                    {category.name.charAt(0).toUpperCase() + category.name.slice(1).slice(0, 4)} ({category.count})
-                  </span>
-                </button>
-              ))}
+        <div className="p-4 border-t border-white/10">
+          <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition cursor-pointer">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-sm font-bold">A</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold truncate">Admin</p>
+              <p className="text-xs text-gray-500 truncate">admin@bella.com</p>
             </div>
-          </div>
-
-          {/* Status Filter & Search */}
-          <div className="flex flex-col gap-2 sm:gap-3 lg:items-end">
-            <label className="text-[0.8125rem] sm:text-[0.875rem] font-semibold text-[#64748b]">Status</label>
-            <div className="flex flex-wrap gap-2">
-              {["all", "active", "inactive"].map((status) => (
-                <button
-                  key={status}
-                  onClick={() => setFilterStatus(status)}
-                  className={`flex-1 xs:flex-initial rounded-lg border-2 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 text-[0.75rem] sm:text-[0.8125rem] md:text-[0.875rem] font-semibold transition-all whitespace-nowrap ${
-                    filterStatus === status
-                      ? "border-[#f59e0b] bg-[#fef3c7] text-[#d97706]"
-                      : "border-transparent bg-[#f1f5f9] text-[#475569] hover:bg-[#e2e8f0]"
-                  }`}
-                >
-                  {status.charAt(0).toUpperCase() + status.slice(1)}
-                </button>
-              ))}
-            </div>
+            <span className="text-gray-500 text-xs">▼</span>
           </div>
         </div>
+      </aside>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {filteredServices.length === 0 ? (
-            <div className="col-span-full rounded-[12px] bg-white px-6 sm:px-8 py-12 sm:py-14 md:py-16 text-center shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-              <i className="ri-service-line mb-3 sm:mb-4 text-[3rem] sm:text-[3.5rem] md:text-[4rem] text-[#cbd5e1]"></i>
-              <h3 className="m-0 mb-2 text-[1.25rem] sm:text-[1.375rem] md:text-[1.5rem] font-bold text-[#1e293b]">
-                No services found
-              </h3>
-              <p className="m-0 text-[0.875rem] sm:text-[0.9375rem] md:text-[1rem] text-[#64748b]">
-                No services match your current filters.
-              </p>
+      {/* ── main shell ── */}
+      <div className="flex-1 flex flex-col min-w-0">
+
+        {/* ── top navbar ── */}
+        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <button className="lg:hidden text-gray-600 hover:text-rose-500 text-2xl" onClick={() => setSidebarOpen(true)}>☰</button>
+            <div>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900">Services</h2>
+              <p className="text-xs text-gray-500 hidden sm:block">Manage all salon services & packages</p>
             </div>
-          ) : (
-            filteredServices.map((service) => (
-              <div
-                key={service.id}
-                className="group flex flex-col rounded-[12px] border-t-4 bg-white p-4 sm:p-5 md:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)]"
-                style={{ borderTopColor: service.color }}
-              >
-                {/* Service Header */}
-                <div className="mb-3 sm:mb-4 flex items-start justify-between">
-                  <div
-                    className="flex h-[50px] w-[50px] sm:h-[55px] sm:w-[55px] md:h-[60px] md:w-[60px] flex-shrink-0 items-center justify-center rounded-[12px] text-[1.5rem] sm:text-[1.625rem] md:text-[1.75rem] text-white"
-                    style={{ backgroundColor: service.color }}
-                  >
-                    <i className={service.icon}></i>
-                  </div>
-                  <span
-                    className={`rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 text-[0.6875rem] sm:text-[0.75rem] font-semibold capitalize whitespace-nowrap ${getStatusStyles(
-                      service.status
-                    )}`}
-                  >
-                    {service.status}
-                  </span>
-                </div>
-
-                {/* Service Info */}
-                <div className="mb-3 sm:mb-4 flex-1">
-                  <h3 className="m-0 mb-1.5 sm:mb-2 text-[1rem] sm:text-[1.0625rem] md:text-[1.125rem] font-bold text-[#1e293b]">
-                    {service.name}
-                  </h3>
-                  <p className="m-0 mb-2.5 sm:mb-3 text-[0.8125rem] sm:text-[0.875rem] leading-relaxed text-[#64748b]">
-                    {service.description}
-                  </p>
-                  <div className="mb-2.5 sm:mb-3 inline-block rounded-md bg-[#f1f5f9] px-2.5 sm:px-3 py-1 text-[0.6875rem] sm:text-[0.75rem] font-semibold text-[#475569]">
-                    {service.category}
-                  </div>
-                </div>
-
-                {/* Service Meta */}
-                <div className="mb-3 sm:mb-4 flex flex-col gap-2.5 sm:gap-3 border-t-2 border-[#f1f5f9] pt-3 sm:pt-4">
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 sm:gap-2 text-[0.8125rem] sm:text-[0.875rem] text-[#64748b]">
-                      <i className="ri-money-dollar-circle-line text-[0.9375rem] sm:text-[1rem] text-[#94a3b8] flex-shrink-0"></i>
-                      <span className="hidden xs:inline">Pricing</span>
-                      <span className="xs:hidden">Price</span>
-                    </span>
-                    <span className="text-[0.8125rem] sm:text-[0.875rem] font-bold text-[#1e293b] truncate ml-2">
-                      {service.price}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 sm:gap-2 text-[0.8125rem] sm:text-[0.875rem] text-[#64748b]">
-                      <i className="ri-time-line text-[0.9375rem] sm:text-[1rem] text-[#94a3b8] flex-shrink-0"></i>
-                      Duration
-                    </span>
-                    <span className="text-[0.8125rem] sm:text-[0.875rem] font-bold text-[#1e293b]">
-                      {service.duration}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 sm:gap-2 text-[0.8125rem] sm:text-[0.875rem] text-[#64748b]">
-                      <i className="ri-user-line text-[0.9375rem] sm:text-[1rem] text-[#94a3b8] flex-shrink-0"></i>
-                      Clients
-                    </span>
-                    <span className="text-[0.8125rem] sm:text-[0.875rem] font-bold text-[#1e293b]">
-                      {service.clients}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1.5 sm:gap-2 text-[0.8125rem] sm:text-[0.875rem] text-[#64748b]">
-                      <i className="ri-star-fill text-[0.9375rem] sm:text-[1rem] text-[#fbbf24] flex-shrink-0"></i>
-                      Rating
-                    </span>
-                    <span className="text-[0.8125rem] sm:text-[0.875rem] font-bold text-[#1e293b]">
-                      {service.rating} / 5.0
-                    </span>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-1.5 sm:gap-2">
-                  <button className="flex flex-1 items-center justify-center gap-1.5 sm:gap-2 rounded-lg bg-[#dbeafe] px-3 sm:px-4 py-2 sm:py-2.5 text-[0.8125rem] sm:text-[0.875rem] font-semibold text-[#1e40af] transition-all hover:scale-105 hover:bg-[#3b82f6] hover:text-white">
-                    <i className="ri-eye-line text-sm sm:text-base"></i>
-                    <span className="hidden xs:inline">View</span>
-                  </button>
-                  <button className="flex flex-1 items-center justify-center gap-1.5 sm:gap-2 rounded-lg bg-[#fef3c7] px-3 sm:px-4 py-2 sm:py-2.5 text-[0.8125rem] sm:text-[0.875rem] font-semibold text-[#92400e] transition-all hover:scale-105 hover:bg-[#f59e0b] hover:text-white">
-                    <i className="ri-edit-line text-sm sm:text-base"></i>
-                    <span className="hidden xs:inline">Edit</span>
-                  </button>
-                  <button
-                    onClick={() => handleStatusToggle(service.id)}
-                    className={`flex items-center justify-center rounded-lg px-2.5 sm:px-3 py-2 sm:py-2.5 text-[1rem] sm:text-[1.125rem] transition-all hover:scale-110 ${
-                      service.status === "active"
-                        ? "bg-[#fee2e2] text-[#991b1b] hover:bg-[#ef4444] hover:text-white"
-                        : "bg-[#d1fae5] text-[#065f46] hover:bg-[#10b981] hover:text-white"
-                    }`}
-                    title={service.status === "active" ? "Deactivate" : "Activate"}
-                  >
-                    <i className={service.status === "active" ? "ri-pause-circle-line" : "ri-play-circle-line"}></i>
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-
-        {/* Service Categories Overview */}
-        <div className="mt-4 sm:mt-5 md:mt-6 rounded-[12px] bg-white p-4 sm:p-5 md:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
-          <div className="mb-4 sm:mb-5 md:mb-6 border-b-2 border-[#f1f5f9] pb-3 sm:pb-4">
-            <h2 className="text-[1.125rem] sm:text-[1.25rem] font-bold text-[#1e293b]">
-              Service Categories Overview
-            </h2>
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex items-center gap-3">
+            <button className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-sm font-bold rounded-lg shadow-md shadow-rose-500/30 transition-all">
+              <span>+</span> Add Service
+            </button>
+            <button className="relative p-2 rounded-xl hover:bg-gray-100 transition">
+              <span className="text-xl">🔔</span>
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
+            </button>
+          </div>
+        </header>
+
+        {/* ── body ── */}
+        <main className="flex-1 p-4 sm:p-6 overflow-auto">
+
+          {/* ── summary mini-cards ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
             {[
-              { name: "Construction", count: 2, icon: "ri-building-line", color: "#3b82f6" },
-              { name: "Design", count: 3, icon: "ri-pencil-ruler-2-line", color: "#10b981" },
-              { name: "Renovation", count: 1, icon: "ri-hammer-line", color: "#f59e0b" },
-              { name: "Consultation", count: 1, icon: "ri-team-line", color: "#8b5cf6" },
-              { name: "Engineering", count: 1, icon: "ri-ruler-2-line", color: "#ec4899" },
-            ].map((cat, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 sm:gap-4 rounded-lg bg-[#f8fafc] p-3 sm:p-4 transition-all hover:translate-x-1 hover:bg-[#f1f5f9]"
-              >
-                <div
-                  className="flex h-[45px] w-[45px] sm:h-[50px] sm:w-[50px] flex-shrink-0 items-center justify-center rounded-[10px] text-[1.375rem] sm:text-[1.5rem] text-white"
-                  style={{ backgroundColor: cat.color }}
-                >
-                  <i className={cat.icon}></i>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="m-0 text-[0.9375rem] sm:text-[1rem] font-bold text-[#1e293b] truncate">
-                    {cat.name}
-                  </h4>
-                  <p className="m-0 text-[0.8125rem] sm:text-[0.875rem] text-[#64748b]">
-                    {cat.count} {cat.count === 1 ? "Service" : "Services"}
-                  </p>
+              { label:"Total Services", val: services.length,       gradient:"from-rose-500 to-pink-500",      icon:"✂️" },
+              { label:"Active",         val: statusCounts.active,   gradient:"from-emerald-500 to-teal-500",   icon:"✅" },
+              { label:"Total Clients",  val: totalClients,          gradient:"from-purple-500 to-fuchsia-500", icon:"👥" },
+              { label:"Avg Rating",     val: `${avgRating} / 5`,    gradient:"from-amber-500 to-orange-500",   icon:"⭐" },
+            ].map((s, i) => (
+              <div key={i} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center gap-3 hover:shadow-md transition-all">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${s.gradient} flex items-center justify-center text-lg shadow-md shrink-0`}>{s.icon}</div>
+                <div className="min-w-0">
+                  <p className="text-xl font-bold text-gray-900 leading-tight truncate">{s.val}</p>
+                  <p className="text-xs text-gray-500">{s.label}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+
+          {/* ── filter bar ── */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex flex-col gap-4 sm:flex-row sm:items-center mb-5">
+            {/* category pills */}
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</p>
+              <div className="flex flex-wrap gap-2">
+                {categoryList.map(c => (
+                  <button
+                    key={c}
+                    onClick={() => setFilterCategory(c)}
+                    className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold border transition-all ${
+                      filterCategory === c
+                        ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white border-transparent shadow-md shadow-rose-500/25"
+                        : "bg-gray-50 text-gray-600 border-gray-200 hover:border-rose-300 hover:bg-rose-50"
+                    }`}
+                  >
+                    <span className="capitalize">{c}</span>
+                    <span className="ml-1.5 opacity-60">({counts[c]})</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* status pills — pushed right on sm+ */}
+            <div className="flex flex-col gap-2 sm:ml-auto">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</p>
+              <div className="flex flex-wrap gap-2">
+                {["all","active","inactive"].map(s => (
+                  <button
+                    key={s}
+                    onClick={() => setFilterStatus(s)}
+                    className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold border transition-all ${
+                      filterStatus === s
+                        ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white border-transparent shadow-md shadow-rose-500/25"
+                        : "bg-gray-50 text-gray-600 border-gray-200 hover:border-rose-300 hover:bg-rose-50"
+                    }`}
+                  >
+                    <span className="capitalize">{s}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── service cards grid ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 mb-6">
+
+            {filtered.length === 0 && (
+              <div className="col-span-full bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center">
+                <p className="text-5xl mb-3">✂️</p>
+                <h3 className="text-lg font-bold text-gray-800 mb-1">No services found</h3>
+                <p className="text-gray-500 text-sm">Try adjusting your filters.</p>
+              </div>
+            )}
+
+            {filtered.map(sv => (
+              <div
+                key={sv.id}
+                className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-rose-200 transition-all flex flex-col overflow-hidden"
+              >
+                {/* card header strip */}
+                <div className={`h-1.5 bg-gradient-to-r ${sv.gradient}`} />
+
+                <div className="p-5 flex flex-col flex-1">
+                  {/* top row: icon + status */}
+                  <div className="flex items-start justify-between mb-3">
+                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${sv.gradient} flex items-center justify-center text-xl shadow-md`}>
+                      {sv.icon}
+                    </div>
+                    <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full capitalize ${sv.status === "active" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
+                      {sv.status}
+                    </span>
+                  </div>
+
+                  {/* name + category badge */}
+                  <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                    <h3 className="font-bold text-gray-900 text-base">{sv.name}</h3>
+                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600">{sv.category}</span>
+                  </div>
+
+                  <p className="text-sm text-gray-500 leading-relaxed mb-3">{sv.desc}</p>
+
+                  {/* meta row */}
+                  <div className="border-t border-gray-100 pt-3 mt-auto space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-500">💰 Price</span>
+                      <span className="font-bold text-gray-900">{sv.price}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-500">🕐 Duration</span>
+                      <span className="font-bold text-gray-900">{sv.duration}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-500">👥 Clients</span>
+                      <span className="font-bold text-gray-900">{sv.clients}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-500">⭐ Rating</span>
+                      <span className="font-bold text-gray-900">{sv.rating} / 5.0</span>
+                    </div>
+                  </div>
+
+                  {/* actions */}
+                  <div className="flex gap-2 mt-4">
+                    <button className="flex-1 flex items-center justify-center gap-1.5 text-xs sm:text-sm font-semibold py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-500 hover:text-white transition">
+                      👁 View
+                    </button>
+                    <button className="flex-1 flex items-center justify-center gap-1.5 text-xs sm:text-sm font-semibold py-2 rounded-xl bg-pink-50 text-pink-600 hover:bg-pink-500 hover:text-white transition">
+                      ✎ Edit
+                    </button>
+                    <button
+                      onClick={() => handleToggle(sv.id)}
+                      className={`w-10 flex items-center justify-center text-base rounded-xl transition ${
+                        sv.status === "active"
+                          ? "bg-red-50 text-red-500 hover:bg-red-500 hover:text-white"
+                          : "bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white"
+                      }`}
+                    >
+                      {sv.status === "active" ? "⏸" : "▶"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* ── category overview row ── */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-gray-100">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">Categories Overview</h3>
+            </div>
+
+            <div className="p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              {["Hair","Makeup","Spa","Nails"].map(cat => {
+                const meta  = catMeta[cat];
+                const count = services.filter(s => s.category === cat).length;
+                const activeCount = services.filter(s => s.category === cat && s.status === "active").length;
+                return (
+                  <div key={cat} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-rose-50 hover:border-rose-200 border border-transparent transition-all cursor-pointer">
+                    <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${meta.gradient} flex items-center justify-center text-lg shadow-md shrink-0`}>
+                      {meta.icon}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-bold text-gray-900 text-sm">{cat}</p>
+                      <p className="text-xs text-gray-500">{count} services · {activeCount} active</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+        </main>
       </div>
-    </AdminLayout>
+    </div>
   );
 };
 
-export default AdminServices;
+export default SalonAdminServices;
