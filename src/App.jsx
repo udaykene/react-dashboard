@@ -39,7 +39,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
-      <Navbar />
+     {!isAdminRoute && <Navbar /> }
       {/* <div className="mt-6 pt-3 h-full w-screen  "> */}
       <main className="flex-1">
         <Routes>

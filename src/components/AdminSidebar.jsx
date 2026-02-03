@@ -1,111 +1,81 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const AdminSidebar = ({ isOpen, onClose }) => {
+const AdminSidebar = () => {
   const location = useLocation();
 
   const menuItems = [
-    { name: "Profile", path: "/admin/profile", icon: "ri-user-line" },
-    { name: "Dashboard", path: "/admin/dashboard", icon: "ri-dashboard-line" },
-    { name: "Inbox", path: "/admin/inbox", icon: "ri-inbox-line" },
-    { name: "Appointments", path: "/admin/appointments", icon: "ri-calendar-check-line" },
-    { name: "Clients", path: "/admin/clients", icon: "ri-group-line" },
-    { name: "Services", path: "/admin/services", icon: "ri-community-line" },
-    { name: "Staff", path: "/admin/staff", icon: "ri-community-line" },
-    { name: "Receptionist", path: "/admin/receptionist", icon: "ri-user-6-line" },
-    { name: "Revenue & Reports", path: "/admin/revenue_reports", icon: "ri-bar-chart-2-line" },
-    { name: "Offers", path: "/admin/offers", icon: "ri-coupon-3-line" },
-    { name: "Settings", path: "/admin/settings", icon: "ri-settings-2-line" },
+    {
+      title: "Dashboard",
+      icon: "ri-dashboard-3-line",
+      path: "/admin/dashboard",
+    },
+    {
+      title: "Appointments",
+      icon: "ri-calendar-check-line",
+      path: "/admin/appointments",
+    },
+    { title: "Clients", icon: "ri-user-heart-line", path: "/admin/clients" },
+    { title: "Services", icon: "ri-scissors-2-line", path: "/admin/services" },
+    { title: "Staff", icon: "ri-team-line", path: "/admin/staff" },
+    { title: "Offers", icon: "ri-gift-line", path: "/admin/offers" },
+    { title: "Inbox", icon: "ri-mail-line", path: "/admin/inbox" },
+    { title: "Settings", icon: "ri-settings-3-line", path: "/admin/settings" },
   ];
 
-  const handleLinkClick = () => {
-    // Close sidebar on mobile when a link is clicked
-    if (window.innerWidth < 1024) {
-      onClose();
-    }
-  };
+  const isActive = (path) => location.pathname === path;
 
   return (
     <>
-      {/* Mobile Overlay - Only shows when sidebar is open on mobile */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-[60] lg:hidden"
-          onClick={onClose}
-        ></div>
-      )}
+      {/* ===== Desktop Sidebar ===== */}
+      <aside className="hidden lg:flex lg:flex-col lg:sticky left-0 top-20 h-[calc(100vh-5rem)] w-64 bg-gradient-to-b from-gray-50 to-white border-r border-gray-200">
 
-      {/* Sidebar */}
-      <div
-        className={`
-          fixed lg:sticky top-0 left-0 h-screen w-[280px] 
-          flex flex-col bg-[#0f172a] text-white shadow-2xl border-r border-white/5
-          z-[70] lg:z-10 transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-        `}
-      >
-        {/* Header with Back to Site and Close Button */}
-        <div className="flex items-center justify-between px-6 pt-6 lg:block">
-          <Link
-            to="/"
-            className="group flex items-center gap-2 text-sm font-medium text-slate-400 transition-colors hover:text-[#f59e0b]"
-            onClick={handleLinkClick}
-          >
-            <i className="ri-arrow-left-s-line text-lg transition-transform group-hover:-translate-x-1"></i>
-            <span>Back to Site</span>
-          </Link>
-          
-          {/* X button only on mobile */}
-          <button
-            onClick={onClose}
-            className="lg:hidden text-white hover:text-amber-500 transition-colors ml-4"
-            aria-label="Close menu"
-          >
-            <i className="ri-close-line text-2xl"></i>
-          </button>
+        <div className="p-6 border-b">
+          <h3 className="font-bold text-gray-900">Admin Panel</h3>
+          <p className="text-xs text-gray-500">Skin & Soul Studio</p>
         </div>
 
-        {/* Sidebar Header / Brand */}
-        <div className="flex flex-col items-center py-6 sm:py-8">
-          <div className="mb-3 sm:mb-4 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f59e0b] to-[#d97706] shadow-lg shadow-amber-900/20">
-            <i className="ri-shield-user-line text-xl sm:text-2xl text-white"></i>
-          </div>
-          <h2 className="text-base sm:text-lg font-bold tracking-tight">Admin Panel</h2>
-          <div className="mt-1 h-1 w-8 rounded-full bg-amber-500/30"></div>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 px-3 sm:px-4 py-4 overflow-y-auto space-y-1 custom-scrollbar">
-          {menuItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={handleLinkClick}
-                className={`group flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl transition-all duration-200 ${
-                  isActive
-                    ? "bg-amber-500/10 text-[#f59e0b] shadow-sm"
-                    : "text-slate-400 hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                <div
-                  className={`flex items-center justify-center transition-transform duration-200 ${
-                    isActive ? "scale-110" : "group-hover:scale-110"
+        <nav className="py-4 px-3">
+          <ul className="space-y-1">
+            {menuItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  to={item.path}
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg transition ${
+                    isActive(item.path)
+                      ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white"
+                      : "text-gray-700 hover:bg-rose-50 hover:text-rose-600"
                   }`}
                 >
-                  <i className={`${item.icon} text-lg sm:text-xl`}></i>
-                </div>
-                <span className="font-medium text-sm sm:text-base">{item.name}</span>
-
-                {isActive && (
-                  <div className="ml-auto h-1.5 w-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]"></div>
-                )}
-              </Link>
-            );
-          })}
+                  <i className={`${item.icon} text-xl`} />
+                  <span className="font-medium">{item.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
-      </div>
+      </aside>
+
+      {/* ===== Mobile / Tablet Bottom Nav ===== */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 z-50">
+        <ul className="flex h-full">
+          {menuItems.map((item) => (
+            <li key={item.path} className="flex-1">
+              <Link
+                to={item.path}
+                className={`h-full flex flex-col items-center justify-center gap-1 transition ${
+                  isActive(item.path) ? "text-rose-600" : "text-gray-400"
+                }`}
+              >
+                <i className={`${item.icon} text-xl`} />
+                <span className="text-[11px] leading-none font-medium">
+                  {item.title}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </>
   );
 };

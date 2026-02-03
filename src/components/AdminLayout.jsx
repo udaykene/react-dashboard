@@ -20,21 +20,13 @@ const AdminLayout = ({ children }) => {
   return (
     <div className="flex min-h-screen w-full bg-[#f4f7fe]">
       {/* AdminSidebar */}
-      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-
+      <AdminSidebar />
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-h-screen w-full lg:w-auto overflow-x-hidden">
-        {/* Mobile Header - Only visible on mobile */}
-        <AdminMobileHeader 
-          onMenuClick={() => setSidebarOpen(true)} 
-          isOpen={sidebarOpen}
-        />
 
-        {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-[#f4f7fe] py-4 sm:py-6 lg:py-8 px-4 sm:px-6 lg:px-8">
-          {children}
-        </main>
-      </div>
+      {/* Page Content */}
+      <main className="flex-1 overflow-y-auto bg-[#f4f7fe] py-4 sm:py-6 lg:py-8 px-4 sm:px-6 lg:px-8">
+        {children}
+      </main>
     </div>
   );
 };
