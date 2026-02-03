@@ -79,8 +79,8 @@ const SalonAdminServices = () => {
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-lg shadow-lg">✂️</div>
             <div>
-              <h1 className="font-bold text-base leading-tight">Bella</h1>
-              <p className="text-xs text-gray-400">Beauty Salon</p>
+              <h1 className="font-bold text-base leading-tight">Skin & Soul Studio</h1>
+              <p className="text-xs text-gray-400">Beauty & Wellness</p>
             </div>
           </div>
           <button className="lg:hidden text-gray-400 hover:text-white text-xl" onClick={() => setSidebarOpen(false)}>✕</button>
