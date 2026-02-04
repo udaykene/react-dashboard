@@ -32,7 +32,7 @@ const SalonRegister = () => {
   return (
     <>
       <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-        <div className="w-full max-w-md px-6 sm:px-8 py-12 ">
+        <div className="w-full max-w-md px-6 sm:px-8 py-12">
           <div className="w-full max-w-md">
             <div className="text-center mb-8">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
@@ -126,10 +126,8 @@ const SalonRegister = () => {
         </div>
       </div>
 
-      {/* Trust Badges / Certifications */}
-      <section className="bg-gray-50 py-12 mt-16">
-        <Certifications />
-      </section>
+      {/* Trust Badges / Certifications - NO WRAPPER */}
+      <Certifications />
     </>
   );
 };

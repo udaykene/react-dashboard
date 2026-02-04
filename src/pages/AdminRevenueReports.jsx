@@ -1,26 +1,14 @@
 import React, { useState } from "react";
 
 const SalonAdminRevenue = () => {
-  const [activeNav, setActiveNav] = useState("Revenue");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedPeriod, setSelectedPeriod] = useState("month");
-
-  const navItems = [
-    { label: "Dashboard", icon: "📊" },
-    { label: "Appointments", icon: "📅" },
-    { label: "Clients", icon: "👥" },
-    { label: "Services", icon: "✂️" },
-    { label: "Gallery", icon: "🖼️" },
-    { label: "Revenue", icon: "💰" },
-    { label: "Settings", icon: "⚙️" },
-  ];
 
   const revenueStats = [
     {
       title: "Total Revenue",
       value: "$45,250",
       icon: "💰",
-      gradient: "from-emerald-500 to-teal-500",
+      gradient: "from-rose-500 to-pink-500",
       trend: "+23.5%",
       trendUp: true,
     },
@@ -28,7 +16,7 @@ const SalonAdminRevenue = () => {
       title: "Services Revenue",
       value: "$32,400",
       icon: "✂️",
-      gradient: "from-blue-500 to-cyan-500",
+      gradient: "from-pink-500 to-fuchsia-500",
       trend: "+18.2%",
       trendUp: true,
     },
@@ -36,7 +24,7 @@ const SalonAdminRevenue = () => {
       title: "Pending Payments",
       value: "$5,800",
       icon: "⏳",
-      gradient: "from-amber-500 to-orange-500",
+      gradient: "from-fuchsia-500 to-purple-500",
       trend: "-5.3%",
       trendUp: false,
     },
@@ -44,7 +32,7 @@ const SalonAdminRevenue = () => {
       title: "This Month",
       value: "$12,050",
       icon: "📅",
-      gradient: "from-purple-500 to-pink-500",
+      gradient: "from-purple-500 to-rose-500",
       trend: "+12.8%",
       trendUp: true,
     },
@@ -128,118 +116,69 @@ const SalonAdminRevenue = () => {
   const maxRevenue = Math.max(...monthlyRevenue.map((m) => m.revenue));
 
   return (
-    <div className="flex min-h-screen bg-gray-100 w-full overflow-x-hidden">
-
-      {/* Mobile Overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={() => setSidebarOpen(false)} />
-      )}
-
-      {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 z-30 h-full w-64 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto flex flex-col ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        {/* Logo */}
-        <div className="flex items-center justify-between p-5 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-lg shadow-lg">✂️</div>
-            <div>
-              <h1 className="font-bold text-base leading-tight">Skin & Soul Studio</h1>
-              <p className="text-xs text-gray-400">Beauty & Wellness</p>
-            </div>
-          </div>
-          <button className="lg:hidden text-gray-400 hover:text-white text-xl" onClick={() => setSidebarOpen(false)}>✕</button>
-        </div>
-
-        {/* Nav Links */}
-        <nav className="p-4 space-y-1 flex-1">
-          {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => { setActiveNav(item.label); setSidebarOpen(false); }}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                activeNav === item.label
-                  ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/20"
-                  : "text-gray-400 hover:text-white hover:bg-white/10"
-              }`}
-            >
-              <span className="text-lg">{item.icon}</span>
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        {/* User Section */}
-        <div className="p-4 border-t border-white/10">
-          <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition cursor-pointer">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-sm font-bold">A</div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold truncate">Admin</p>
-              <p className="text-xs text-gray-500 truncate">admin@bella.com</p>
-            </div>
-            <span className="text-gray-500 text-xs">▼</span>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
+    <div className="min-h-screen !min-h-screen bg-gray-100 w-full !w-full overflow-x-hidden !overflow-x-hidden">
+      {/* Main Content Wrapper */}
+      <div className="flex-1 !flex-1 flex !flex flex-col !flex-col min-w-0 !min-w-0">
 
         {/* Top Navbar */}
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <button className="lg:hidden text-gray-600 hover:text-rose-500 text-2xl" onClick={() => setSidebarOpen(true)}>☰</button>
+        <header className="sticky !sticky top-0 !top-0 z-10 !z-10 bg-white/80 !bg-white/80 backdrop-blur-xl !backdrop-blur-xl border-b !border-b border-gray-200 !border-gray-200 px-4 !px-4 sm:px-6 !sm:px-6 py-3 !py-3 flex !flex items-center !items-center justify-between !justify-between gap-4 !gap-4">
+          <div className="flex !flex items-center !items-center gap-4 !gap-4">
             <div>
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900">Revenue & Reports</h2>
-              <p className="text-xs text-gray-500 hidden sm:block">Track financial performance and insights</p>
+              <h2 className="text-lg !text-lg sm:text-xl !sm:text-xl font-bold !font-bold text-gray-900 !text-gray-900">Revenue Reports</h2>
+              <p className="text-xs !text-xs text-gray-500 !text-gray-500 hidden !hidden sm:block !sm:block">Track and analyze your revenue performance</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <button className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white text-sm font-bold rounded-lg shadow-md shadow-rose-500/30 transition-all">
+          <div className="flex !flex items-center !items-center gap-3 !gap-3">
+            <button className="hidden !hidden sm:flex !sm:flex items-center !items-center gap-2 !gap-2 px-4 !px-4 py-2 !py-2 bg-gradient-to-r !bg-gradient-to-r from-rose-500 !from-rose-500 to-pink-500 !to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white !text-white text-sm !text-sm font-bold !font-bold rounded-lg !rounded-lg shadow-md !shadow-md shadow-rose-500/30 !shadow-rose-500/30 transition-all !transition-all">
               <span>📊</span> Generate Report
             </button>
-            <button className="relative p-2 rounded-xl hover:bg-gray-100 transition">
-              <span className="text-xl">🔔</span>
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
+            <button className="relative !relative p-2 !p-2 rounded-xl !rounded-xl hover:bg-gray-100 transition !transition">
+              <span className="text-xl !text-xl">🔔</span>
+              <span className="absolute !absolute top-1.5 !top-1.5 right-1.5 !right-1.5 w-2 !w-2 h-2 !h-2 bg-rose-500 !bg-rose-500 rounded-full !rounded-full"></span>
             </button>
           </div>
         </header>
 
         {/* Page Body */}
-        <main className="flex-1 p-4 sm:p-6 overflow-auto">
+        <main className="flex-1 !flex-1 p-4 !p-4 sm:p-6 !sm:p-6 overflow-auto !overflow-auto">
 
           {/* Revenue Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5 mb-6">
+          <div className="grid !grid grid-cols-1 !grid-cols-1 sm:grid-cols-2 !sm:grid-cols-2 xl:grid-cols-4 !xl:grid-cols-4 gap-4 !gap-4 sm:gap-5 !sm:gap-5 mb-6 !mb-6">
             {revenueStats.map((stat, i) => (
-              <div key={i} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-all group">
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center text-xl shadow-md group-hover:scale-110 transition-transform`}>
+              <div
+                key={i}
+                className="bg-white !bg-white rounded-2xl !rounded-2xl p-5 !p-5 shadow-sm !shadow-sm border !border border-gray-100 !border-gray-100 hover:shadow-md transition-all !transition-all group !group"
+              >
+                <div className="flex !flex items-center !items-center justify-between !justify-between mb-4 !mb-4">
+                  <div className={`w-12 !w-12 h-12 !h-12 rounded-xl !rounded-xl bg-gradient-to-br !bg-gradient-to-br ${stat.gradient} flex !flex items-center !items-center justify-center !justify-center text-xl !text-xl shadow-md !shadow-md group-hover:scale-110 transition-transform !transition-transform`}>
                     {stat.icon}
                   </div>
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${stat.trendUp ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600"}`}>
-                    {stat.trend}
+                  <span className={`text-xs !text-xs font-bold !font-bold px-2.5 !px-2.5 py-1 !py-1 rounded-full !rounded-full ${stat.trendUp ? "bg-emerald-50 !bg-emerald-50 text-emerald-600 !text-emerald-600" : "bg-red-50 !bg-red-50 text-red-600 !text-red-600"}`}>
+                    {stat.trend} {stat.trendUp ? "↑" : "↓"}
                   </span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">{stat.value}</h3>
-                <p className="text-sm text-gray-500 mt-1">{stat.title}</p>
+                <h3 className="text-2xl !text-2xl sm:text-3xl !sm:text-3xl font-bold !font-bold text-gray-900 !text-gray-900 leading-tight !leading-tight">{stat.value}</h3>
+                <p className="text-sm !text-sm text-gray-500 !text-gray-500 mt-1 !mt-1">{stat.title}</p>
               </div>
             ))}
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
+          <div className="grid !grid grid-cols-1 !grid-cols-1 lg:grid-cols-3 !lg:grid-cols-3 gap-4 !gap-4 sm:gap-6 !sm:gap-6 mb-6 !mb-6">
 
             {/* Revenue Chart - 2 columns */}
-            <div className="lg:col-span-2 bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100">
-              <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4 mb-6 pb-4 border-b border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900">Revenue Overview</h3>
-                <div className="flex gap-2 w-full sm:w-auto">
+            <div className="lg:col-span-2 !lg:col-span-2 bg-white !bg-white rounded-2xl !rounded-2xl p-5 !p-5 sm:p-6 !sm:p-6 shadow-sm !shadow-sm border !border border-gray-100 !border-gray-100">
+              <div className="flex !flex flex-col !flex-col sm:flex-row !sm:flex-row items-start !items-start sm:items-center !sm:items-center justify-between !justify-between gap-3 !gap-3 sm:gap-4 !sm:gap-4 mb-6 !mb-6 pb-4 !pb-4 border-b !border-b border-gray-100 !border-gray-100">
+                <h3 className="text-base !text-base sm:text-lg !sm:text-lg font-bold !font-bold text-gray-900 !text-gray-900">Revenue Overview</h3>
+                <div className="flex !flex gap-2 !gap-2 w-full !w-full sm:w-auto !sm:w-auto">
                   {["week", "month", "year"].map((period) => (
                     <button
                       key={period}
                       onClick={() => setSelectedPeriod(period)}
-                      className={`flex-1 sm:flex-initial rounded-lg px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all capitalize ${
+                      className={`flex-1 !flex-1 sm:flex-initial !sm:flex-initial rounded-lg !rounded-lg px-3 !px-3 sm:px-4 !sm:px-4 py-1.5 !py-1.5 sm:py-2 !sm:py-2 text-xs !text-xs sm:text-sm !sm:text-sm font-semibold !font-semibold transition-all !transition-all capitalize !capitalize ${
                         selectedPeriod === period
-                          ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md"
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                          ? "bg-gradient-to-r !bg-gradient-to-r from-rose-500 !from-rose-500 to-pink-500 !to-pink-500 text-white !text-white shadow-md !shadow-md"
+                          : "bg-gray-100 !bg-gray-100 text-gray-600 !text-gray-600 hover:bg-gray-200"
                       }`}
                     >
                       {period}
@@ -249,105 +188,91 @@ const SalonAdminRevenue = () => {
               </div>
 
               {/* Bar Chart */}
-              <div className="flex h-[240px] sm:h-[280px] items-end justify-between gap-1 sm:gap-2">
+              <div className="flex !flex h-[240px] !h-[240px] sm:h-[280px] !sm:h-[280px] items-end !items-end justify-between !justify-between gap-1 !gap-1 sm:gap-2 !sm:gap-2">
                 {monthlyRevenue.map((data, index) => (
-                  <div key={index} className="group flex flex-1 flex-col items-center gap-2">
-                    <div className="relative w-full">
+                  <div key={index} className="group !group flex !flex flex-1 !flex-1 flex-col !flex-col items-center !items-center gap-2 !gap-2">
+                    <div className="relative !relative w-full !w-full">
                       <div
-                        className="w-full rounded-t-lg bg-gradient-to-t from-rose-500 to-pink-500 transition-all duration-500 hover:from-rose-600 hover:to-pink-600"
+                        className="w-full !w-full rounded-t-lg !rounded-t-lg bg-gradient-to-t !bg-gradient-to-t from-rose-500 !from-rose-500 to-pink-500 !to-pink-500 transition-all !transition-all duration-500 !duration-500 hover:from-rose-600 hover:to-pink-600"
                         style={{
                           height: `${(data.revenue / maxRevenue) * 220}px`,
                           minHeight: "20px",
                         }}
                       >
-                        <div className="absolute -top-10 left-1/2 hidden -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-xs font-semibold text-white shadow-lg group-hover:block whitespace-nowrap z-10">
+                        <div className="absolute !absolute -top-10 !-top-10 left-1/2 !left-1/2 hidden !hidden -translate-x-1/2 !-translate-x-1/2 rounded-lg !rounded-lg bg-gray-900 !bg-gray-900 px-3 !px-3 py-2 !py-2 text-xs !text-xs font-semibold !font-semibold text-white !text-white shadow-lg !shadow-lg group-hover:block whitespace-nowrap !whitespace-nowrap z-10 !z-10">
                           ${(data.revenue / 1000).toFixed(1)}K
-                          <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-900"></div>
+                          <div className="absolute !absolute -bottom-1 !-bottom-1 left-1/2 !left-1/2 h-2 !h-2 w-2 !w-2 -translate-x-1/2 !-translate-x-1/2 rotate-45 !rotate-45 bg-gray-900 !bg-gray-900"></div>
                         </div>
                       </div>
                     </div>
-                    <span className="text-xs font-medium text-gray-500">{data.month}</span>
+                    <span className="text-xs !text-xs font-medium !font-medium text-gray-500 !text-gray-500">{data.month}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Revenue Breakdown - 1 column */}
-            <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100">
-              <div className="mb-6 pb-4 border-b border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900">Revenue by Service</h3>
+            <div className="bg-white !bg-white rounded-2xl !rounded-2xl p-5 !p-5 sm:p-6 !sm:p-6 shadow-sm !shadow-sm border !border border-gray-100 !border-gray-100">
+              <div className="mb-6 !mb-6 pb-4 !pb-4 border-b !border-b border-gray-100 !border-gray-100">
+                <h3 className="text-base !text-base sm:text-lg !sm:text-lg font-bold !font-bold text-gray-900 !text-gray-900">Revenue by Service</h3>
               </div>
 
-              <div className="flex flex-col gap-3">
+              <div className="flex !flex flex-col !flex-col gap-3 !gap-3">
                 {serviceRevenueBreakdown.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all group">
-                    <div className="flex items-center gap-3 min-w-0 flex-1">
-                      <div className={`h-10 w-10 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white text-lg shadow-md group-hover:scale-110 transition-transform flex-shrink-0`}>
+                  <div key={index} className="flex !flex items-center !items-center justify-between !justify-between p-3 !p-3 rounded-xl !rounded-xl bg-gray-50 !bg-gray-50 hover:bg-gray-100 transition-all !transition-all group !group">
+                    <div className="flex !flex items-center !items-center gap-3 !gap-3 min-w-0 !min-w-0 flex-1 !flex-1">
+                      <div className={`h-10 !h-10 w-10 !w-10 rounded-xl !rounded-xl bg-gradient-to-br !bg-gradient-to-br ${item.gradient} flex !flex items-center !items-center justify-center !justify-center text-white !text-white text-lg !text-lg shadow-md !shadow-md group-hover:scale-110 transition-transform !transition-transform flex-shrink-0 !flex-shrink-0`}>
                         {index === 0 ? "💇" : index === 1 ? "💄" : index === 2 ? "💆" : "💅"}
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-bold text-gray-900 truncate">{item.category}</p>
-                        <p className="text-xs text-gray-500">{item.percentage}% of total</p>
+                      <div className="min-w-0 !min-w-0 flex-1 !flex-1">
+                        <p className="text-sm !text-sm font-bold !font-bold text-gray-900 !text-gray-900 truncate !truncate">{item.category}</p>
+                        <p className="text-xs !text-xs text-gray-500 !text-gray-500">{item.percentage}% of total</p>
                       </div>
                     </div>
-                    <span className="text-sm font-bold text-gray-900 flex-shrink-0 ml-2">
+                    <span className="text-sm !text-sm font-bold !font-bold text-gray-900 !text-gray-900 flex-shrink-0 !flex-shrink-0 ml-2 !ml-2">
                       ${(item.amount / 1000).toFixed(1)}K
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 pt-4 border-t border-gray-100">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600">Total Revenue</span>
-                  <span className="text-xl font-bold text-gray-900">$45.3K</span>
+              <div className="mt-6 !mt-6 pt-4 !pt-4 border-t !border-t border-gray-100 !border-gray-100">
+                <div className="flex !flex justify-between !justify-between items-center !items-center">
+                  <span className="text-sm !text-sm font-medium !font-medium text-gray-600 !text-gray-600">Total Revenue</span>
+                  <span className="text-xl !text-xl font-bold !font-bold text-gray-900 !text-gray-900">$45.3K</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Recent Transactions */}
-          <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100">
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-              <h3 className="text-lg font-bold text-gray-900">Recent Transactions</h3>
-              <button className="text-sm font-semibold text-rose-500 hover:text-rose-600 hover:bg-rose-50 px-3 py-1 rounded-lg transition">
+          <div className="bg-white !bg-white rounded-2xl !rounded-2xl shadow-sm !shadow-sm border !border border-gray-100 !border-gray-100 overflow-hidden !overflow-hidden">
+            <div className="flex !flex items-center !items-center justify-between !justify-between px-5 !px-5 pt-5 !pt-5 pb-3 !pb-3 border-b !border-b border-gray-100 !border-gray-100">
+              <h3 className="text-base !text-base sm:text-lg !sm:text-lg font-bold !font-bold text-gray-900 !text-gray-900">Recent Transactions</h3>
+              <button className="text-xs !text-xs sm:text-sm !sm:text-sm font-semibold !font-semibold text-rose-500 !text-rose-500 hover:text-rose-600 hover:bg-rose-50 px-3 !px-3 py-1 !py-1 rounded-lg !rounded-lg transition !transition">
                 View All
               </button>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="p-4 !p-4 sm:p-5 !sm:p-5 space-y-3 !space-y-3">
               {recentTransactions.map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="flex flex-col sm:flex-row items-start justify-between gap-4 p-4 rounded-xl bg-gray-50 hover:bg-white hover:border-rose-200 border border-transparent transition-all"
+                  className="flex !flex items-center !items-center gap-3 !gap-3 sm:gap-4 !sm:gap-4 p-3 !p-3 rounded-xl !rounded-xl hover:bg-gray-50 transition !transition group !group cursor-pointer !cursor-pointer"
                 >
-                  {/* Left Side */}
-                  <div className="flex items-center gap-4 flex-1">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center text-white text-lg font-bold shadow-md shrink-0">
-                      {transaction.avatar}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-bold text-gray-900 mb-1">{transaction.client}</h4>
-                      <p className="text-xs text-gray-500 mb-2 truncate flex items-center gap-2">
-                        <span>✂️</span>
-                        {transaction.service}
-                      </p>
-                      <span className="inline-block rounded-md bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600">
-                        {transaction.type}
-                      </span>
-                    </div>
+                  <div className="w-10 !w-10 h-10 !h-10 rounded-xl !rounded-xl bg-gradient-to-br !bg-gradient-to-br from-rose-500 !from-rose-500 to-pink-500 !to-pink-500 flex !flex items-center !items-center justify-center !justify-center text-white !text-white text-lg !text-lg font-bold !font-bold shadow-md !shadow-md shrink-0 !shrink-0">
+                    {transaction.avatar}
                   </div>
-
-                  {/* Right Side */}
-                  <div className="flex items-center justify-between gap-4 w-full sm:w-auto sm:flex-shrink-0">
-                    <div className="flex flex-col items-start sm:items-end">
-                      <span className="text-lg font-bold text-gray-900">{transaction.amount}</span>
-                      <span className="text-xs text-gray-400">{transaction.date}</span>
-                    </div>
-                    <span className={`rounded-lg px-3 py-1.5 text-xs font-bold capitalize whitespace-nowrap ${
+                  <div className="flex-1 !flex-1 min-w-0 !min-w-0">
+                    <p className="text-sm !text-sm font-semibold !font-semibold text-gray-800 !text-gray-800 truncate !truncate">{transaction.client}</p>
+                    <p className="text-xs !text-xs text-gray-500 !text-gray-500 truncate !truncate">{transaction.service}</p>
+                  </div>
+                  <div className="text-right !text-right shrink-0 !shrink-0">
+                    <p className="text-sm !text-sm font-bold !font-bold text-gray-900 !text-gray-900">{transaction.amount}</p>
+                    <span className={`text-xs !text-xs font-bold !font-bold px-2 !px-2 py-0.5 !py-0.5 rounded-full !rounded-full ${
                       transaction.status === "completed"
-                        ? "bg-emerald-50 text-emerald-700"
-                        : "bg-amber-50 text-amber-600"
+                        ? "bg-emerald-50 !bg-emerald-50 text-emerald-600 !text-emerald-600"
+                        : "bg-amber-50 !bg-amber-50 text-amber-600 !text-amber-600"
                     }`}>
                       {transaction.status}
                     </span>
@@ -358,13 +283,13 @@ const SalonAdminRevenue = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-end">
-            <button className="flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-gray-200 bg-white text-gray-700 font-semibold rounded-lg hover:border-rose-500 hover:bg-rose-50 hover:text-rose-600 transition-all">
-              <span className="text-lg">📥</span>
+          <div className="mt-6 !mt-6 flex !flex flex-col !flex-col sm:flex-row !sm:flex-row gap-3 !gap-3 justify-end !justify-end">
+            <button className="flex !flex items-center !items-center justify-center !justify-center gap-2 !gap-2 px-5 !px-5 py-2.5 !py-2.5 border-2 !border-2 border-gray-200 !border-gray-200 bg-white !bg-white text-gray-700 !text-gray-700 font-semibold !font-semibold rounded-lg !rounded-lg hover:border-rose-500 hover:bg-rose-50 hover:text-rose-600 transition-all !transition-all">
+              <span className="text-lg !text-lg">📥</span>
               Export Report
             </button>
-            <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold rounded-lg shadow-md shadow-rose-500/30 transition-all">
-              <span className="text-lg">📊</span>
+            <button className="flex !flex items-center !items-center justify-center !justify-center gap-2 !gap-2 px-6 !px-6 py-3 !py-3 bg-gradient-to-r !bg-gradient-to-r from-rose-500 !from-rose-500 to-pink-500 !to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white !text-white font-bold !font-bold rounded-lg !rounded-lg shadow-md !shadow-md shadow-rose-500/30 !shadow-rose-500/30 transition-all !transition-all">
+              <span className="text-lg !text-lg">📊</span>
               Generate Report
             </button>
           </div>
