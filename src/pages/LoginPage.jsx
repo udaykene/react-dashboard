@@ -39,29 +39,8 @@ const LoginPage = () => {
               </p>
             </div>
 
-            {/* Social Login */}
-            <div className="space-y-3 mb-6">
-              <button className="w-full flex items-center justify-center gap-3 px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-rose-300 hover:bg-rose-50/50 transition-all group">
-                <span className="font-semibold text-gray-700 group-hover:text-rose-600 transition-colors">
-                  Continue with Google
-                </span>
-              </button>
 
-              <button className="w-full flex items-center justify-center gap-3 px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-rose-300 hover:bg-rose-50/50 transition-all group">
-                <span className="font-semibold text-gray-700 group-hover:text-rose-600 transition-colors">
-                  Continue with Facebook
-                </span>
-              </button>
-            </div>
-
-            {/* Divider */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-              <span className="text-sm text-gray-500 font-medium">
-                or sign in with email
-              </span>
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-            </div>
+          
 
             {/* Login Form */}
             <form onSubmit={handleSubmit} className="space-y-5">

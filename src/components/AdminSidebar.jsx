@@ -21,6 +21,11 @@ const AdminSidebar = () => {
     { title: "Staff", icon: "ri-team-line", path: "/admin/staff" },
     { title: "Offers", icon: "ri-gift-line", path: "/admin/offers" },
     { title: "Inbox", icon: "ri-mail-line", path: "/admin/inbox" },
+    { 
+      title: "Revenue Reports", 
+      icon: "ri-line-chart-line", 
+      path: "/admin/revenue-reports" 
+    },
     { title: "Settings", icon: "ri-settings-3-line", path: "/admin/settings" },
   ];
 
